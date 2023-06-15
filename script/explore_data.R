@@ -1,5 +1,4 @@
-#### this script builds the plots for Figs 1-2 in the main text 
-#### regarding deriving Beta values from producers
+#### this script...
 #### and transparently reporting AA changes over known TLs in prey 
 
 
@@ -21,7 +20,7 @@ library(grid)
 library(png)
 library(patchwork) 
 
-# Custom ggPlot theme
+# Custom ggplot theme
 themeKV <- theme_few()+
   theme(strip.background = element_blank(),
         axis.line = element_blank(),
