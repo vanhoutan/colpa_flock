@@ -3,7 +3,7 @@
 
 
 library(ggplot2)      # plotting and viz
-library(plyr)         # legacy df manip
+library(plyr)         # legacy df manipulation
 library(dplyr)        # variable grouping and manipulation
 library(reshape)      # legacy df manipulation
 library(data.table)   # legacy functions on df 
@@ -14,12 +14,7 @@ library(forcats)
 library(scales)
 library(RColorBrewer) # pretty colors
 library(ggridges)
-library(ggdist)
 library(colorspace)
-library(ragg)
-library(grid)
-library(png)
-library(patchwork) 
 
 
 # my custom ggplot theme
@@ -73,7 +68,9 @@ ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
 # both y and fill are reordered by CODE's median value of MEASURE 
   themeKV + theme(legend.position = "none") +
   scale_fill_manual(values = getPalette(colourCount)) +
-  geom_density_ridges(scale = 2.5, alpha = 0.9, size = 0.25, rel_min_height = 0.01, bandwidth = 1.2) +
+  geom_density_ridges(scale = 2.5, alpha = 0.75, size = 0.25, rel_min_height = 0.01, bandwidth = 1.2) +
+  stat_summary(geom = "text", fontface = "bold", alpha = 0.5, size = 3, vjust = -1.5, hjust = 3,
+               fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(20, 60, by = 5)) + 
   xlab("hand wing index") + ylab("species")
 
@@ -85,12 +82,18 @@ ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
 morph_CMs <- subset(morphs, MORPH == "culm_mand_SL")
 morph_CMs <- morph_CMs[!(morph_CMs$CODE == ""), ]  # remove blank entries in species CODE, for congeners that haven't been rescaled and assigned a CODE
 
+
+colourCount = length(unique(morph_CMs$CODE))
+getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
+
 # make ridgeline/joy plot of beak size
 ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reorder(CODE,MEASURE))) + 
   # both y and fill are reordered by CODE's median value of MEASURE 
   themeKV + theme(legend.position = "none") +
   scale_fill_manual(values = getPalette(colourCount)) +
-  geom_density_ridges(scale = 2.5, alpha = 0.9, size = 0.25, rel_min_height = 0.01, bandwidth = 0.4) +
+  geom_density_ridges(scale = 2.5, alpha = 0.75, size = 0.25, rel_min_height = 0.01, bandwidth = 0.4) +
+  stat_summary(geom = "text", fontface = "bold", alpha = 0.5, size = 3, vjust = -1.5, hjust = 3,
+               fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(0, 16, by = 2)) + 
   xlab("culmen + mandible (cm)") + ylab("species")
 
@@ -102,6 +105,9 @@ ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
 morph_CCL <- subset(morphs, MORPH == "culmen_CL")
 morph_CCL <- morph_CCL[!(morph_CCL$CODE == ""), ]  # remove blank entries in species CODE, for congeners that haven't been rescaled and assigned a CODE
 
+colourCount = length(unique(morph_CCL$CODE))
+getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
+
 # make ridgeline/joy plot of beak size
 ggplot(morph_CCL, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reorder(CODE,MEASURE))) + 
   # both y and fill are reordered by CODE's median value of MEASURE 
@@ -109,4 +115,6 @@ ggplot(morph_CCL, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
   scale_fill_manual(values = getPalette(colourCount)) +
   geom_density_ridges(scale = 2.5, alpha = 0.9, size = 0.25, rel_min_height = 0.01, bandwidth = 0.4) +
   scale_x_continuous(breaks = seq(0, 12, by = 1)) + 
+  stat_summary(geom = "text", fontface = "bold", alpha = 0.5, size = 3, vjust = -1.5, hjust = -1.8,
+               fun = "median", aes(label = round(after_stat(x), 1))) +
   xlab("curved culmen length (cm)") + ylab("species")
