@@ -68,8 +68,8 @@ ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
 # both y and fill are reordered by CODE's median value of MEASURE 
   themeKV + theme(legend.position = "none") +
   scale_fill_manual(values = getPalette(colourCount)) +
-  geom_density_ridges(scale = 2.5, alpha = 0.75, size = 0.25, rel_min_height = 0.01, bandwidth = 1.2) +
-  stat_summary(geom = "text", fontface = "bold", alpha = 0.5, size = 3, vjust = -1.5, hjust = 3,
+  geom_density_ridges(scale = 2.5, alpha = 0.85, size = 0.25, rel_min_height = 0.01, bandwidth = 1.2) +
+  stat_summary(geom = "text", fontface = "bold", alpha = 0.5, size = 3, vjust = -1, hjust = 3,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(20, 60, by = 5)) + 
   xlab("hand wing index") + ylab("species")
@@ -91,7 +91,7 @@ ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
   # both y and fill are reordered by CODE's median value of MEASURE 
   themeKV + theme(legend.position = "none") +
   scale_fill_manual(values = getPalette(colourCount)) +
-  geom_density_ridges(scale = 2.5, alpha = 0.75, size = 0.25, rel_min_height = 0.01, bandwidth = 0.4) +
+  geom_density_ridges(scale = 2.5, alpha = 0.85, size = 0.25, rel_min_height = 0.01, bandwidth = 0.4) +
   stat_summary(geom = "text", fontface = "bold", alpha = 0.5, size = 3, vjust = -1.5, hjust = 3,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(0, 16, by = 2)) + 
