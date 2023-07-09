@@ -1,2 +1,2 @@
 # colpa_flock
-social activity of parrots at clay cliffs
+analysis and data visualization to understand the social activity of parrots at clay cliffs in Perú
