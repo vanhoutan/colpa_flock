@@ -1,5 +1,6 @@
 #### this script is exploring the morphometric data 
 #### from parrots, macaws, and parakeets measured in museums
+#### interested in factors contributing to social roles and hierarchies
 
 
 library(ggplot2)      # plotting and viz
@@ -18,7 +19,7 @@ library(colorspace)
 
 
 # my custom ggplot theme
-# I cannot stand the default thick grey lines
+# I loathe the default thick grey lines
 themeKV <- theme_few()+
   theme(strip.background = element_blank(),
         axis.line = element_blank(),
@@ -41,13 +42,9 @@ morphs <- read.csv('data/museo_morphs.csv')
 morph_HWi <- subset(morphs, MORPH == "wing_Hwi")
 morph_HWi <- morph_HWi[!(morph_HWi$CODE == ""), ]  # remove blank entries in species CODE, for congeners that haven't been rescaled and assigned a CODE
 
-
 # make a density plot, facet by species CODE
-# but first expand the 11 brewer palette categories
-# interpolate colors to fit the 13 parrot species
-colourCount = length(unique(morph_HWi$CODE))
-getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
-
+colourCount = length(unique(morph_HWi$CODE)) # but first expand the 11 brewer palette categories
+getPalette = colorRampPalette(brewer.pal(11, "Spectral")) # interpolate colors to fit the 13 parrot species
 
 # then make the plot and call in the expanded Brewer pal
 ggplot(morph_HWi, aes(x = MEASURE, fill = CODE)) + 
@@ -61,8 +58,7 @@ ggplot(morph_HWi, aes(x = MEASURE, fill = CODE)) +
   facet_wrap(~CODE, ncol=3, scales = "free_y") +
   scale_x_continuous(breaks = seq(20, 50, by = 5))
 
-# same data, different plot
-# make a ridgeline plot without facets
+# same data, but using ridgeline plot w/o faceting
 # again use above expanded Brewer palette
 ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reorder(CODE,MEASURE))) + 
 # both y and fill are reordered by CODE's median value of MEASURE 
@@ -73,6 +69,25 @@ ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(20, 60, by = 5)) + 
   xlab("hand wing index") + ylab("species")
+
+
+# same data, but ridgeline plot continuous x axis fill 
+ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = after_stat(x))) + 
+  # just y is reordered by CODE's median value of MEASURE 
+  themeKV + # theme(legend.position = "none") +
+#  scale_fill_manual(values = getPalette(colourCount)) +
+#  scale_fill_brewer(palette = "Spectral") +
+  scale_fill_distiller(#type = "div",
+                       palette = "BrBG",
+                       direction = 1) +
+  geom_density_ridges_gradient(scale = 2.5, alpha = 0.85, size = 0.25, rel_min_height = 0.01, bandwidth = 1) +
+  stat_summary(geom = "text", alpha = 0.5, size = 3, vjust = -1, hjust = 3.5,
+               fun = "median", aes(label = round(after_stat(x), 1))) +
+  scale_x_continuous(breaks = seq(25, 55, by = 5)) + 
+  xlab("hand wing index") + ylab("species")
+
+
+
 
 
 #### subset full data set for beak data
@@ -96,6 +111,29 @@ ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(0, 16, by = 2)) + 
   xlab("culmen + mandible (cm)") + ylab("species")
+
+
+# same data, but ridgeline plot continuous x axis fill 
+ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = after_stat(x))) + 
+  # just y is reordered by CODE's median value of MEASURE 
+  themeKV + theme(legend.position = "none") +
+  #  scale_fill_manual(values = getPalette(colourCount)) +
+  #  scale_fill_brewer(palette = "Spectral") +
+  scale_fill_distiller(type = "div",
+                       palette = "BrBG",
+                       direction = 1) +
+  geom_density_ridges_gradient(scale = 2.5, alpha = 0.85, size = 0.25, rel_min_height = 0.01, bandwidth = 0.4) +
+  stat_summary(geom = "text", fontface = "bold", alpha = 0.5, size = 3, vjust = -1, hjust = 3.5,
+               fun = "median", aes(label = round(after_stat(x), 1))) +
+  scale_x_continuous(breaks = seq(0, 16, by = 2)) + 
+  xlab("culmen + mandible (cm)") + ylab("species")
+
+
+
+
+
+
+
 
 
 #### subset full data set for beak data
