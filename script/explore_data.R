@@ -27,7 +27,7 @@ themeKV <- theme_few()+
         axis.text.x = element_text(colour = "black", margin = margin(0.2, unit = "cm")),
         axis.text.y = element_text(colour = "black", margin = margin(c(1, 0.2), unit = "cm")),
         axis.ticks.x = element_line(colour = "black"), axis.ticks.y = element_line(colour = "black"),
-        axis.ticks.length=unit(-0.15, "cm"),element_line(colour = "black", linewidth=.5),
+        axis.ticks.length=unit(-0.15, "cm"),element_line(colour = "black", linewidth=.25),
         panel.border = element_rect(colour = "black", fill=NA, linewidth=.5),
         legend.title=element_blank(),
         strip.text=element_text(hjust=0))
@@ -146,4 +146,9 @@ ggplot(morph_CCL, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
   xlab("curved culmen length (cm)") + ylab("species")
 
 
+# 1 col vers
 p1 / p2
+
+# 2 col vers 
+p1 + p2
+
