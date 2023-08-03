@@ -64,7 +64,7 @@ p1 <- ggplot(collpa1, aes(x = julian_day, y = time, group = event, color = event
   scale_shape_manual(values = c(16, 1, 16, 1, 16)) +
   scale_x_continuous(breaks = seq(170, 280, by = 10)) +
   scale_y_datetime(breaks = breaks_width("20 min"), date_labels = "%H:%M") + # set the time scales and drop date info
-  ylab("hour of day") +
+  ylab("time of day (hr:min)") +
   xlab("Julian day")
 
 
@@ -121,7 +121,7 @@ p4 <- ggplot(dance_eat, aes(x = duration_collpa, fill="#fdae61")) +
   geom_density(size = 0.5, alpha = 0.5, adjust = 0.5) +
   scale_fill_manual(values=c("#fdae61")) +
   scale_x_datetime(breaks = breaks_width("20 min"), date_labels = "%H:%M") + # set the time scales and drop date info
-  xlab("collpa duration (min)")
+  xlab("collpa duration (hr:min)")
 
 layout <- "
 AAAA##

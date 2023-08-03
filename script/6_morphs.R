@@ -1,6 +1,7 @@
 #### this script is exploring the morphometric data 
 #### from parrots, macaws, and parakeets measured in museums
 #### interested in factors contributing to social roles and hierarchies
+#### then some basic dataviz
 
 
 library(ggplot2)      # plotting and viz
@@ -20,7 +21,6 @@ library(patchwork)
 
 
 # my custom ggplot theme
-# I loathe the default thick grey lines
 themeKV <- theme_few()+
   theme(strip.background = element_blank(),
         axis.line = element_blank(),
@@ -33,7 +33,7 @@ themeKV <- theme_few()+
         strip.text=element_text(hjust=0))
 
 
-#### read in morphometric data
+#### read in beak and wing morph data
 # setwd("/Users/kylevanhoutan/colpa_flock/")
 morphs <- read.csv('data/museo_morphs.csv')
 
@@ -75,15 +75,20 @@ ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
 # same data, but ridgeline plot continuous x axis fill 
 p1 <- ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = after_stat(x))) + 
   # just y is reordered by CODE's median value of MEASURE of HWi 
-  themeKV + theme(legend.position = "none") +
+  themeKV + theme(legend.position = "none",
+                  axis.text.x = element_text(size = 7),
+                  axis.title.x = element_text(size = 8),
+                  axis.text.y = element_text(size = 6),
+                  axis.title.y = element_text(size = 8),) +
   scale_fill_distiller(#type = "div",
                        palette = "BrBG",
                        direction = 1) +
-  geom_density_ridges_gradient(scale = 2.5, alpha = 0.85, size = 0.25, rel_min_height = 0.01, bandwidth = 1) +
-  stat_summary(geom = "text", alpha = 0.5, size = 3, vjust = -1, hjust = 2.5,
+  geom_density_ridges_gradient(scale = 2.5, alpha = 0.85, size = 0.2, rel_min_height = 0.01, bandwidth = 1) +
+  stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -1, hjust = 2.5,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(25, 55, by = 5)) + 
-  xlab("hand wing index") + ylab("species")
+  xlab("hand wing index") + 
+  ylab("species")
 
 
 #### subset full data set for beak data
@@ -112,15 +117,20 @@ ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
 # same data, but ridgeline plot continuous x axis fill 
 p2 <- ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = after_stat(x))) + 
   # just y is reordered by CODE's median value of MEASURE of CMs
-  themeKV + theme(legend.position = "none") +
+  themeKV + theme(legend.position = "none",
+                  axis.text.x = element_text(size = 7),
+                  axis.title.x = element_text(size = 8),
+                  axis.text.y = element_text(size = 6),
+                  axis.title.y = element_text(size = 0),) +
   scale_fill_distiller(type = "div",
                        palette = "BrBG",
                        direction = 1) +
-  geom_density_ridges_gradient(scale = 2.5, alpha = 0.85, size = 0.25, rel_min_height = 0.01, bandwidth = 0.4) +
-  stat_summary(geom = "text", alpha = 0.5, size = 3, vjust = -1, hjust = 2.5,
+  geom_density_ridges_gradient(scale = 2.5, alpha = 0.85, size = 0.2, rel_min_height = 0.01, bandwidth = 0.4) +
+  stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -1, hjust = 2.5,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(0, 16, by = 2)) + 
-  xlab("culmen + mandible (cm)") + ylab("species")
+  xlab("culmen + mandible (cm)") + 
+  ylab("species")
 
 
 
@@ -146,9 +156,38 @@ ggplot(morph_CCL, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
   xlab("curved culmen length (cm)") + ylab("species")
 
 
-# 1 col vers
-p1 / p2
+#### read in body mass and brain volume data
+massvol <- read.csv('data/body_brain.csv')
 
-# 2 col vers 
-p1 + p2
+#### bar plot of body mass
+
+
+#### allometric function of body mass vs brain volume
+## model fit is power function, residuals form this model interpreted as proxy for cognitive aptitude
+## see JR Krebs & NB Davies (1993) Introduction to behavioral ecology. Blackwell: Oxford UK, p 30  
+
+p4 <- ggplot(massvol, aes(x = MASS_g, y = BRAIN_ml)) + 
+  themeKV + theme(legend.position = "none",
+                  axis.text.x = element_text(size = 7),
+                  axis.title.x = element_text(size = 8),
+                  axis.text.y = element_text(size = 7),
+                  axis.title.y = element_text(size = 8),) +
+  geom_smooth(method = 'nls', formula = 'y~a*x^b', # power fit using non-linear squares regression
+              method.args = list(start= c(a = 1,b=1)), se = FALSE, 
+              size = 2.5, color = "#01665e", alpha = 0.5) + 
+  geom_point(shape = 1, size = 2.5, alpha = 0.6, stroke = 0.75) +
+  scale_y_continuous(breaks = seq(0, 25, by = 5)) +
+  scale_x_continuous(breaks = seq(0, 1400, by = 200)) +
+  xlab("body mass (g)") + 
+  ylab("brain volume (ml)")
+
+
+
+layout <- "
+ABCD"
+p1 + p2 + p3 + p4 +
+  plot_layout(design = layout) +
+  plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
+
+
 
