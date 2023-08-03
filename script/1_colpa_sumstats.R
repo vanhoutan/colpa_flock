@@ -52,19 +52,90 @@ collpa1$time <- as.POSIXct(collpa1$time, format="%H:%M:%S")
 class(collpa1.time) # check format: returns [1] "POSIXct" --> success! 
 # now we can make some plots :)
 
-ggplot(collpa1, aes(x = julian_day, y = time, group = event, color = event, shape = event)) +
-  themeKV + 
-  theme(axis.text.y = element_text(size = 9),
-    axis.text.x = element_text(size = 9)) + 
-  geom_line(aes(color=event), stat="smooth", method = "loess", formula = y ~ x, span = 0.75, 
+p1 <- ggplot(collpa1, aes(x = julian_day, y = time, group = event, color = event, shape = event)) +
+  themeKV + theme(axis.text.y = element_text(size = 8),
+                  axis.text.x = element_text(size = 8),
+                  axis.title.x = element_text(size = 9),
+                  axis.title.y = element_text(size = 9)) + 
+  geom_line(aes(color=event), stat="smooth", method = "loess", formula = y ~ x, span = 0.85, 
             se = FALSE, linewidth = 2, alpha = 0.5)  +
   scale_color_manual(values=c("#fdae61", "#f46d43", "#9e0142", "#3288bd", "#5e4fa2")) + 
   geom_point(size = 2, alpha = 0.6, stroke = 0.5) +
   scale_shape_manual(values = c(16, 1, 16, 1, 16)) +
   scale_x_continuous(breaks = seq(170, 280, by = 10)) +
-  scale_y_datetime(breaks = breaks_width("30 min"), date_labels = "%H:%M") + # set the time scales and drop date info
+  scale_y_datetime(breaks = breaks_width("20 min"), date_labels = "%H:%M") + # set the time scales and drop date info
   ylab("hour of day") +
   xlab("Julian day")
 
+
+#### make 2 plots for the duration of flocks dancing and foraging
+#### subset full data set for just stage duration data + wrangle 
+
+# first try as a facet with both plots
+dance_eat <- subset(DF, select = c(date_long, julian_day, duration_dance, duration_collpa)) # remove all the time occurrence data 
+dance_eat1 <- gather(dance_eat, key="duration", value="time", 3:4) # convert from wide to long format
+dance_eat1 <- dance_eat1[!(dance_eat1$time == "na"), ] # remove rows with "na" data
+dance_eat1$time <- as.POSIXct(dance_eat1$time, format="%H:%M:%S") # convert from character to time/date
+
+# try one faceted plot with both durations
+p2 <- ggplot(dance_eat1, aes(x = time, fill = duration)) +
+  themeKV + theme(legend.position = "none", 
+                  axis.text.y = element_blank(),
+                  axis.ticks.y = element_blank(),
+                  axis.text.x = element_text(size = 9)) + 
+  geom_density(size = 0.5, alpha = 0.5, adjust = 0.5) +
+  scale_fill_manual(values=c("#fdae61", "#9e0142")) +
+  facet_wrap(~duration, ncol=1, scales = "free")
+
+layout <- "
+AAB
+AAB"
+p1 + p2 +
+  plot_layout(design = layout) +
+  plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
+
+
+#### now try as 2 separate plots
+# no need to gather and remove NA
+dance_eat$duration_dance <- as.POSIXct(dance_eat$duration_dance, format="%H:%M:%S") # convert from character to time/date
+p3 <- ggplot(dance_eat, aes(x = duration_dance, fill="#9e0142")) +
+  themeKV + theme(legend.position = "none", 
+                  axis.text.y = element_blank(),
+                  axis.ticks.y = element_blank(),
+                  axis.text.x = element_text(size = 8),
+                  axis.title.x = element_text(size = 9),
+                  axis.title.y = element_text(size = 9)) + 
+  geom_density(size = 0.5, alpha = 0.5, adjust = 0.5) +
+  scale_fill_manual(values=c("#9e0142")) +
+  scale_x_datetime(breaks = breaks_width("4 min"), date_labels = "%M") + # set the time scales and drop date info
+  xlab("dance duration (min)")
+
+dance_eat$duration_collpa <- as.POSIXct(dance_eat$duration_collpa, format="%H:%M:%S") # convert from character to time/date
+p4 <- ggplot(dance_eat, aes(x = duration_collpa, fill="#fdae61")) +
+  themeKV + theme(legend.position = "none", 
+                  axis.text.y = element_blank(),
+                  axis.ticks.y = element_blank(),
+                  axis.text.x = element_text(size = 8),
+                  axis.title.x = element_text(size = 9),
+                  axis.title.y = element_text(size = 9)) + 
+  geom_density(size = 0.5, alpha = 0.5, adjust = 0.5) +
+  scale_fill_manual(values=c("#fdae61")) +
+  scale_x_datetime(breaks = breaks_width("20 min"), date_labels = "%H:%M") + # set the time scales and drop date info
+  xlab("collpa duration (min)")
+
+layout <- "
+AAAA##
+AAAABB
+AAAABB
+AAAABB
+AAAABB
+AAAACC
+AAAACC
+AAAACC
+AAAACC
+AAAA##"
+p1 + p4 + p3 +
+  plot_layout(design = layout) +
+  plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
 
 
