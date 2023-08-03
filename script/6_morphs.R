@@ -55,7 +55,7 @@ ggplot(morph_HWi, aes(x = MEASURE, fill = CODE)) +
   theme(axis.text.y = element_blank(),
         axis.title.y = element_blank(),
         axis.ticks.y = element_blank()) +
-    geom_density() +
+    geom_density(size = 0.2) +
   facet_wrap(~CODE, ncol=3, scales = "free_y") +
   scale_x_continuous(breaks = seq(20, 50, by = 5))
 
@@ -65,7 +65,7 @@ ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
 # both y and fill are reordered by CODE's median value of MEASURE 
   themeKV + theme(legend.position = "none") +
   scale_fill_manual(values = getPalette(colourCount)) +
-  geom_density_ridges(scale = 2.5, alpha = 0.85, size = 0.25, rel_min_height = 0.01, bandwidth = 1.2) +
+  geom_density_ridges(scale = 2.5, alpha = 0.85, size = 0.2, rel_min_height = 0.01, bandwidth = 1.2) +
   stat_summary(geom = "text", fontface = "bold", alpha = 0.5, size = 3, vjust = -1, hjust = 3,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(20, 60, by = 5)) + 
