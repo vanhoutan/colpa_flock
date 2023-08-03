@@ -46,39 +46,23 @@ collpa <- subset(DF, select = c(date_long, julian_day, z_dawn, y_call, x_dance, 
 collpa1 <- gather(collpa, key="event", value="time", 3:7) 
 # third remove rows with "na" data
 collpa1 <- collpa1[!(collpa1$time == "na"), ]
-# check on data format of "time" col
-class(collpa1$time)
+class(collpa1$time) # check on data format of "time" col
 # returns [1] "character", need convert to time/date
-
-collpa1 <- strptime(collpa1$time, format = "%H:%M:%S")
-class(collpa1$time)
-
-
-collpa1.time <- as.POSIXct(collpa1$time, format="%H:%M")
-class(collpa1.time)
-
-collpa1 %>% 
-  tibble() %>% 
-  mutate(Watt_pro_m2 = as.numeric(V2),
-         time = as.POSIXct(strptime(V1, "%H:%M"))) %>%
-  
-
-
+collpa1$time <- as.POSIXct(collpa1$time, format="%H:%M:%S")
+class(collpa1.time) # check format: returns [1] "POSIXct" --> success! 
 # now we can make some plots :)
-
 
 ggplot(collpa1, aes(x = julian_day, y = time, group = event, color = event, shape = event)) +
   themeKV + 
   theme(axis.text.y = element_text(size = 9),
     axis.text.x = element_text(size = 9)) + 
   geom_line(aes(color=event), stat="smooth", method = "loess", formula = y ~ x, span = 0.75, 
-            se = FALSE, linewidth = 1.5, alpha = 0.5)  +
-  # scale_color_manual(values=c("#abdda4", "#3288bd")) + 
-  geom_point(size = 2, alpha = 0.5, stroke = 0.5) +
+            se = FALSE, linewidth = 2, alpha = 0.5)  +
+  scale_color_manual(values=c("#fdae61", "#f46d43", "#9e0142", "#3288bd", "#5e4fa2")) + 
+  geom_point(size = 2, alpha = 0.6, stroke = 0.5) +
   scale_shape_manual(values = c(16, 1, 16, 1, 16)) +
-  # scale_fill_manual(values=c("#abdda4", "#3288bd")) + 
   scale_x_continuous(breaks = seq(170, 280, by = 10)) +
-#  scale_y_datetime(breaks = breaks_width("1 hour"),labels=date_format("%H:%M")) +
+  scale_y_datetime(breaks = breaks_width("30 min"), date_labels = "%H:%M") + # set the time scales and drop date info
   ylab("hour of day") +
   xlab("Julian day")
 
