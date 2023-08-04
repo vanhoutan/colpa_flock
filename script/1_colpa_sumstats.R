@@ -52,6 +52,9 @@ collpa1$time <- as.POSIXct(collpa1$time, format="%H:%M:%S")
 class(collpa1.time) # check format: returns [1] "POSIXct" --> success! 
 # now we can make some plots :)
 
+# I find this Brewer palette guidance really useful
+# https://colorbrewer2.org/#type=diverging&scheme=Spectral&n=11
+
 p1 <- ggplot(collpa1, aes(x = julian_day, y = time, group = event, color = event, shape = event)) +
   themeKV + theme(axis.text.y = element_text(size = 8),
                   axis.text.x = element_text(size = 8),

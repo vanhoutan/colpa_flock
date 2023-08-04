@@ -78,7 +78,7 @@ p1 <- ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
   themeKV + theme(legend.position = "none",
                   axis.text.x = element_text(size = 7),
                   axis.title.x = element_text(size = 8),
-                  axis.text.y = element_text(size = 6),
+                  axis.text.y = element_text(size = 7),
                   axis.title.y = element_text(size = 8),) +
   scale_fill_distiller(#type = "div",
                        palette = "BrBG",
@@ -120,7 +120,7 @@ p2 <- ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
   themeKV + theme(legend.position = "none",
                   axis.text.x = element_text(size = 7),
                   axis.title.x = element_text(size = 8),
-                  axis.text.y = element_text(size = 6),
+                  axis.text.y = element_text(size = 7),
                   axis.title.y = element_text(size = 0),) +
   scale_fill_distiller(type = "div",
                        palette = "BrBG",
@@ -185,10 +185,15 @@ p4 <- ggplot(massvol, aes(x = MASS_g, y = BRAIN_ml)) +
                   axis.title.x = element_text(size = 8),
                   axis.text.y = element_text(size = 7),
                   axis.title.y = element_text(size = 8),) +
-  geom_smooth(method = 'nls', formula = 'y~a*x^b', # power fit using non-linear squares regression
-              method.args = list(start= c(a = 1,b=1)), se = FALSE, 
-              size = 2.5, color = '#5ab4ac', alpha = 0.5) + 
-  geom_point(shape = 1, size = 2.5, alpha = 0.9, stroke = 0.75, color = '#8c510a') +
+  geom_line(alpha = 0.25, size = 3, color = '#000000',
+            stat = "smooth", method = 'nls', formula = 'y~a*x^b', # power fit using non-linear squares regression
+              method.args = list(start= c(a = 1,b=1)), se = FALSE) + 
+  geom_point(shape =19, size = 3.2, alpha = 0.9, 
+             aes(color = MASS_g)) +
+  geom_point(shape = 1,size = 3.2, colour = "black", stroke = 0.25,) +
+  scale_color_distiller(#type = "div",
+    palette = "BrBG",
+    direction = 1) + 
   scale_y_continuous(breaks = seq(0, 25, by = 5)) +
   scale_x_continuous(breaks = seq(0, 1400, by = 200)) +
   xlab("body mass (g)") + 
@@ -196,8 +201,8 @@ p4 <- ggplot(massvol, aes(x = MASS_g, y = BRAIN_ml)) +
 
 
 layout <- "
-ABCD"
-p1 + p2 + p3 + p4 +
+ABC"
+p1 + p2 + p4 + 
   plot_layout(design = layout) +
   plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
 
