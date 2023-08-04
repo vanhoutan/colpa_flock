@@ -161,6 +161,19 @@ massvol <- read.csv('data/body_brain.csv')
 
 #### bar plot of body mass
 
+p3 <- ggplot(massvol, aes(x = MASS_g, color = MASS_g, 
+                          y = fct_reorder(CODE, MASS_g))) + # reorder for geom_col
+  themeKV + theme(legend.position = "none",
+        axis.ticks.y = element_blank(),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 0),
+        axis.text.x = element_text(size = 7),
+        axis.text.y = element_text(size = 6)) + 
+  geom_col(alpha = 0.85, width = 0.85) + # width controls gaps between bars
+  # scale_y_continuous(breaks = seq(0, 40, by = 5)) +
+  scale_x_continuous(breaks = seq(0, 1400, by = 200)) +
+  xlab("body mass (g)")
+
 
 #### allometric function of body mass vs brain volume
 ## model fit is power function, residuals form this model interpreted as proxy for cognitive aptitude
@@ -174,13 +187,12 @@ p4 <- ggplot(massvol, aes(x = MASS_g, y = BRAIN_ml)) +
                   axis.title.y = element_text(size = 8),) +
   geom_smooth(method = 'nls', formula = 'y~a*x^b', # power fit using non-linear squares regression
               method.args = list(start= c(a = 1,b=1)), se = FALSE, 
-              size = 2.5, color = "#01665e", alpha = 0.5) + 
-  geom_point(shape = 1, size = 2.5, alpha = 0.6, stroke = 0.75) +
+              size = 2.5, color = '#5ab4ac', alpha = 0.5) + 
+  geom_point(shape = 1, size = 2.5, alpha = 0.9, stroke = 0.75, color = '#8c510a') +
   scale_y_continuous(breaks = seq(0, 25, by = 5)) +
   scale_x_continuous(breaks = seq(0, 1400, by = 200)) +
   xlab("body mass (g)") + 
   ylab("brain volume (ml)")
-
 
 
 layout <- "
@@ -188,6 +200,4 @@ ABCD"
 p1 + p2 + p3 + p4 +
   plot_layout(design = layout) +
   plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
-
-
 
