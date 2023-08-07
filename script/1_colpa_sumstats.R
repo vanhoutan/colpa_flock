@@ -145,47 +145,6 @@ p5 <- ggplot(dance_eat, aes(x = dawn_to_dance, fill="#fdae61")) +
   xlab("dawn to dance (min)")
 
 
-
-#### read in monitoring effort data
-DF1 <- read.csv('data/monitor_hours.csv')
-# sum the total person monitoring hours across the project, for each calendar day
-DF1 <- DF1 %>% 
-  mutate(day_tothrs = rowSums(.[3:26])/2) %>% # divide by 2 as the breaks are 30min and we want hours
-  mutate(cumul_hours = cumsum(day_tothrs)) # create a cumulative summary running through monitor days 
-
-
-p6 <- ggplot(DF1, aes(x=DAY, y=cumul_hours)) +
-  themeKV + theme(legend.position = "none", 
-                  axis.text.x = element_text(size = 7),
-                  axis.text.y = element_text(size = 7),
-                  axis.title.x = element_text(size = 8),
-                  axis.title.y = element_text(size = 8)) + 
-  geom_area(fill="#238b45", alpha=0.75) +
-  geom_line(linewidth = 0.5) +
-  scale_x_continuous(breaks = seq(170, 280, by = 10)) +
-  scale_y_continuous(breaks = seq(0, 800, by = 100)) +
-  xlab("Julian day") +
-  ylab("cumulative effort (hrs)")
-
-
-DF2 <- DF1 %>% 
-  summarise("5:00" = sum(X5.00 > 0), "5:30" = sum(X5.30 > 0))  
-  
-
-p7 <- ggplot(DF1, aes(x=DAY, y=cumul_hours)) +
-  themeKV + theme(legend.position = "none", 
-                  axis.text.x = element_text(size = 7),
-                  axis.text.y = element_text(size = 7),
-                  axis.title.x = element_text(size = 8),
-                  axis.title.y = element_text(size = 8)) + 
-  geom_area(fill="#238b45", alpha=0.75) +
-  geom_line(linewidth = 1) +
-  scale_x_continuous(breaks = seq(170, 280, by = 10)) +
-  scale_y_continuous(breaks = seq(0, 800, by = 100)) +
-  xlab("Julian day") +
-  ylab("cumulative effort (hrs)")
-
-
 layout <- "
 AAAAABB
 AAAAABB
@@ -202,6 +161,110 @@ AAAAADD"
 p1 + 
   p4 + p3 + p5 + 
   plot_layout(design = layout) +
+  plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
+
+
+
+#### read in monitoring effort data
+DF1 <- read.csv('data/monitor_hours.csv')
+# sum the total person monitoring hours across the project, for each calendar day
+DF1 <- DF1 %>% 
+  mutate(day_tothrs = rowSums(.[3:27])/2) %>% # divide by 2 as the breaks are 30min and we want hours
+  mutate(cumul_hours = cumsum(day_tothrs)) # create a cumulative summary running through monitor days 
+
+
+p6 <- ggplot(DF1, aes(x=DAY, y=cumul_hours)) +
+  themeKV + theme(legend.position = "none", 
+                  axis.text.x = element_text(size = 7),
+                  axis.text.y = element_text(size = 7),
+                  axis.title.x = element_text(size = 8),
+                  axis.title.y = element_text(size = 8)) + 
+  geom_area(fill="#41ab5d", alpha=0.75) +
+  geom_line(linewidth = 0.5) +
+  scale_x_continuous(breaks = seq(170, 280, by = 15)) +
+  scale_y_continuous(breaks = seq(0, 800, by = 100)) +
+  xlab("Julian day") +
+  ylab("cumulative effort (hrs)")
+p6
+
+DF2 <- DF1 %>% 
+  summarise("5:00" = sum(X5.00 > 0), # this counts no. days with observer coverage from 5-5:30am
+            "5:30" = sum(X5.30 > 0),
+            "6:00" = sum(X6.00 > 0),
+            "6:30" = sum(X6.30 > 0),
+            "7:00" = sum(X7.00 > 0),
+            "7:30" = sum(X7.30 > 0),
+            "8:00" = sum(X8.00 > 0),
+            "8:30" = sum(X8.30 > 0),
+            "9:00" = sum(X9.00 > 0),
+            "9:30" = sum(X9.30 > 0),
+            "10:00" = sum(X10.00 > 0),
+            "10:30" = sum(X10.30 > 0),
+            "11:00" = sum(X11.00 > 0),
+            "11:30" = sum(X11.30 > 0),
+            "12:00" = sum(X12.00 > 0),
+            "12:30" = sum(X12.30 > 0),
+            "13:00" = sum(X13.00 > 0),
+            "13:30" = sum(X13.30 > 0),
+            "14:00" = sum(X14.00 > 0),
+            "14:30" = sum(X14.30 > 0),
+            "15:00" = sum(X15.00 > 0),
+            "15:30" = sum(X15.30 > 0),
+            "16:00" = sum(X16.00 > 0),
+            "16:30" = sum(X16.30 > 0),
+            "17:00" = sum(X17.00 > 0))  
+
+DF3 <- DF1 %>% 
+  summarise("5:00" = sum(X5.00), # counts no. observer hours during 5-5:30am over all days
+            "5:30" = sum(X5.30),
+            "6:00" = sum(X6.00),
+            "6:30" = sum(X6.30),
+            "7:00" = sum(X7.00),
+            "7:30" = sum(X7.30),
+            "8:00" = sum(X8.00),
+            "8:30" = sum(X8.30),
+            "9:00" = sum(X9.00),
+            "9:30" = sum(X9.30),
+            "10:00" = sum(X10.00),
+            "10:30" = sum(X10.30),
+            "11:00" = sum(X11.00),
+            "11:30" = sum(X11.30),
+            "12:00" = sum(X12.00),
+            "12:30" = sum(X12.30),
+            "13:00" = sum(X13.00),
+            "13:30" = sum(X13.30),
+            "14:00" = sum(X14.00),
+            "14:30" = sum(X14.30),
+            "15:00" = sum(X15.00),
+            "15:30" = sum(X15.30),
+            "16:00" = sum(X16.00),
+            "16:30" = sum(X16.30),
+            "17:00" = sum(X17.00)) 
+
+hour_effort <- gather(DF3, key="time", value="hours", 1:25) # convert from wide to long format
+class(hour_effort$time) # returns "character"
+format(as.POSIXct(hour_effort$time,format='%H:%M'),format="%H:%M") # for some reasons needs reformating
+hour_effort$time <- as.POSIXct(hour_effort$time, format="%H:%M") # still character, so convert to time/date
+class(hour_effort$time) # check format, should read --> "POSIXct" "POSIXt"
+
+p7 <- ggplot(hour_effort, aes(x=time, y=hours)) +
+  themeKV + theme(legend.position = "none", 
+                  axis.text.x = element_text(size = 7),
+                  axis.text.y = element_text(size = 7),
+                  axis.title.x = element_text(size = 8),
+                  axis.title.y = element_text(size = 8)) + 
+  geom_col(fill="#006d2c", alpha=0.75) + # width controls gaps between bars
+  scale_x_datetime(breaks = breaks_width("120 min"), date_labels = "%H:%M") + # set the time scales and drop date info
+  scale_y_continuous(breaks = seq(0, 120, by = 20)) +
+  xlab("hour of day") +
+  ylab("observer effort (hrs)")
+p7
+
+
+layout2 <- "
+AB"
+  p7 + p6 +
+  plot_layout(design = layout2) +
   plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
 
 
