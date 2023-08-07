@@ -168,6 +168,10 @@ p6 <- ggplot(DF1, aes(x=DAY, y=cumul_hours)) +
   ylab("cumulative effort (hrs)")
 
 
+DF2 <- DF1 %>% 
+  summarise("5:00" = sum(X5.00 > 0), "5:30" = sum(X5.30 > 0))  
+  
+
 p7 <- ggplot(DF1, aes(x=DAY, y=cumul_hours)) +
   themeKV + theme(legend.position = "none", 
                   axis.text.x = element_text(size = 7),
