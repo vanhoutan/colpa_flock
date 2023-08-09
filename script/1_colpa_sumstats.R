@@ -69,7 +69,7 @@ p1 <- ggplot(collpa1, aes(x = julian_day, y = time, group = event, color = event
   scale_shape_manual(values = c(16, 1, 16, 1, 16)) +
   scale_x_continuous(breaks = seq(170, 280, by = 10)) +
   scale_y_datetime(breaks = breaks_width("20 min"), date_labels = "%H:%M") + # set the time scales and drop date info
-  ylab("time of day (hr:min)") +
+  ylab("hour of day") +
   xlab("Julian day")
 
 
@@ -115,6 +115,7 @@ p3 <- ggplot(dance_eat, aes(x = duration_dance, fill="#9e0142")) +
   scale_fill_manual(values=c("#9e0142")) +
   scale_x_datetime(breaks = breaks_width("4 min"), date_labels = "%M") + # set the time scales and drop date info
   xlab("dance duration (min)")
+p3
 
 #second plot is duration of foraging flock on collpa
 dance_eat$duration_collpa <- as.POSIXct(dance_eat$duration_collpa, format="%H:%M:%S") # convert from character to time/date
@@ -127,7 +128,7 @@ p4 <- ggplot(dance_eat, aes(x = duration_collpa, fill="#fdae61")) +
                   axis.title.y = element_text(size = 9)) + 
   geom_density(size = 0.5, alpha = 0.5, adjust = 0.5) +
   scale_fill_manual(values=c("#fdae61")) +
-  scale_x_datetime(breaks = breaks_width("20 min"), date_labels = "%H:%M") + # set the time scales and drop date info
+  scale_x_datetime(breaks = breaks_width("10 min"), date_labels = "%M") + # dropping the hour for more spacing
   xlab("collpa duration (hr:min)")
 
 #third plot of the time between dawn and first flock dance
@@ -179,7 +180,7 @@ p6 <- ggplot(DF1, aes(x=DAY, y=cumul_hours)) +
                   axis.text.y = element_text(size = 7),
                   axis.title.x = element_text(size = 8),
                   axis.title.y = element_text(size = 8)) + 
-  geom_area(fill="#41ab5d", alpha=0.75) +
+  geom_area(fill="#41ab5d", alpha=0.6) +
   geom_line(linewidth = 0.5) +
   scale_x_continuous(breaks = seq(170, 280, by = 15)) +
   scale_y_continuous(breaks = seq(0, 800, by = 100)) +
@@ -243,26 +244,27 @@ DF3 <- DF1 %>%
 
 hour_effort <- gather(DF3, key="time", value="hours", 1:25) # convert from wide to long format
 class(hour_effort$time) # returns "character"
-format(as.POSIXct(hour_effort$time,format='%H:%M'),format="%H:%M") # for some reasons needs reformating
+format(as.POSIXct(hour_effort$time,format='%H:%M'),format="%H:%M") # for some reasons needs reformatting
 hour_effort$time <- as.POSIXct(hour_effort$time, format="%H:%M") # still character, so convert to time/date
 class(hour_effort$time) # check format, should read --> "POSIXct" "POSIXt"
 
 p7 <- ggplot(hour_effort, aes(x=time, y=hours)) +
-  themeKV + theme(legend.position = "none", 
+  themeKV + theme(#legend.position = "none", 
                   axis.text.x = element_text(size = 7),
                   axis.text.y = element_text(size = 7),
                   axis.title.x = element_text(size = 8),
                   axis.title.y = element_text(size = 8)) + 
-  geom_col(fill="#006d2c", alpha=0.75) + # width controls gaps between bars
-  scale_x_datetime(breaks = breaks_width("120 min"), date_labels = "%H:%M") + # set the time scales and drop date info
+  geom_col(fill="#006d2c", alpha = 0.75) + # cannot use width as fiddly in date/time format
+  # see: https://github.com/tidyverse/ggplot2/issues/2187
+  scale_x_datetime(breaks = breaks_width("120 min"), date_labels = "%H") + # set the time scales and drop date info
   scale_y_continuous(breaks = seq(0, 120, by = 20)) +
   xlab("hour of day") +
-  ylab("observer effort (hrs)")
+  ylab("effort (observer days)")
 p7
 
-
 layout2 <- "
-AB"
+A
+B"
   p7 + p6 +
   plot_layout(design = layout2) +
   plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
