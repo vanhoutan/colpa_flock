@@ -46,6 +46,7 @@ morph_HWi <- morph_HWi[!(morph_HWi$CODE == ""), ]  # remove blank entries in spe
 # make a density plot, facet by species CODE
 colourCount = length(unique(morph_HWi$CODE)) # but first expand the 11 brewer palette categories
 getPalette = colorRampPalette(brewer.pal(11, "Spectral")) # interpolate colors to fit the 13 parrot species
+Spectral13 <- getPalette(colourCount) # 13 color Spectral palette 
 
 # then make the plot and call in the expanded Brewer pal
 ggplot(morph_HWi, aes(x = MEASURE, fill = CODE)) + 
@@ -80,10 +81,9 @@ p1 <- ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
                   axis.title.x = element_text(size = 8),
                   axis.text.y = element_text(size = 7),
                   axis.title.y = element_text(size = 8),) +
-  scale_fill_distiller(#type = "div",
-                       palette = "BrBG",
-                       direction = 1) +
-  geom_density_ridges_gradient(scale = 2.5, alpha = 0.85, size = 0.2, rel_min_height = 0.01, bandwidth = 1) +
+  scale_fill_gradientn(colours = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#5e4fa2")) +
+  # more detail at https://ggplot2.tidyverse.org/reference/scale_gradient.html
+  geom_density_ridges_gradient(scale = 2.5, alpha = 0.6, size = 0.2, rel_min_height = 0.01, bandwidth = 1) +
   stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -1, hjust = 2.5,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(25, 55, by = 5)) + 
@@ -122,15 +122,18 @@ p2 <- ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
                   axis.title.x = element_text(size = 8),
                   axis.text.y = element_text(size = 7),
                   axis.title.y = element_text(size = 0),) +
-  scale_fill_distiller(type = "div",
-                       palette = "BrBG",
-                       direction = 1) +
-  geom_density_ridges_gradient(scale = 2.5, alpha = 0.85, size = 0.2, rel_min_height = 0.01, bandwidth = 0.4) +
+  scale_fill_gradientn(colours = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#5e4fa2")) +
+  #  scale_fill_distiller(palette = "Spectral", direction = 1) + # continuous 7 color Brewer
+  geom_density_ridges_gradient(scale = 2.5, alpha = 0.6, size = 0.2, rel_min_height = 0.01, bandwidth = 0.4) +
   stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -1, hjust = 2.5,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(0, 16, by = 2)) + 
   xlab("culmen + mandible (cm)") + 
   ylab("species")
+
+
+
+
 
 
 
@@ -188,12 +191,10 @@ p4 <- ggplot(massvol, aes(x = MASS_g, y = BRAIN_ml)) +
   geom_line(alpha = 0.25, size = 3, color = '#000000',
             stat = "smooth", method = 'nls', formula = 'y~a*x^b', # power fit using non-linear squares regression
               method.args = list(start= c(a = 1,b=1)), se = FALSE) + 
-  geom_point(shape =19, size = 3.2, alpha = 0.9, 
+  geom_point(shape =19, size = 3.2, alpha = 0.7, 
              aes(color = MASS_g)) +
   geom_point(shape = 1,size = 3.2, colour = "black", stroke = 0.25,) +
-  scale_color_distiller(#type = "div",
-    palette = "BrBG",
-    direction = 1) + 
+  scale_colour_gradientn(colours = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#5e4fa2")) +
   scale_y_continuous(breaks = seq(0, 25, by = 5)) +
   scale_x_continuous(breaks = seq(0, 1400, by = 200)) +
   xlab("body mass (g)") + 
@@ -201,7 +202,7 @@ p4 <- ggplot(massvol, aes(x = MASS_g, y = BRAIN_ml)) +
 
 
 layout <- "
-ABC"
+AAAABBBBCCCCX"
 p1 + p2 + p4 + 
   plot_layout(design = layout) +
   plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
