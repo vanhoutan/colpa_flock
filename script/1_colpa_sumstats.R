@@ -159,8 +159,7 @@ AAAAADD
 AAAAADD
 AAAAADD
 AAAAADD"
-p1 + 
-  p4 + p3 + p5 + 
+p1 + p4 + p3 + p5 + 
   plot_layout(design = layout) +
   plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
 
