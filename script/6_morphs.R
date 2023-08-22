@@ -139,10 +139,6 @@ p2 <- ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
 
 
 
-
-
-
-
 #### subset full data set for beak data
 # focusing here on beak as a weapon, so want size
 # pulling "culmen_CL" 
