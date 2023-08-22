@@ -86,234 +86,37 @@ survey2$TIME <- as.POSIXct(survey2$TIME, format="%H:%M:%S")
 class(survey2$TIME) # check format: returns [1] "POSIXct" --> success! 
 # now we can make some plots :)
 
-p2 <- ggplot(survey2, aes(x = TIME, y = KG_HR_DAY, group = SPECIES, fill = SPECIES)) +
+# reorder by duration
+#survey2$SPECIES <- factor(survey2$SPECIES, levels=c("MEPA", "BHPA", "RGMA", "GRMA", "YCPA", "SCMA", "BYMA", "WEPA", "CWPA", "OCPA", "DHPA", "WBPA", "DBPA"))
+#reorder by order of appearance
+survey2$SPECIES <- factor(survey2$SPECIES, levels=c("WEPA", "BHPA", "GRMA", "YCPA", "OCPA", "BYMA", "SCMA", "DHPA", "MEPA", "WBPA", "DBPA", "RGMA", "CWPA"))
+
+p1 <- ggplot(survey2, aes(x = TIME, y = KG_HR_DAY, group = SPECIES, fill = SPECIES)) +
   themeKV + theme(legend.position = "none",
-                  axis.text.y = element_text(size = 8),
+                  axis.text.y = element_text(size = 6),
                   axis.text.x = element_text(size = 8),
                   axis.title.x = element_text(size = 9),
-                  axis.title.y = element_text(size = 9),) +
+                  axis.title.y = element_text(size = 9),
+                  strip.text.x = element_text(size = 6),
+#                  strip.placement = "inside",
+                  panel.spacing.y = unit(0, "lines"),) + # trying to reduce vertical spacing between panels
+  # see: https://stackoverflow.com/questions/3681647/ggplot-how-to-increase-spacing-between-faceted-plots
   geom_area(alpha=0.75) +
-  scale_fill_manual(values = Spectral13) +
+  scale_fill_manual(values = rev(Spectral13)) +
   geom_line(linewidth = 0.25) +
   scale_x_datetime(breaks = breaks_width("2 hour"), 
                    date_labels = "%H") + # set the time scales and drop date info
   xlab("hour of day") +
   ylab("duration (kg hr-1 day-1)") +
   scale_y_continuous(breaks = pretty_breaks()) +
-  facet_wrap(~SPECIES, ncol=2, scales = "free_y")
-  
-
-# reorder from most to fewest
-  
-  
-  
+  facet_wrap(~SPECIES, ncol=1, scales = "free_y")
   
 
 
+END  
+  
+  
 
 
-    geom_line(aes(color=event), stat="smooth", method = "loess", formula = y ~ x, span = 0.85, 
-            se = FALSE, linewidth = 2, alpha = 0.5)  +
-  scale_color_manual(values=c("#fdae61", "#f46d43", "#9e0142", "#5e4fa2", "#3288bd")) + 
-  geom_point(size = 2.2, alpha = 0.6, stroke = 0.5) +
-  scale_shape_manual(values = c(16, 1, 16, 1, 16)) +
-  scale_x_continuous(breaks = seq(170, 280, by = 10)) +
-    
-
-#### make 2 plots for the duration of flocks dancing and foraging
-#### subset full data set for just stage duration data + wrangle 
-
-# first try as a facet with both plots
-dance_eat <- subset(DF, select = c(date_long, julian_day, dawn_to_dance, duration_dance, duration_collpa)) # remove all the time occurrence data 
-dance_eat1 <- gather(dance_eat, key="duration", value="time", 3:5) # convert from wide to long format
-dance_eat1 <- dance_eat1[!(dance_eat1$time == "na"), ] # remove rows with "na" data
-dance_eat1$time <- as.POSIXct(dance_eat1$time, format="%H:%M:%S") # convert from character to time/date
-
-# try one faceted plot with both durations
-p2 <- ggplot(dance_eat1, aes(x = time, fill = duration)) +
-  themeKV + theme(legend.position = "none", 
-                  axis.text.y = element_blank(),
-                  axis.ticks.y = element_blank(),
-                  axis.text.x = element_text(size = 9)) + 
-  geom_density(size = 0.5, alpha = 0.5, adjust = 0.5) +
-  scale_fill_manual(values=c("#fdae61", "#9e0142", "#3288bd")) +
-  facet_wrap(~duration, ncol=1, scales = "free")
-
-layout <- "
-AAB
-AAB"
-p1 + p2 +
-  plot_layout(design = layout) +
-  plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
-
-
-#### now try as 2 separate plots
-# no need to use gather or remove NA
-# fist plot dance duration
-dance_eat$duration_dance <- as.POSIXct(dance_eat$duration_dance, format="%H:%M:%S") # convert from character to time/date
-p3 <- ggplot(dance_eat, aes(x = duration_dance, fill="#9e0142")) +
-  themeKV + theme(legend.position = "none", 
-                  axis.text.y = element_blank(),
-                  axis.ticks.y = element_blank(),
-                  axis.text.x = element_text(size = 8),
-                  axis.title.x = element_text(size = 9),
-                  axis.title.y = element_text(size = 9)) + 
-  geom_density(size = 0.5, alpha = 0.5, adjust = 0.5) +
-  scale_fill_manual(values=c("#9e0142")) +
-  scale_x_datetime(breaks = breaks_width("4 min"), date_labels = "%M") + # set the time scales and drop date info
-  xlab("dance duration (min)")
-p3
-
-#second plot is duration of foraging flock on collpa
-dance_eat$duration_collpa <- as.POSIXct(dance_eat$duration_collpa, format="%H:%M:%S") # convert from character to time/date
-p4 <- ggplot(dance_eat, aes(x = duration_collpa, fill="#fdae61")) +
-  themeKV + theme(legend.position = "none", 
-                  axis.text.y = element_blank(),
-                  axis.ticks.y = element_blank(),
-                  axis.text.x = element_text(size = 8),
-                  axis.title.x = element_text(size = 9),
-                  axis.title.y = element_text(size = 9)) + 
-  geom_density(size = 0.5, alpha = 0.5, adjust = 0.5) +
-  scale_fill_manual(values=c("#fdae61")) +
-  scale_x_datetime(breaks = breaks_width("10 min"), date_labels = "%M") + # dropping the hour for more spacing
-  xlab("collpa duration (hr:min)")
-
-#third plot of the time between dawn and first flock dance
-dance_eat$dawn_to_dance <- as.POSIXct(dance_eat$dawn_to_dance, format="%H:%M:%S") # convert from character to time/date
-p5 <- ggplot(dance_eat, aes(x = dawn_to_dance, fill="#fdae61")) +
-  themeKV + theme(legend.position = "none", 
-                  axis.text.y = element_blank(),
-                  axis.ticks.y = element_blank(),
-                  axis.text.x = element_text(size = 8),
-                  axis.title.x = element_text(size = 9),
-                  axis.title.y = element_text(size = 9)) + 
-  geom_density(size = 0.5, alpha = 0.5, adjust = 0.5) +
-  scale_fill_manual(values=c("#3288bd")) +
-  scale_x_datetime(breaks = breaks_width("10 min"), date_labels = "%M") + # set the time scales and drop date info
-  xlab("dawn to dance (min)")
-
-
-layout <- "
-AAAAABB
-AAAAABB
-AAAAABB
-AAAAABB
-AAAAACC
-AAAAACC
-AAAAACC
-AAAAACC
-AAAAADD
-AAAAADD
-AAAAADD
-AAAAADD"
-p1 + 
-  p4 + p3 + p5 + 
-  plot_layout(design = layout) +
-  plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
-
-
-
-#### read in monitoring effort data
-DF1 <- read.csv('data/monitor_hours.csv')
-# sum the total person monitoring hours across the project, for each calendar day
-DF1 <- DF1 %>% 
-  mutate(day_tothrs = rowSums(.[3:27])/2) %>% # divide by 2 as the breaks are 30min and we want hours
-  mutate(cumul_hours = cumsum(day_tothrs)) # create a cumulative summary running through monitor days 
-
-
-p6 <- ggplot(DF1, aes(x=DAY, y=cumul_hours)) +
-  themeKV + theme(legend.position = "none", 
-                  axis.text.x = element_text(size = 7),
-                  axis.text.y = element_text(size = 7),
-                  axis.title.x = element_text(size = 8),
-                  axis.title.y = element_text(size = 8)) + 
-  geom_area(fill="#41ab5d", alpha=0.6) +
-  geom_line(linewidth = 0.5) +
-  scale_x_continuous(breaks = seq(170, 280, by = 15)) +
-  scale_y_continuous(breaks = seq(0, 800, by = 100)) +
-  xlab("Julian day") +
-  ylab("cumulative effort (hrs)")
-p6
-
-DF2 <- DF1 %>% 
-  summarise("5:00" = sum(X5.00 > 0), # this counts no. days with observer coverage from 5-5:30am
-            "5:30" = sum(X5.30 > 0),
-            "6:00" = sum(X6.00 > 0),
-            "6:30" = sum(X6.30 > 0),
-            "7:00" = sum(X7.00 > 0),
-            "7:30" = sum(X7.30 > 0),
-            "8:00" = sum(X8.00 > 0),
-            "8:30" = sum(X8.30 > 0),
-            "9:00" = sum(X9.00 > 0),
-            "9:30" = sum(X9.30 > 0),
-            "10:00" = sum(X10.00 > 0),
-            "10:30" = sum(X10.30 > 0),
-            "11:00" = sum(X11.00 > 0),
-            "11:30" = sum(X11.30 > 0),
-            "12:00" = sum(X12.00 > 0),
-            "12:30" = sum(X12.30 > 0),
-            "13:00" = sum(X13.00 > 0),
-            "13:30" = sum(X13.30 > 0),
-            "14:00" = sum(X14.00 > 0),
-            "14:30" = sum(X14.30 > 0),
-            "15:00" = sum(X15.00 > 0),
-            "15:30" = sum(X15.30 > 0),
-            "16:00" = sum(X16.00 > 0),
-            "16:30" = sum(X16.30 > 0),
-            "17:00" = sum(X17.00 > 0))  
-
-DF3 <- DF1 %>% 
-  summarise("5:00" = sum(X5.00), # counts no. observer hours during 5-5:30am over all days
-            "5:30" = sum(X5.30),
-            "6:00" = sum(X6.00),
-            "6:30" = sum(X6.30),
-            "7:00" = sum(X7.00),
-            "7:30" = sum(X7.30),
-            "8:00" = sum(X8.00),
-            "8:30" = sum(X8.30),
-            "9:00" = sum(X9.00),
-            "9:30" = sum(X9.30),
-            "10:00" = sum(X10.00),
-            "10:30" = sum(X10.30),
-            "11:00" = sum(X11.00),
-            "11:30" = sum(X11.30),
-            "12:00" = sum(X12.00),
-            "12:30" = sum(X12.30),
-            "13:00" = sum(X13.00),
-            "13:30" = sum(X13.30),
-            "14:00" = sum(X14.00),
-            "14:30" = sum(X14.30),
-            "15:00" = sum(X15.00),
-            "15:30" = sum(X15.30),
-            "16:00" = sum(X16.00),
-            "16:30" = sum(X16.30),
-            "17:00" = sum(X17.00)) 
-
-hour_effort <- gather(DF3, key="time", value="hours", 1:25) # convert from wide to long format
-class(hour_effort$time) # returns "character"
-format(as.POSIXct(hour_effort$time,format='%H:%M'),format="%H:%M") # for some reasons needs reformatting
-hour_effort$time <- as.POSIXct(hour_effort$time, format="%H:%M") # still character, so convert to time/date
-class(hour_effort$time) # check format, should read --> "POSIXct" "POSIXt"
-
-p7 <- ggplot(hour_effort, aes(x=time, y=hours)) +
-  themeKV + theme(#legend.position = "none", 
-                  axis.text.x = element_text(size = 7),
-                  axis.text.y = element_text(size = 7),
-                  axis.title.x = element_text(size = 8),
-                  axis.title.y = element_text(size = 8)) + 
-  geom_col(fill="#006d2c", alpha = 0.75) + # cannot use width as fiddly in date/time format
-  # see: https://github.com/tidyverse/ggplot2/issues/2187
-  scale_x_datetime(breaks = breaks_width("120 min"), date_labels = "%H") + # set the time scales and drop date info
-  scale_y_continuous(breaks = seq(0, 120, by = 20)) +
-  xlab("hour of day") +
-  ylab("effort (observer days)")
-p7
-
-layout2 <- "
-A
-B"
-  p7 + p6 +
-  plot_layout(design = layout2) +
-  plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
 
 
