@@ -2,7 +2,6 @@
 #### should be ~ 3rd figure in the manuscript
 #### it communicates across the study period the numbers and duration of parrots on the cliff
 
-
 library(ggplot2)      # plotting and viz
 library(plyr)         # legacy df manipulation
 library(dplyr)        # variable grouping and manipulation
@@ -18,7 +17,6 @@ library(ggridges)
 library(colorspace)
 library(patchwork)
 library(lubridate)    # formatting times dates
-
 
 # custom ggplot theme
 themeKV <- theme_few()+
@@ -38,8 +36,6 @@ themeKV <- theme_few()+
 # setwd("/Users/kylevanhoutan/colpa_flock/")
 DF <- read.csv('data/duration_relative_t.csv')
 
-# straight to viz
-
 # rescale Brewer palette to 13 categories
 colourCount = length(unique(DF$SPECIES)) 
 getPalette = colorRampPalette(brewer.pal(11, "Spectral")) # interpolate colors to fit the 13 parrot species
@@ -56,7 +52,7 @@ p1 <- ggplot(DF, aes(x = TIME_rel, y = KG_HR_DAY, group = SPECIES, color = SPECI
                   axis.title.x = element_text(size = 8),
                   axis.title.y = element_text(size = 8),
                   strip.text.x = element_text(size = 6),
-                  panel.spacing.y = unit(0, "lines"), # trying to reduce vertical spacing between panels
+                  panel.spacing.y = unit(-0.5, "lines"), # trying to reduce vertical spacing between panels
                   ) +
   geom_point(aes(fill = SPECIES), 
            alpha = 0.75) + 
@@ -69,6 +65,7 @@ p1 <- ggplot(DF, aes(x = TIME_rel, y = KG_HR_DAY, group = SPECIES, color = SPECI
   facet_wrap(~SPECIES, ncol=1, scales = "free_y")
 
 p1
+
 loess <- ggplot_build(p1) # extract LOESS trend model values from ggplot
 # see https://ggplot2.tidyverse.org/reference/ggplot_build.html
 loess_vals <- loess$data[[2]] # port these into a DF
@@ -105,7 +102,7 @@ p2 <- ggplot(DF, aes(x = TIME_rel, y = KG_HR_DAY, group = SPECIES, color = SPECI
              alpha = 0.75, size = 2) + 
   scale_color_manual(values = Spectral12) +
   geom_point(shape = 1,size = 2, colour = "black", stroke = 0.25,) +
-  geom_line(alpha = 0.25, size = 2, color = '#000000',
+  geom_line(alpha = 0.4, size = 2.5, color = '#000000',
             stat = "smooth", method = 'loess', formula = 'y~x', span = 0.65) + 
   xlab("morning flock period (relative time)") +
   ylab("duration (kg hr-1)") +
@@ -114,17 +111,31 @@ p2 <- ggplot(DF, aes(x = TIME_rel, y = KG_HR_DAY, group = SPECIES, color = SPECI
 p2
 
 
+#### read in first landing data
+# this is already in shape for plotting
+lands <- read.csv('data/first_down.csv')
 
+p3 <- ggplot(lands, aes(x= fct_infreq(FIRST_DOWN), group=FIRST_DOWN, fill=FIRST_DOWN)) +
+  themeKV + theme(legend.position = "none", 
+                  axis.text.x = element_text(size = 7),
+                  axis.text.y = element_text(size = 7),
+                  axis.title.x = element_text(size = 8),
+                  axis.title.y = element_text(size = 8)) + 
+  geom_bar(aes(fill = fct_infreq(FIRST_DOWN)), alpha=0.85, 
+           ) +
+  scale_fill_manual(values=c("#005a32", "#238b45", "#74c476", "#c7e9c0")) +
+  scale_y_continuous(breaks = seq(0, 50, by = 5)) +
+  xlab("species") +
+  ylab("first to land (days)")
+p3
 
-
-
-
-
-
-
-
-
-
-
+layout <- "
+A#
+AB
+A#
+A#"
+p2 + p3 +
+  plot_layout(design = layout) +
+  plot_annotation(tag_levels = 'a') # add panel labels a, b, c... et
 
 # END
