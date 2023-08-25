@@ -100,10 +100,13 @@ cause2$reorder = reorder # add as col to df
                   axis.title.x = element_text(size = 9),
   ) + 
   geom_col(alpha = 0.8) +
-  scale_fill_manual(values=c("#9e0142", "#d53e4f")) +
+  scale_fill_manual(values=c("#fdae61", "#f46d43")) +
   #scale_x_continuous(breaks = seq(0, 60, by = 8)) +
   xlab("no. flush causes")
 p3
+
+
+# use #9e0142 for fight scatter plot p4
 
 
 layout2 <- "

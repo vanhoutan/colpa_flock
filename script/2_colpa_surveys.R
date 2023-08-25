@@ -17,7 +17,7 @@ library(RColorBrewer) # pretty colors
 library(ggridges)
 library(colorspace)
 library(patchwork)
-library(lubridate)    # formating times dates
+library(lubridate)    # formatting times dates
 
 
 # custom ggplot theme
@@ -152,7 +152,7 @@ p2 <- ggplot(survey3, aes(x = TIME, y = KG_HR_DAY, group = SPECIES, fill = SPECI
                    date_labels = "%H",
                    limits =lims) + # set the time scales and drop date info
   xlab("hour of day") +
-  ylab("max duration (kg hr-1 dy-1)")
+  ylab("max abundance (kg hr-1 dy-1)")
 
 
 # make plots with cumulative abundance expressed by mass 
@@ -170,8 +170,10 @@ p3 <- ggplot(survey3, aes(y = fct_reorder(SPECIES,total_KG), x = total_KG, group
   #scale_x_datetime(breaks = breaks_width("1 hour"), 
   #                 date_labels = "%H") + # set the time scales and drop date info
   # xlab("hour of day") +
-  xlab("sum duration (kg hr-1 dy-1)")
+  xlab("tot. abundance (kg hr-1 dy-1)")
 p3
+
+
 
 #### make new plot with #birds instead of abundance by mass
 # read in body mass data
@@ -186,14 +188,30 @@ mass_ind <- subset(mass_ind, select = c(SPECIES, total_KG, MASS_g)) # subset ful
 mass_ind$indiv <- mass_ind$total_KG * 1000/mass_ind$MASS_g # convert from survey mass to individuals birds 
 
 
-
+p4 <- ggplot(mass_ind, aes(y = fct_reorder(SPECIES,indiv), x = indiv, group = SPECIES, fill = SPECIES)) +
+  themeKV + theme(legend.position = "none",
+                  axis.text.y = element_text(size = 7),
+                  axis.text.x = element_text(size = 7),
+                  axis.title.x = element_text(size = 9),
+                  axis.title.y = element_text(size = 0),) +
+  geom_point(shape = 16, size = 3.2, alpha = 0.8,
+             aes(color = fct_reorder(SPECIES,total_KG))) +
+  scale_color_manual(values = rev(Spectral13)) + # reverse the order of the palette to match p1
+  geom_point(shape = 1,size = 3.2, colour = "black", stroke = 0.25,) +
+  scale_x_continuous(breaks = seq(0, 45, by = 5), limits = c(0,45),) +
+  #scale_x_datetime(breaks = breaks_width("1 hour"), 
+  #                 date_labels = "%H") + # set the time scales and drop date info
+  # xlab("hour of day") +
+  xlab("tot. abundance (birds hr-1 dy-1)")
+p4
 
 
 # patch them together
 layout <- "
 A
-B"
-p2 + p3 + 
+B
+C"
+p2 + p3 + p4 +
   plot_layout(design = layout) +
   plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
 

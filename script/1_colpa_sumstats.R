@@ -17,7 +17,7 @@ library(RColorBrewer) # pretty colors
 library(ggridges)
 library(colorspace)
 library(patchwork)
-library(lubridate)    # formating times dates
+library(lubridate)    # formatting times dates
 
 
 # custom ggplot theme
@@ -49,7 +49,7 @@ collpa1 <- collpa1[!(collpa1$time == "na"), ]
 class(collpa1$time) # check on data format of "time" col
 # returns [1] "character", need convert to time/date
 collpa1$time <- as.POSIXct(collpa1$time, format="%H:%M:%S")
-class(collpa1.time) # check format: returns [1] "POSIXct" --> success! 
+class(collpa1$time) # check format: returns [1] "POSIXct" --> success! 
 # now we can make some plots :)
 
 # I find this Brewer palette map guidance useful
@@ -72,6 +72,7 @@ p1 <- ggplot(collpa1, aes(x = julian_day, y = time, group = event, color = event
   ylab("hour of day") +
   xlab("Julian day")
 
+p1
 
 #### make 2 plots for the duration of flocks dancing and foraging
 #### subset full data set for just stage duration data + wrangle 
