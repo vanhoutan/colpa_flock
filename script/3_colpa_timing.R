@@ -96,16 +96,17 @@ p2 <- ggplot(DF, aes(x = TIME_rel, y = KG_HR_DAY, group = SPECIES, color = SPECI
                   axis.title.x = element_text(size = 8),
                   axis.title.y = element_text(size = 8),
                   strip.text.x = element_text(size = 6),
-                  panel.spacing.y = unit(0, "lines"), # trying to reduce vertical spacing between panels
+                  panel.spacing.y = unit(-0.4, "lines"), # trying to reduce vertical spacing between panels
   ) +
-  geom_point(aes(fill = SPECIES), 
+  geom_point(aes(fill = SPECIES),
+             shape = 16, size = 2,
              alpha = 0.75, size = 2) + 
   scale_color_manual(values = Spectral12) +
   geom_point(shape = 1,size = 2, colour = "black", stroke = 0.25,) +
   geom_line(alpha = 0.4, size = 2.5, color = '#000000',
             stat = "smooth", method = 'loess', formula = 'y~x', span = 0.65) + 
-  xlab("morning flock period (relative time)") +
-  ylab("duration (kg hr-1)") +
+  xlab("morning flock time (relative)") +
+  ylab("abundance (kg hr-1)") +
   scale_y_continuous(breaks=pretty_breaks()) +
   facet_wrap(~SPECIES, ncol=1, scales = "free_y")
 p2
@@ -129,12 +130,35 @@ p3 <- ggplot(lands, aes(x= fct_infreq(FIRST_DOWN), group=FIRST_DOWN, fill=FIRST_
   ylab("first to land (days)")
 p3
 
+
+# plot extracts of arrival order, by peak loess model data
+p4 <- ggplot(loess_max2, aes(x = x, group = SPECIES, fill = SPECIES,
+                             y = fct_reorder(SPECIES,desc(x)))) +  # desc reverse orders from small to big
+  themeKV + theme(legend.position = "none",
+                  axis.text.y = element_text(size = 7),
+                  axis.text.x = element_text(size = 7),
+                  axis.title.x = element_text(size = 9),
+                  axis.title.y = element_text(size = 0),) +
+  geom_point(shape = 16, size = 3, alpha = 0.8,
+             aes(color = fct_reorder(SPECIES,x))) +
+  scale_color_manual(values = Spectral12) + # reverse the order of the palette to match p1
+  geom_point(shape = 1,size = 3, colour = "black", stroke = 0.25,) +
+  scale_x_continuous(breaks = seq(0, 1, by = 0.1), 
+                     limits = c(0,0.61),
+                     ) +
+  #scale_x_datetime(breaks = breaks_width("1 hour"), 
+  #                 date_labels = "%H") + # set the time scales and drop date info
+  # xlab("hour of day") +
+  xlab("rel. time of max abund.")
+p4
+
+
 layout <- "
-A#
-AB
-A#
-A#"
-p2 + p3 +
+AAAA###
+AAAABBB
+AAAACCC
+AAAA###"
+p2 + p4 + p3 +
   plot_layout(design = layout) +
   plot_annotation(tag_levels = 'a') # add panel labels a, b, c... et
 

@@ -165,7 +165,6 @@ ggplot(morph_CCL, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
 massvol <- read.csv('data/body_brain.csv')
 
 #### bar plot of body mass
-
 p3 <- ggplot(massvol, aes(x = MASS_g, color = MASS_g, 
                           y = fct_reorder(CODE, MASS_g))) + # reorder for geom_col
   themeKV + theme(legend.position = "none",

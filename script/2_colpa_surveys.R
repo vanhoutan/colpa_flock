@@ -155,7 +155,7 @@ p2 <- ggplot(survey3, aes(x = TIME, y = KG_HR_DAY, group = SPECIES, fill = SPECI
   ylab("max duration (kg hr-1 dy-1)")
 
 
-# make another plots with cumulative duration 
+# make plots with cumulative abundance expressed by mass 
 p3 <- ggplot(survey3, aes(y = fct_reorder(SPECIES,total_KG), x = total_KG, group = SPECIES, fill = SPECIES)) +
   themeKV + theme(legend.position = "none",
                   axis.text.y = element_text(size = 7),
@@ -171,6 +171,23 @@ p3 <- ggplot(survey3, aes(y = fct_reorder(SPECIES,total_KG), x = total_KG, group
   #                 date_labels = "%H") + # set the time scales and drop date info
   # xlab("hour of day") +
   xlab("sum duration (kg hr-1 dy-1)")
+p3
+
+#### make new plot with #birds instead of abundance by mass
+# read in body mass data
+massvol <- read.csv('data/body_brain.csv')
+# subset full data set for just species and mass data, remove unnecessary columns 
+mass <- subset(massvol, select = c(CODE, MASS_g)) # subset full dataset for only columns of interest
+# join 2 DFs together
+# Rename second column so colnames match
+colnames(mass)[1] ="SPECIES"
+mass_ind <- left_join(survey3, mass, by ='SPECIES') # see: https://www.guru99.com/r-dplyr-tutorial.html 
+mass_ind <- subset(mass_ind, select = c(SPECIES, total_KG, MASS_g)) # subset full dataset for only columns of interest
+mass_ind$indiv <- mass_ind$total_KG * 1000/mass_ind$MASS_g # convert from survey mass to individuals birds 
+
+
+
+
 
 # patch them together
 layout <- "
