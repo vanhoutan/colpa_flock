@@ -43,16 +43,17 @@ flush2 <- flush1 %>% group_by(DATE) %>% # Group by count of multiple columns
 #### first to do, document # flushes per day, as density plot
 p1 <- ggplot(flush2, aes(x = total_count, fill=c("#3288bd"))) +
   themeKV + theme(legend.position = "none", 
-                  axis.text.y = element_blank(),
+                  axis.text.y = element_text(size = 0),
                   axis.title.y = element_text(size = 9),
                   axis.ticks.y = element_blank(),
                   axis.text.x = element_text(size = 8),
                   axis.title.x = element_text(size = 9),
                   ) + 
-  geom_density(size = 0.5, alpha = 0.8, adjust = 0.7) +
+  geom_density(size = 0.5, alpha = 0.8, adjust = 0.65) +
   scale_fill_manual(values=c("#3288bd")) +
   scale_x_continuous(breaks = seq(0, 40, by = 4)) +
-  xlab("no. collpa flushes")
+  ylab("density (morning flocks)")+
+  xlab("no. flushes")
 p1
 
 
@@ -66,14 +67,15 @@ sentinel1 <- sentinel %>%
 p2 <- ggplot(sentinel1, aes(y = fct_rev(fct_infreq(ALARM)), group=ALARM)) +
   themeKV + theme(legend.position = "none", 
                   axis.text.y = element_text(size = 7),
-                  axis.title.y = element_blank(),
+                  axis.title.y = element_text(size = 9),
                   axis.text.x = element_text(size = 8),
                   axis.title.x = element_text(size = 9),
   ) + 
-  geom_bar(fill = c("#66c2a5"), alpha =0.95) +
+  geom_bar(fill = c("#66c2a5"), alpha =1, , width=0.95) +
   scale_fill_manual(values=c("#66c2a5")) +
   scale_x_continuous(breaks = seq(0, 60, by = 8)) +
-  xlab("no. sentinel alarms")
+  ylab("known sentinels") + 
+  xlab("no. alarms")
 p2
 
 
@@ -93,25 +95,55 @@ cause2$reorder = reorder # add as col to df
 # dplyr frustrating me too much so gave up and just manually redid it
 
   p3 <- ggplot(cause2, aes(x=total_count, y=fct_rev(fct_reorder(CAUSE, reorder)), fill=CATEGORY)) +
-  themeKV + theme(#legend.position = "none", 
-                  axis.text.y = element_text(size = 7),
-                  axis.title.y = element_blank(),
+  themeKV + theme(legend.position = "none", 
+                  axis.text.y = element_text(size = 8),
+                  axis.title.y = element_text(size = 9),
                   axis.text.x = element_text(size = 8),
                   axis.title.x = element_text(size = 9),
   ) + 
-  geom_col(alpha = 0.8) +
+  geom_col(alpha = 0.8, width=0.95) +
   scale_fill_manual(values=c("#fdae61", "#f46d43")) +
-  #scale_x_continuous(breaks = seq(0, 60, by = 8)) +
-  xlab("no. flush causes")
+  scale_x_continuous(breaks = seq(0, 90, by = 10),
+                                  limits = c(0,99)) +
+    ylab("known cause") + 
+    xlab("no. flushes")
 p3
 
 
-# use #9e0142 for fight scatter plot p4
+
+#### WE'RE AT THE FIGHTS!!!
+fights <- read.csv('data/fights.csv')
+# make 14 color Brewer palette
+getPalette = colorRampPalette(brewer.pal(11, "Spectral")) # interpolate colors to fit the 13 parrot species
+Spectral14 <- getPalette(14) 
+
+
+p4 <- ggplot(fights, aes(x=FIGHT_RT, y=WIN_RT)) + 
+  themeKV + theme(axis.text.x = element_text(size = 8),
+                  axis.title.x = element_text(size = 9),
+                  axis.text.y = element_text(size = 8),
+                  axis.title.y = element_text(size = 9),
+                  legend.key.height = unit(0.3, 'cm'), # shrink the native height of legend
+                  legend.text = element_text(size=6)) + # reduce font size on legend
+  geom_vline(xintercept = ave(fights$FIGHT_RT), alpha = 0.25, size = 1.8, color = "#000000") +
+  geom_hline(yintercept = ave(fights$WIN_RT), alpha = 0.25, size = 1.8, color = "#000000") +
+  geom_point(shape =16, size = 3, alpha = 0.8, 
+             aes(color = fct_rev(fct_reorder(SPECIES,FIGHT_RT))), # color code by species win rate 
+             ) +
+  geom_point(shape = 1,size = 3, colour = "black", stroke = 0.25,) +
+  scale_color_manual(values = Spectral14) +
+  scale_x_continuous(breaks = seq(0, 24, by = 4), limits = c(-1,24)) + # give a little more room 
+  scale_y_continuous(breaks = seq(0, 0.8, by = 0.2), limits = c(-0.05,0.9)) +
+  xlab("fight rate (fights indiv-1)") + 
+  ylab("win rate (wins fights-1)")
+p4
+
 
 
 layout2 <- "
-ABC"
-  p1 + p2 + p3 +
+AB
+CD"
+  p1 + p2 + p3 + p4 +
   plot_layout(design = layout2) +
   plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
 
