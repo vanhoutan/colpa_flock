@@ -192,7 +192,7 @@ p4 <- ggplot(massvol, aes(x = MASS_g, y = BRAIN_ml)) +
   geom_line(alpha = 0.25, size = 3, color = '#000000',
             stat = "smooth", method = 'nls', formula = 'y~a*x^b', # power fit using non-linear squares regression
               method.args = list(start= c(a = 1,b=1)), se = FALSE) + 
-  geom_point(shape =19, size = 3.2, alpha = 0.8, 
+  geom_point(shape =16, size = 3.2, alpha = 0.8, 
              aes(color = MASS_g)) +
   geom_point(shape = 1,size = 3.2, colour = "black", stroke = 0.25,) +
   scale_colour_gradientn(colours = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#313695")) +
