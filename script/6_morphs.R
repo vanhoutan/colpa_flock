@@ -48,6 +48,11 @@ colourCount = length(unique(morph_HWi$CODE)) # but first expand the 11 brewer pa
 getPalette = colorRampPalette(brewer.pal(11, "Spectral")) # interpolate colors to fit the 13 parrot species
 Spectral13 <- getPalette(colourCount) # 13 color Spectral palette 
 
+#make in another Brewer palette too
+getPalette = colorRampPalette(brewer.pal(9, "YlGnBu")) # interpolate different color palette
+Spectral13v2 <- getPalette(colourCount) # 13 color Spectral palette 
+
+
 # then make the plot and call in the expanded Brewer pal
 ggplot(morph_HWi, aes(x = MEASURE, fill = CODE)) + 
   themeKV + theme(legend.position = "none") +
@@ -217,7 +222,7 @@ p5 <- ggplot(massvol, aes(x = MASS_g, y = BRAIN_ml)) +
             method.args = list(start= c(a = 1,b=1)), se = FALSE) + 
   geom_point(shape = 16, size = 3.2, alpha = 0.8, 
              aes(color = fct_reorder(CODE,MASS_g))) + # color by CODE, sorted big to small by MASS_g
-  scale_color_manual(values = Spectral13) +
+  scale_color_manual(values = Spectral13v2) +
   geom_point(shape = 1,size = 3.2, colour = "black", stroke = 0.25,) +
   scale_y_continuous(breaks = seq(0, 25, by = 5)) +
   scale_x_continuous(breaks = seq(0, 1400, by = 200)) +

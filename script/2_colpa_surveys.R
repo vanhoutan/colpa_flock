@@ -53,6 +53,11 @@ colourCount = length(unique(survey$SPECIES))
 getPalette = colorRampPalette(brewer.pal(11, "Spectral")) # interpolate colors to fit the 13 parrot species
 Spectral13 <- getPalette(colourCount) # 13 color Spectral palette 
 
+#make in another Brewer palette too
+getPalette = colorRampPalette(brewer.pal(9, "YlGnBu")) # interpolate different color palette
+Spectral13v2 <- getPalette(colourCount) # 13 color Spectral palette 
+
+
 # make col plot
 ggplot(survey, aes(x = TIME, y = DURATION_kg_hr, group = SPECIES, color = SPECIES, alpha = 0.5)) +
   themeKV + theme(axis.text.y = element_text(size = 8),
@@ -99,12 +104,12 @@ p1 <- ggplot(survey2, aes(x = TIME, y = KG_HR_DAY, group = SPECIES, fill = SPECI
                   axis.title.y = element_text(size = 9),
                   strip.text.x = element_text(size = 6),
 #                  strip.placement = "inside",
-                  panel.spacing.y = unit(0, "lines"),) + # trying to reduce vertical spacing between panels
+                  panel.spacing.y = unit(-0.25, "lines"),) + # trying to reduce vertical spacing between panels
   # see: https://stackoverflow.com/questions/3681647/ggplot-how-to-increase-spacing-between-faceted-plots
-  geom_area(alpha=0.75) +
-  scale_fill_manual(values = rev(Spectral13)) +
+  geom_area(alpha=0.85) +
+  scale_fill_manual(values = rev(Spectral13v2)) +
   geom_line(linewidth = 0.25) +
-  scale_x_datetime(breaks = breaks_width("2 hour"), 
+  scale_x_datetime(breaks = breaks_width("1 hour"), 
                    date_labels = "%H") + # set the time scales and drop date info
   xlab("hour of day") +
   ylab("duration (kg hr-1 day-1)") +
