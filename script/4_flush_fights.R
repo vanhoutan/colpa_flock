@@ -71,7 +71,7 @@ p2 <- ggplot(sentinel1, aes(y = fct_rev(fct_infreq(ALARM)), group=ALARM)) +
                   axis.text.x = element_text(size = 8),
                   axis.title.x = element_text(size = 9),
   ) + 
-  geom_bar(fill = c("#66c2a5"), alpha =1, , width=0.95) +
+  geom_bar(fill = c("#66c2a5"), alpha =1, width=0.95) +
   scale_fill_manual(values=c("#66c2a5")) +
   scale_x_continuous(breaks = seq(0, 60, by = 8)) +
   ylab("known sentinels") + 
