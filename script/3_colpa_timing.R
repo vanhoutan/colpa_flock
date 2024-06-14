@@ -83,7 +83,8 @@ spp_order <- data.frame(SPECIES = c("BHPA", "GRMA", "YCPA", "BYMA", "WEPA", "OCP
 # bind it to the previous output
 loess_max2 <- cbind(loess_max,spp_order)
 # export the CSV
-write.csv(loess_max2, file="/Users/kylevanhoutan/colpa_flock/data/loess_max2", row.names=FALSE)
+getwd()
+write.csv(loess_max2, file="/Users/kylevanhoutan/projects/colpa_flock/data/loess_max2", row.names=FALSE)
 
 
 # plot again in correct order, reorder from loess_max2
