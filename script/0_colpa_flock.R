@@ -64,8 +64,8 @@ p1 <- ggplot(flock_birds, aes(x=MIN_morn, y=total_birds)) +
                   axis.title.x = element_text(size = 8),axis.title.y = element_text(size = 8),
                   legend.position = "none") + 
   geom_line(stat="smooth", method = "loess", formula = y ~ x, 
-            span = 0.4, se = FALSE, linewidth = 3, alpha = 0.5) +
-  geom_jitter(alpha=0.25, color="#f768a1", shape=16, size=1.8, width=1.25, height=0) +  
+            span = 0.4, se = FALSE, linewidth = 2.5, alpha = 0.5) +
+  geom_jitter(alpha=0.25, color="#f768a1", shape=16, size=2, width=1.25, height=0) +  
   geom_boxplot(aes(group = MIN_morn),
                outlier.shape = NA, # remove outliers, WE HAVE JITTER
                fatten=1, # NULL = remove median line
@@ -82,8 +82,8 @@ p2 <- ggplot(flock_spp, aes(x=MIN_morn, y=spp_rich)) +
                   axis.title.x = element_text(size = 8),axis.title.y = element_text(size = 8),
                   legend.position = "none") + 
   geom_line(stat="smooth", method = "loess", formula = y ~ x, 
-            span = 0.4, se = FALSE, linewidth = 3, alpha = 0.5) +
-  geom_jitter(alpha=0.25, color="#41b6c4", shape=16, size=1.8, width=1.25, height=0.5) +  
+            span = 0.4, se = FALSE, linewidth = 2.5, alpha = 0.5) +
+  geom_jitter(alpha=0.25, color="#41b6c4", shape=16, size=2, width=1.25, height=0.5) +  
   geom_boxplot(aes(group = MIN_morn),
                outlier.shape = NA, # remove outliers, WE HAVE JITTER
                fatten=1, # NULL = remove median line, we're doing LOESS
@@ -96,8 +96,7 @@ p2 <- ggplot(flock_spp, aes(x=MIN_morn, y=spp_rich)) +
 
 # patch them together
 layout <- "
-A
-B"
+AB"
 p1 + p2 + 
   plot_layout(design = layout) +
   plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc

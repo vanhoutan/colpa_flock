@@ -53,7 +53,8 @@ p1 <- ggplot(flush2, aes(x = total_count, fill=c("#3288bd"))) +
   scale_fill_manual(values=c("#3288bd")) +
   scale_x_continuous(breaks = seq(0, 40, by = 4)) +
   ylab("density (morning flocks)")+
-  xlab("no. flushes")
+  xlab("no. flushes")+
+  annotate("text", x = 24, y = 0.005, label = "n = 1200", color = "white", alpha = 0.75, size = 2.7)
 p1
 
 
@@ -71,7 +72,7 @@ p2 <- ggplot(sentinel1, aes(y = fct_rev(fct_infreq(ALARM)), group=ALARM)) +
                   axis.text.x = element_text(size = 8),
                   axis.title.x = element_text(size = 9),
   ) + 
-  geom_bar(fill = c("#66c2a5"), alpha =1, width=0.95) +
+  geom_bar(fill = c("#66c2a5"), alpha =1, width=0.98) +
   scale_fill_manual(values=c("#66c2a5")) +
   scale_x_continuous(breaks = seq(0, 60, by = 8)) +
   ylab("known sentinels") + 
@@ -94,14 +95,14 @@ reorder = c(3,1,6,4,5,7,2) # create reorder variables
 cause2$reorder = reorder # add as col to df
 # dplyr frustrating me too much so gave up and just manually redid it
 
-  p3 <- ggplot(cause2, aes(x=total_count, y=fct_rev(fct_reorder(CAUSE, reorder)), fill=CATEGORY)) +
+p3 <- ggplot(cause2, aes(x=total_count, y=fct_rev(fct_reorder(CAUSE, reorder)), fill=CATEGORY)) +
   themeKV + theme(legend.position = "none", 
                   axis.text.y = element_text(size = 8),
                   axis.title.y = element_text(size = 9),
                   axis.text.x = element_text(size = 8),
                   axis.title.x = element_text(size = 9),
   ) + 
-  geom_col(alpha = 0.8, width=0.95) +
+  geom_col(alpha = 0.8, width=0.9) +
   scale_fill_manual(values=c("#fdae61", "#f46d43")) +
   scale_x_continuous(breaks = seq(0, 90, by = 10),
                                   limits = c(0,99)) +
@@ -135,7 +136,11 @@ p4 <- ggplot(fights, aes(x=FIGHT_RT, y=WIN_RT)) +
   scale_x_continuous(breaks = seq(0, 24, by = 4), limits = c(-1,24)) + # give a little more room 
   scale_y_continuous(breaks = seq(0, 0.8, by = 0.2), limits = c(-0.05,0.9)) +
   xlab("fight rate (fights indiv-1)") + 
-  ylab("win rate (wins fights-1)")
+  ylab("win rate (wins fights-1)") + 
+  annotate("text", x = 0, y = 0.85, label = "II", alpha = 0.75, size = 2.7) +
+  annotate("text", x = 0, y = 0.2, label = "IV", alpha = 0.75, size = 2.7) +
+  annotate("text", x = 6, y = 0.85, label = "I", alpha = 0.75, size = 2.7) +
+  annotate("text", x = 6, y = 0.2, label = "III", alpha = 0.75, size = 2.7)
 p4
 
 

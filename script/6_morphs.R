@@ -86,7 +86,10 @@ p1 <- ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
                   axis.title.x = element_text(size = 8),
                   axis.text.y = element_text(size = 7),
                   axis.title.y = element_text(size = 8),) +
-  geom_density_ridges_gradient(scale = 2.5, alpha = 0.2, size = 0.2, rel_min_height = 0.01, bandwidth = 1) +
+  geom_density_ridges_gradient(linewidth = 0.4,
+                               scale = 2.5, 
+                               alpha = 0.2, 
+                               rel_min_height = 0.01, bandwidth = 1) +
   scale_fill_gradientn(colours = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#313695")) +
   # more detail at https://ggplot2.tidyverse.org/reference/scale_gradient.html
   # also here https://r-graphics.org/recipe-colors-palette-continuous
@@ -117,7 +120,7 @@ ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
   # both y and fill are reordered by CODE's median value of MEASURE 
   themeKV + theme(legend.position = "none") +
   scale_fill_manual(values = getPalette(colourCount)) +
-  geom_density_ridges(scale = 2.5, alpha = 0.85, size = 0.25, rel_min_height = 0.01, bandwidth = 0.4) +
+  geom_density_ridges(scale = 2.5, alpha = 0.85, linewidth = 0.4, rel_min_height = 0.01, bandwidth = 0.4) +
   stat_summary(geom = "text", fontface = "bold", alpha = 0.5, size = 3, vjust = -1.5, hjust = 3,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(0, 16, by = 2)) + 
@@ -134,7 +137,8 @@ p2 <- ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
                   axis.title.y = element_text(size = 0),) +
   scale_fill_gradientn(colours = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#313695")) +
   #  scale_fill_distiller(palette = "Spectral", direction = 1) + # continuous 7 color Brewer
-  geom_density_ridges_gradient(scale = 2.5, alpha = 0.6, size = 0.2, rel_min_height = 0.01, bandwidth = 0.4) +
+  geom_density_ridges_gradient(scale = 2.5, alpha = 0.6, linewidth = 0.4, 
+                               rel_min_height = 0.01, bandwidth = 0.4) +
   stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -1, hjust = 2.5,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(0, 16, by = 2)) + 

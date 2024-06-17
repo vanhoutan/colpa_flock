@@ -170,8 +170,11 @@ p3 <- ggplot(dance_eat, aes(x = duration_dance, fill="#9e0142")) +
                   axis.title.y = element_text(size = 9)) + 
   geom_density(size = 0.5, alpha = 0.5, adjust = 0.5) +
   scale_fill_manual(values=c("#9e0142")) +
+  annotate("text", x =  as.POSIXct("05", format="%M"), y = 0.0026, # hardwire coord locations for mapping using POSIX
+           label = "3.0", alpha = 0.75, size = 2.7)+
   scale_x_datetime(breaks = breaks_width("4 min"), date_labels = "%M") + # set the time scales and drop date info
-  xlab("dance duration (min)")
+  xlab("dance duration (min)") +
+  ylab("")
 p3
 
 #second plot is duration of foraging flock on collpa
@@ -184,9 +187,12 @@ p4 <- ggplot(dance_eat, aes(x = duration_collpa, fill="#fdae61")) +
                   axis.title.x = element_text(size = 9),
                   axis.title.y = element_text(size = 9)) + 
   geom_density(size = 0.5, alpha = 0.5, adjust = 0.5) +
+  annotate("text", x =  as.POSIXct("57", format="%M"), y = 0.00037, # hardwire coord locations for mapping using POSIX
+          label = "53.0", alpha = 0.75, size = 2.7)+ 
   scale_fill_manual(values=c("#fdae61")) +
   scale_x_datetime(breaks = breaks_width("10 min"), date_labels = "%M") + # dropping the hour for more spacing
-  xlab("forage duration (min)")
+  xlab("forage duration (min)") +
+  ylab("")
 
 #third plot of the time between dawn and first flock dance
 dance_eat$dawn_to_dance <- as.POSIXct(dance_eat$dawn_to_dance, format="%H:%M:%S") # convert from character to time/date
@@ -198,9 +204,12 @@ p5 <- ggplot(dance_eat, aes(x = dawn_to_dance, fill="#fdae61")) +
                   axis.title.x = element_text(size = 9),
                   axis.title.y = element_text(size = 9)) + 
   geom_density(size = 0.5, alpha = 0.5, adjust = 0.5) +
+  annotate("text", x =  as.POSIXct("42", format="%M"), y = 0.0013, # hardwire coord locations for mapping using POSIX
+           label = "35.0", alpha = 0.75, size = 2.7)+
   scale_fill_manual(values=c("#3288bd")) +
   scale_x_datetime(breaks = breaks_width("10 min"), date_labels = "%M") + # set the time scales and drop date info
-  xlab("dawn to dance (min)")
+  xlab("dawn to dance (min)") +
+  ylab("density")
 
 # deprecated now since we have the lm(dawn ~ dance) panel
 layout <- "
