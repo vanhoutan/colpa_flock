@@ -1,0 +1,199 @@
+﻿ID,COLLECTION,CAT_ID,CODE,GENUS,SPECIES,SPEC_TYPE,Lw,S1,Hwi,TWAi,E,CULM_SL,CULM_CL,MAND_SL,MAND_CL,SCMi,NOTES,RECORDER
+1,Florida MNH,10046,MEPA,Amazona,farinosa,skin study,24.8,16.6,33.1,0.124,--,3.74,4.2,2.11,2.2,5.85,left wing,KV
+2,Florida MNH,10046,MEPA,Amazona,farinosa,skin study,24.3,16.4,32.5,0.120,--,--,--,--,--,--,right wing,KV
+3,Florida MNH,12524,BYMA,Ara,ararauna,skin study,40,24.6,38.5,0.295,--,6.5,7.7,3.66,3.5,10.16,right wing,KV
+4,Florida MNH,12524,BYMA,Ara,ararauna,skin study,40.5,24.5,39.5,0.298,--,--,--,--,--,--,left wing,KV
+5,Florida MNH,15624,RGMA,Ara,chloropterus,skin study,39.5,23,41.8,0.273,--,6.4,7.4,4.06,4,10.46,right wing,KV
+6,Florida MNH,15624,RGMA,Ara,chloropterus,skin study,39.5,23.5,40.5,0.278,--,--,--,--,--,--,left wing,KV
+7,Florida MNH,22116,SCMA,Ara,macao,wing spread,38.6,23.8,38.3,0.276,--,--,--,--,--,--,left wing,KV
+8,Florida MNH,4491,SCMA,Ara,macao,skin study,41,25.5,37.8,0.314,--,6.96,9,4.69,4.8,11.65,right wing,KV
+9,Florida MNH,4491,SCMA,Ara,macao,skin study,40.9,25.8,36.9,0.317,--,6.233,6.9,3.69,3.7,9.923,left wing,KV
+10,Florida MNH,15623,SCMA,Ara,macao,skin study,37.8,24,36.5,0.272,--,--,--,--,--,--,right wing,KV
+11,Florida MNH,15623,SCMA,Ara,macao,skin study,--,24.2,--,--,--,--,--,--,--,--,left wing,KV
+12,Florida MNH,37643,SCMA,Ara,macao,skin study,40,22.5,43.8,0.270,--,6.451,7.5,3.8,3.9,10.251,right wing,KV
+13,Florida MNH,37643,SCMA,Ara,macao,skin study,40.2,23,42.8,0.277,--,--,--,--,--,--,left wing,KV
+14,Florida MNH,22234,GRMA,Ara,severus,wing flat,26.2,14.6,44.3,0.115,--,--,--,--,--,--,right wing,KV
+15,Florida MNH,37638,DHPA,Aratinga,weddellii,skin study,14.5,8,44.8,0.035,--,2.15,2.4,1.46,1.51,3.61,left wing,KV
+16,Florida MNH,37638,DHPA,Aratinga,weddellii,skin study,14.9,8.5,43.0,0.038,--,--,--,--,--,--,right wing,KV
+17,Florida MNH,37652,CWPA,Brotogeris,cyanoptera,skin study,11.6,7.1,38.8,0.025,--,1.8,2.2,1.43,1.5,3.23,right wing,KV
+18,Florida MNH,37652,CWPA,Brotogeris,cyanoptera,skin study,11.6,7.2,37.9,0.025,--,--,--,--,--,--,left wing,KV
+19,Florida MNH,39658,WBPA,Pionites,leucogaster,skin study,13.9,9.7,30.2,0.040,--,2.42,2.7,1.52,1.7,3.94,right wing,KV
+20,Florida MNH,19167,OCPA,Pionopsitta,barrabandi,skin study,16.7,11.4,31.7,0.057,--,2.328,2.5,0.99,1.2,3.318,right wing,KV
+21,Florida MNH,19167,OCPA,Pionopsitta,barrabandi,skin study,16.6,11,33.7,0.055,--,--,--,--,--,--,left wing,KV
+22,Florida MNH,12378,BHPA,Pionus,menstruus,skin study,--,--,--,--,--,2.83,3.2,1.6,1.6,4.43,right wing,KV
+23,Florida MNH,19166,BHPA,Pionus,menstruus,skin study,18.8,12.6,33.0,0.071,--,2.82,3.1,1.46,1.5,4.28,left wing,KV
+24,Florida MNH,19166,BHPA,Pionus,menstruus,skin study,19.2,12.7,33.9,0.073,--,--,--,--,--,--,right wing,KV
+25,Bishop Museum,185544,BYMA,Ara,ararauna,wing spread,40.41,22.09,45.3,0.268,49.21,--,--,--,--,--,left wing,KV
+26,Carnegie MNH,P33810,MEPA,Amazona,farinosa,skin study,23.4,17.3,26.1,0.121,--,3.53,4.6,1.987,2.1,5.517,left wing,KV
+27,Carnegie MNH,P33810,MEPA,Amazona,farinosa,skin study,24,17.3,27.9,0.125,--,--,--,--,--,--,right wing,KV
+28,Carnegie MNH,P32229,MEPA,Amazona,farinosa,skin study,23.7,17,28.3,0.121,--,4.045,4.5,2.395,2.4,6.44,left wing,KV
+29,Carnegie MNH,P32229,MEPA,Amazona,farinosa,skin study,23.7,17.2,27.4,0.122,--,--,--,--,--,--,right wing,KV
+30,Carnegie MNH,P61975,MEPA,Amazona,farinosa,skin study,23.1,16.5,28.6,0.114,--,4,4.6,2.17,2.1,6.17,left wing,KV
+31,Carnegie MNH,P61975,MEPA,Amazona,farinosa,skin study,24.1,17.2,28.6,0.124,--,--,--,--,--,--,right wing,KV
+32,Carnegie MNH,P67902,MEPA,Amazona,farinosa,skin study,23.7,17.2,27.4,0.122,--,3.666,3.9,2.01,1.9,5.676,left wing,KV
+33,Carnegie MNH,P67902,MEPA,Amazona,farinosa,skin study,23.6,17,28.0,0.120,--,--,--,--,--,--,right wing,KV
+34,Carnegie MNH,P83121,MEPA,Amazona,farinosa,skin study,25,--,--,--,--,4.22,5.9,2.11,2.4,6.33,left wing,KV
+35,Carnegie MNH,P83121,MEPA,Amazona,farinosa,skin study,24.8,--,--,--,--,--,--,--,--,--,right wing,KV
+36,Carnegie MNH,S11326,MEPA,Amazona,farinosa,wing spread,22.8,15.2,33.3,0.104,28,--,--,--,--,--,left wing,KV
+37,Carnegie MNH,S14152,MEPA,Amazona,farinosa,wing spread,24,16.2,32.5,0.117,29.5,--,--,--,--,--,left wing,KV
+38,Carnegie MNH,S14370,MEPA,Amazona,farinosa,wing spread,24.5,16.4,33.1,0.121,29.4,--,--,--,--,--,left wing,KV
+39,Carnegie MNH,S15502,MEPA,Amazona,farinosa,wing spread,24.5,16.6,32.2,0.122,31,--,--,--,--,--,left wing,KV
+40,Carnegie MNH,P60438,YCPA,Amazona,ochrocephala,skin study,22.8,16.3,28.5,0.111,--,3.79,4.5,1.91,2.2,5.7,left wing,KV
+41,Carnegie MNH,P60438,YCPA,Amazona,ochrocephala,skin study,22.5,15.2,32.4,0.103,--,--,--,--,--,--,right wing,KV
+42,Carnegie MNH,P84234,YCPA,Amazona,ochrocephala,skin study,20.6,14.7,28.6,0.091,--,3.75,4.1,1.89,1.9,5.64,left wing,KV
+43,Carnegie MNH,P84234,YCPA,Amazona,ochrocephala,skin study,20.4,14.9,27.0,0.091,--,--,--,--,--,--,right wing,KV
+44,Carnegie MNH,P96477,YCPA,Amazona,ochrocephala,skin study,22.5,15.9,29.3,0.107,--,3.96,4.7,2.16,2.5,6.12,left wing,KV
+45,Carnegie MNH,P96477,YCPA,Amazona,ochrocephala,skin study,22.7,16.4,27.8,0.112,--,--,--,--,--,--,right wing,KV
+46,Carnegie MNH,P96478,YCPA,Amazona,ochrocephala,skin study,22.1,15.7,29.0,0.104,--,3.78,4.4,2.38,2.2,6.16,left wing,KV
+47,Carnegie MNH,P96478,YCPA,Amazona,ochrocephala,skin study,21.1,15.2,28.0,0.096,--,--,--,--,--,--,right wing,KV
+48,Carnegie MNH,S46388,YCPA,Amazona,ochrocephala,wing spread,22.8,15.6,31.6,0.107,28.3,--,--,--,--,--,right wing,KV
+49,Carnegie MNH,S14137,YCPA,Amazona,ochrocephala,wing spread,22,14.8,32.7,0.098,27.8,--,--,--,--,--,left wing,KV
+50,Carnegie MNH,S16178,YCPA,Amazona,ochrocephala,wing spread,22.6,15.1,33.2,0.102,29,--,--,--,--,--,right wing,KV
+51,Carnegie MNH,P42994,BYMA,Ara,ararauna,skin study,38.4,22,42.7,0.253,--,7.25,8.5,3.84,4.1,11.09,left wing,KV
+52,Carnegie MNH,P42994,BYMA,Ara,ararauna,skin study,38.1,22.3,41.5,0.255,--,--,--,--,--,--,right wing,KV
+53,Carnegie MNH,P38264,BYMA,Ara,ararauna,skin study,36.1,20,44.6,0.217,--,6.77,7.9,4.16,4,10.93,left wing,KV
+54,Carnegie MNH,P38264,BYMA,Ara,ararauna,skin study,36,21.4,40.6,0.231,--,--,--,--,--,--,right wing,KV
+55,Carnegie MNH,P38309,BYMA,Ara,ararauna,skin study,35.7,21.3,40.3,0.228,--,6.19,7,3.64,3.5,9.83,left wing,KV
+56,Carnegie MNH,P38309,BYMA,Ara,ararauna,skin study,36,20.9,41.9,0.226,--,--,--,--,--,--,right wing,KV
+57,Carnegie MNH,P43728,BYMA,Ara,ararauna,skin study,38,21,44.7,0.239,--,6.33,7.5,3.24,3.5,9.57,left wing,KV
+58,Carnegie MNH,P43728,BYMA,Ara,ararauna,skin study,36,21.6,40.0,0.233,--,--,--,--,--,--,right wing,KV
+59,Carnegie MNH,P33815,RGMA,Ara,chloropterus,skin study,40.2,24.1,40.0,0.291,--,8.3,9.5,4.63,4.8,12.93,left wing,KV
+60,Carnegie MNH,P33815,RGMA,Ara,chloropterus,skin study,40.3,25.8,36.0,0.312,--,--,--,--,--,--,right wing,KV
+61,Carnegie MNH,P36190,RGMA,Ara,chloropterus,skin study,38.8,23.4,39.7,0.272,--,8.32,9.9,4.7,5,13.02,left wing,KV
+62,Carnegie MNH,P36190,RGMA,Ara,chloropterus,skin study,39.1,22.4,42.7,0.263,--,--,--,--,--,--,right wing,KV
+63,Carnegie MNH,P42862,RGMA,Ara,chloropterus,skin study,38.6,22.9,40.7,0.265,--,8.088,9.2,4.3,4.5,12.388,left wing,KV
+64,Carnegie MNH,P42862,RGMA,Ara,chloropterus,skin study,38.2,23.1,39.5,0.265,--,--,--,--,--,--,right wing,KV
+65,Carnegie MNH,P44057,RGMA,Ara,chloropterus,skin study,38.9,24,38.3,0.280,--,8.33,9.6,4.5,4.5,12.83,left wing,KV
+66,Carnegie MNH,P44057,RGMA,Ara,chloropterus,skin study,38,23.8,37.4,0.271,--,--,--,--,--,--,right wing,KV
+67,Carnegie MNH,P51882,RGMA,Ara,chloropterus,skin study,37.6,22.6,39.9,0.255,--,7.96,9.5,4.1,4.4,12.06,left wing,KV
+68,Carnegie MNH,P51882,RGMA,Ara,chloropterus,skin study,37.8,22.9,39.4,0.260,--,--,--,--,--,--,right wing,KV
+69,Carnegie MNH,S11015,RGMA,Ara,chloropterus,wing spread,43.7,24,45.1,0.315,51,--,--,--,--,--,left wing,KV
+70,Carnegie MNH,P32371,SCMA,Ara,macao,skin study,40.2,20.8,48.3,0.251,--,7,8,3.7,3.8,10.7,left wing,KV
+71,Carnegie MNH,P32371,SCMA,Ara,macao,skin study,40.6,23.5,42.1,0.286,--,--,--,--,--,--,right wing,KV
+72,Carnegie MNH,P68662,SCMA,Ara,macao,skin study,40,25,37.5,0.300,--,7.2,8.2,3.8,4,11,left wing,KV
+73,Carnegie MNH,P68662,SCMA,Ara,macao,skin study,40.2,24.5,39.1,0.295,--,--,--,--,--,--,right wing,KV
+74,Carnegie MNH,P93893,SCMA,Ara,macao,skin study,40,22.1,44.8,0.265,--,7.21,8.5,3.9,4.2,11.11,left wing,KV
+75,Carnegie MNH,P93893,SCMA,Ara,macao,skin study,40.6,24.1,40.6,0.294,--,--,--,--,--,--,right wing,KV
+76,Carnegie MNH,S12349,SCMA,Ara,macao,wing spread,37.5,22.1,41.1,0.249,46.3,--,--,--,--,--,left wing,KV
+77,Carnegie MNH,S17056,SCMA,Ara,macao,wing spread,40.7,24.2,40.5,0.295,53,--,--,--,--,--,left wing,KV
+78,Carnegie MNH,P120034,GRMA,Ara,severus,skin study,24,14.3,40.4,0.103,--,3.544,4,2.11,2.4,5.654,left wing,KV
+79,Carnegie MNH,P120034,GRMA,Ara,severus,skin study,23.9,14.7,38.5,0.105,--,--,--,--,--,--,right wing,KV
+80,Carnegie MNH,P120035,GRMA,Ara,severus,skin study,24.1,14.2,41.1,0.103,--,3.6,4.2,2.46,2.2,6.06,left wing,KV
+81,Carnegie MNH,P120035,GRMA,Ara,severus,skin study,24.4,14.3,41.4,0.105,--,--,--,--,--,--,right wing,KV
+82,Carnegie MNH,P78949,GRMA,Ara,severus,skin study,23.9,14.4,39.7,0.103,--,3.68,4.5,2.36,2.3,6.04,left wing,KV
+83,Carnegie MNH,P78949,GRMA,Ara,severus,skin study,23.9,14.2,40.6,0.102,--,--,--,--,--,--,right wing,KV
+84,Carnegie MNH,P78988,GRMA,Ara,severus,skin study,24.1,14.8,38.6,0.107,--,3.49,4.2,1.9,1.9,5.39,left wing,KV
+85,Carnegie MNH,P78988,GRMA,Ara,severus,skin study,24,14.6,39.2,0.105,--,--,--,--,--,--,right wing,KV
+86,Carnegie MNH,P93528,GRMA,Ara,severus,skin study,24.5,14.5,40.8,0.107,--,3.65,4.5,2.19,2.2,5.84,left wing,KV
+87,Carnegie MNH,P93528,GRMA,Ara,severus,skin study,24.2,14.3,40.9,0.104,--,--,--,--,--,--,right wing,KV
+88,Carnegie MNH,P44066,DHPA,Aratinga,weddellii,skin study,13.3,7.9,40.6,0.032,--,2.09,2.3,1.558,1.5,3.648,left wing,KV
+89,Carnegie MNH,P44066,DHPA,Aratinga,weddellii,skin study,14.5,8,44.8,0.035,--,--,--,--,--,--,right wing,KV
+90,Carnegie MNH,P44067,DHPA,Aratinga,weddellii,skin study,14,7.4,47.1,0.031,--,2.03,2.4,1.51,1.4,3.54,left wing,KV
+91,Carnegie MNH,P44067,DHPA,Aratinga,weddellii,skin study,14.2,7.7,45.8,0.033,--,--,--,--,--,--,right wing,KV
+92,Carnegie MNH,P44069,DHPA,Aratinga,weddellii,skin study,13.6,7.5,44.9,0.031,--,2.158,2.3,1.455,1.3,3.613,left wing,KV
+93,Carnegie MNH,P44069,DHPA,Aratinga,weddellii,skin study,13.3,7.7,42.1,0.031,--,--,--,--,--,--,right wing,KV
+94,Carnegie MNH,P44070,DHPA,Aratinga,weddellii,skin study,14.4,8,44.4,0.035,--,1.98,2.2,1.36,1.3,3.34,left wing,KV
+95,Carnegie MNH,P44070,DHPA,Aratinga,weddellii,skin study,14.6,7.9,45.9,0.035,--,--,--,--,--,--,right wing,KV
+96,Carnegie MNH,P79544,DHPA,Aratinga,weddellii,skin study,13.9,7.7,44.6,0.032,--,2.03,2.2,1.398,1.4,3.428,left wing,KV
+97,Carnegie MNH,P79544,DHPA,Aratinga,weddellii,skin study,13.5,7,48.1,0.028,--,--,--,--,--,--,right wing,KV
+98,Carnegie MNH,P79897,DHPA,Aratinga,weddellii,skin study,13.4,7.3,45.5,0.029,--,2.031,2.3,1.353,1.5,3.384,left wing,KV
+99,Carnegie MNH,P79897,DHPA,Aratinga,weddellii,skin study,13.8,7.7,44.2,0.032,--,--,--,--,--,--,right wing,KV
+100,Carnegie MNH,P79898,DHPA,Aratinga,weddellii,skin study,14.3,8.2,42.7,0.035,--,2.076,2.5,1.434,1.5,3.51,left wing,KV
+101,Carnegie MNH,P79898,DHPA,Aratinga,weddellii,skin study,14.4,8.4,41.7,0.036,--,--,--,--,--,--,right wing,KV
+102,Carnegie MNH,P94676,DHPA,Aratinga,weddellii,skin study,14.3,8,44.1,0.034,--,1.99,2.2,2,1.7,3.99,left wing,KV
+103,Carnegie MNH,P94676,DHPA,Aratinga,weddellii,skin study,13.7,7.7,43.8,0.032,--,--,--,--,--,--,right wing,KV
+104,Carnegie MNH,S14319,,Aratinga,mitrata,wing spread,--,--,--,--,24.8,--,--,--,--,--,left wing,KV
+105,Carnegie MNH,S6633,,Aratinga,solstitialis,wing spread,--,--,--,--,20.1,--,--,--,--,--,left wing,KV
+106,Carnegie MNH,P125060,CWPA,Brotogeris,cyanoptera,skin study,12.4,7.7,37.9,0.029,--,1.91,2.5,1.04,1.2,2.95,left wing,KV
+107,Carnegie MNH,P125060,CWPA,Brotogeris,cyanoptera,skin study,12.6,7.4,41.3,0.028,--,--,--,--,--,--,right wing,KV
+108,Carnegie MNH,P95683,CWPA,Brotogeris,cyanoptera,skin study,10.9,6.9,36.7,0.023,--,1.7,2,0.86,1,2.56,left wing,KV
+109,Carnegie MNH,P95683,CWPA,Brotogeris,cyanoptera,skin study,10.7,6.8,36.4,0.022,--,--,--,--,--,--,right wing,KV
+110,Carnegie MNH,P95790,CWPA,Brotogeris,cyanoptera,skin study,11.6,6.7,42.2,0.023,--,1.81,2,1,1,2.81,left wing,KV
+111,Carnegie MNH,P95790,CWPA,Brotogeris,cyanoptera,skin study,11.5,6.9,40.0,0.024,--,--,--,--,--,--,right wing,KV
+112,Carnegie MNH,P143555,,Brotogeris,tirica,skin study,11.9,7.1,40.3,0.025,--,1.7,1.9,0.85,1,2.55,left wing,KV
+113,Carnegie MNH,P143555,,Brotogeris,tirica,skin study,11.8,7,40.7,0.025,--,--,--,--,--,--,right wing,KV
+114,Carnegie MNH,P143559,,Brotogeris,tirica,skin study,11.8,6.8,42.4,0.024,--,1.62,2,0.93,1,2.55,left wing,KV
+115,Carnegie MNH,P143559,,Brotogeris,tirica,skin study,12,7.2,40.0,0.026,--,--,--,--,--,--,right wing,KV
+116,Carnegie MNH,S7782,,Brotogeris,tirica,wing spread,8.6,5,41.9,0.013,12.3,--,--,--,--,--,left wing,KV
+117,Carnegie MNH,S15755,,Forpus,coelestis,wing spread,8.1,4.8,40.7,0.012,9.4,--,--,--,--,--,left wing,KV
+118,Carnegie MNH,P38445,DBPA,Forpus,modestus,skin study,8,5,37.5,0.012,--,1,1.2,0.75,0.8,1.75,left wing,KV
+119,Carnegie MNH,P38445,DBPA,Forpus,modestus,skin study,8.2,5.1,37.8,0.013,--,--,--,--,--,--,right wing,KV
+120,Carnegie MNH,P38446,DBPA,Forpus,modestus,skin study,8.3,5.2,37.3,0.013,--,1.15,1.2,0.8,0.8,1.95,left wing,KV
+121,Carnegie MNH,P38446,DBPA,Forpus,modestus,skin study,8.5,5.2,38.8,0.013,--,--,--,--,--,--,right wing,KV
+122,Carnegie MNH,P87913,DBPA,Forpus,modestus,skin study,7.5,5.1,32.0,0.011,--,1.1,1.2,0.8,0.8,1.9,left wing,KV
+123,Carnegie MNH,P87913,DBPA,Forpus,modestus,skin study,8,5.2,35.0,0.012,--,--,--,--,--,--,right wing,KV
+124,Carnegie MNH,P88239,DBPA,Forpus,modestus,skin study,7.7,5.1,33.8,0.012,--,1.125,1.2,0.7,0.8,1.825,left wing,KV
+125,Carnegie MNH,P88239,DBPA,Forpus,modestus,skin study,7.7,5.3,31.2,0.012,--,--,--,--,--,--,right wing,KV
+126,Carnegie MNH,P72174,GRMA,Orthopsittaca,manilatus,skin study,21.5,12.3,42.8,0.079,--,2.157,3,1.67,1.7,3.827,left wing,KV
+127,Carnegie MNH,P72174,GRMA,Orthopsittaca,manilatus,skin study,21.8,12.1,44.5,0.079,--,--,--,--,--,--,right wing,KV
+128,Carnegie MNH,P72387,GRMA,Orthopsittaca,manilatus,skin study,24.6,12.4,49.6,0.092,--,2.662,3,1.6,1.9,4.262,left wing,KV
+129,Carnegie MNH,P72387,GRMA,Orthopsittaca,manilatus,skin study,24,12.2,49.2,0.088,--,--,--,--,--,--,right wing,KV
+130,Carnegie MNH,P82626,GRMA,Orthopsittaca,manilatus,skin study,21.6,12.7,41.2,0.082,--,2.81,3.2,1.7,1.8,4.51,left wing,KV
+131,Carnegie MNH,P82626,GRMA,Orthopsittaca,manilatus,skin study,21.7,12.1,44.2,0.079,--,--,--,--,--,--,right wing,KV
+132,Carnegie MNH,S11732,,Orthopsittaca,manilatus,wing spread,22.5,11.5,48.9,0.078,28.9,--,--,--,--,--,left wing,KV
+133,Carnegie MNH,S14824,,Orthopsittaca,manilatus,wing spread,23.3,11.7,49.8,0.082,31.5,--,--,--,--,--,left wing,KV
+134,Carnegie MNH,S15493,,Orthopsittaca,manilatus,wing spread,24.2,11.8,51.2,0.086,29.8,--,--,--,--,--,left wing,KV
+135,Carnegie MNH,S15494,,Orthopsittaca,manilatus,wing spread,24.1,11.8,51.0,0.085,30.7,--,--,--,--,--,right wing,KV
+136,Carnegie MNH,P38342,WBPA,Pionites,leucogaster,skin study,13.9,9.3,33.1,0.039,--,2.22,2.9,1.41,1.6,3.63,left wing,KV
+137,Carnegie MNH,P38342,WBPA,Pionites,leucogaster,skin study,14.4,9.5,34.0,0.041,--,--,--,--,--,--,right wing,KV
+138,Carnegie MNH,P38425,WBPA,Pionites,leucogaster,skin study,13.9,9.6,30.9,0.040,--,2.52,3.1,1.64,1.5,4.16,left wing,KV
+139,Carnegie MNH,P38425,WBPA,Pionites,leucogaster,skin study,14.1,9.7,31.2,0.041,--,--,--,--,--,--,right wing,KV
+140,Carnegie MNH,P86662,WBPA,Pionites,leucogaster,skin study,13.6,9.5,30.1,0.039,--,2.59,2.9,1.55,1.8,4.14,left wing,KV
+141,Carnegie MNH,P86662,WBPA,Pionites,leucogaster,skin study,14,9.4,32.9,0.039,--,--,--,--,--,--,right wing,KV
+142,Carnegie MNH,S14378,,Pionites,melanocephalus,wing spread,12.1,8.2,32.2,0.030,16.5,--,--,--,--,--,left wing,KV
+143,Carnegie MNH,S14823,,Pionites,melanocephalus,wing spread,13.2,8.9,32.6,0.035,19.1,--,--,--,--,--,right wing,KV
+144,Carnegie MNH,S15576,,Pionites,melanocephalus,wing spread,14.8,8.6,41.9,0.038,17.5,--,--,--,--,--,left wing,KV
+145,Carnegie MNH,P119787,BHPA,Pionus,menstruus,skin study,18.8,12.7,32.4,0.072,--,2.58,2.9,1.4,1.5,3.98,left wing,KV
+146,Carnegie MNH,P119787,BHPA,Pionus,menstruus,skin study,19.4,13,33.0,0.076,--,--,--,--,--,--,right wing,KV
+147,Carnegie MNH,P78906,BHPA,Pionus,menstruus,skin study,17.7,11.6,34.5,0.062,--,2.29,2.9,1.47,1.5,3.76,left wing,KV
+148,Carnegie MNH,P78906,BHPA,Pionus,menstruus,skin study,18.7,12.3,34.2,0.069,--,--,--,--,--,--,right wing,KV
+149,Carnegie MNH,P78938,BHPA,Pionus,menstruus,skin study,18.1,11.9,34.3,0.065,--,2.34,2.8,1.09,1.2,3.43,left wing,KV
+150,Carnegie MNH,P78938,BHPA,Pionus,menstruus,skin study,18.5,12.2,34.1,0.068,--,--,--,--,--,--,right wing,KV
+151,Carnegie MNH,P78939,BHPA,Pionus,menstruus,skin study,18.5,11.9,35.7,0.066,--,2.66,2.9,1.35,1.5,4.01,left wing,KV
+152,Carnegie MNH,P78939,BHPA,Pionus,menstruus,skin study,18.4,12,34.8,0.066,--,--,--,--,--,--,right wing,KV
+153,Carnegie MNH,S11335,BHPA,Pionus,menstruus,wing spread,18.1,11,39.2,0.060,23.7,--,--,--,--,--,left wing,KV
+154,Carnegie MNH,P120511,WEPA,Psittacara,leucophthalmus,skin study,16.8,9.8,41.7,0.049,--,2.64,3.1,1.81,1.9,4.45,left wing,KV
+155,Carnegie MNH,P120511,WEPA,Psittacara,leucophthalmus,skin study,16.6,9.7,41.6,0.048,--,--,--,--,--,--,right wing,KV
+156,Carnegie MNH,P38274,WEPA,Psittacara,leucophthalmus,skin study,16.5,9.6,41.8,0.048,--,2.66,2.9,1.57,1.5,4.23,left wing,KV
+157,Carnegie MNH,P38274,WEPA,Psittacara,leucophthalmus,skin study,16.4,9.6,41.5,0.047,--,--,--,--,--,--,right wing,KV
+158,Carnegie MNH,P44074,WEPA,Psittacara,leucophthalmus,skin study,18.1,10.6,41.4,0.058,--,2.78,3.1,1.88,1.8,4.66,left wing,KV
+159,Carnegie MNH,P44074,WEPA,Psittacara,leucophthalmus,skin study,18.7,10,46.5,0.056,--,--,--,--,--,--,right wing,KV
+160,Carnegie MNH,P72833,WEPA,Psittacara,leucophthalmus,skin study,16.1,9.2,42.9,0.044,--,2.63,3.1,1.64,1.9,4.27,left wing,KV
+161,Carnegie MNH,P72833,WEPA,Psittacara,leucophthalmus,skin study,16.6,9.7,41.6,0.048,--,--,--,--,--,--,right wing,KV
+162,Carnegie MNH,S7063,,Psittacula,krameri,wing spread,--,--,--,--,18.7,--,--,--,--,--,left wing,KV
+163,Carnegie MNH,S14126,,Psittacula,alexandri,wing spread,--,--,--,--,19.6,--,--,--,--,--,right wing,KV
+164,Carnegie MNH,S11032,,Psittacula,cyanocephala,wing spread,--,--,--,--,17.2,--,--,--,--,--,left wing,KV
+165,Carnegie MNH,P91957,OCPA,Pyrilia,barrabandi,skin study,15.3,10.2,33.3,0.047,--,2.25,2.5,0.82,1,3.07,left wing,KV
+166,Carnegie MNH,P91957,OCPA,Pyrilia,barrabandi,skin study,15.2,9.7,36.2,0.044,--,--,--,--,--,--,right wing,KV
+167,Carnegie MNH,P91958,OCPA,Pyrilia,barrabandi,skin study,15.7,9.3,40.8,0.044,--,2.11,2.5,0.88,0.9,2.99,left wing,KV
+168,Carnegie MNH,P91958,OCPA,Pyrilia,barrabandi,skin study,15.8,9.8,38.0,0.046,--,--,--,--,--,--,right wing,KV
+169,Carnegie MNH,P96921,OCPA,Pyrilia,barrabandi,skin study,16.6,10.3,38.0,0.051,--,2.39,2.7,1,1,3.39,left wing,KV
+170,Carnegie MNH,P96921,OCPA,Pyrilia,barrabandi,skin study,16.2,11,32.1,0.053,--,--,--,--,--,--,right wing,KV
+171,Burke Museum ,50038,,Psittacara,holochlorus,wing spread,,,,0.000,,,,,,,right wing,KV
+172,Burke Museum ,56194,,Psittacara,holochlorus,wing spread,,,,0.000,24.3,,,,,,left wing,KV
+173,Burke Museum ,69043,,Psittacara,holochlorus,wing spread,,,,0.000,23.9,,,,,,right wing,KV
+174,Burke Museum ,69073,,Psittacara,finschi,wing spread,,,,0.000,,,,,,,right wing,KV
+175,MNH San Marcos Lima,1781,CWPA,Brotogeris,cyanoptera,skin study,11.9,8.6,27.7,0.031,--,--,--,--,--,--,left wing,OG
+176,MNH San Marcos Lima,1781,CWPA,Brotogeris,cyanoptera,skin study,11.9,8.15,31.5,0.029,--,--,--,--,--,--,right wing,OG
+177,MNH San Marcos Lima,1957,WEPA,Psittacara,leucophthalmus,skin study,18.2,12.5,31.3,0.068,--,--,--,--,--,--,left wing,OG
+178,MNH San Marcos Lima,1957,WEPA,Psittacara,leucophthalmus,skin study,18,12.2,32.2,0.066,--,--,--,--,--,--,right wing,OG
+179,MNH San Marcos Lima,1958,WEPA,Psittacara,leucophthalmus,skin study,18.8,11.6,38.3,0.065,--,--,--,--,--,--,left wing,OG
+180,MNH San Marcos Lima,1958,WEPA,Psittacara,leucophthalmus,skin study,18.5,11.5,37.8,0.064,--,--,--,--,--,--,right wing,OG
+181,MNH San Marcos Lima,19173,DHPA,Aratinga,weddellii,skin study,14.45,10.2,29.4,0.044,--,--,--,--,--,--,left wing,OG
+182,MNH San Marcos Lima,19173,DHPA,Aratinga,weddellii,skin study,14.55,9.85,32.3,0.043,--,--,--,--,--,--,right wing,OG
+183,MNH San Marcos Lima,7547,WBPA,Pionites,leucogaster,skin study,13,9.9,23.8,0.039,--,--,--,--,--,--,left wing,OG
+184,MNH San Marcos Lima,7547,WBPA,Pionites,leucogaster,skin study,13.5,10.85,19.6,0.044,--,--,--,--,--,--,right wing,OG
+185,MNH San Marcos Lima,11591,CWPA,Brotogeris,cyanoptera,skin study,11.4,9.1,20.2,0.031,--,--,--,--,--,--,left wing,OG
+186,MNH San Marcos Lima,11591,CWPA,Brotogeris,cyanoptera,skin study,11.25,9.1,19.1,0.031,--,--,--,--,--,--,right wing,OG
+187,MNH San Marcos Lima,15922,CWPA,Brotogeris,cyanoptera,skin study,11.55,9.05,21.6,0.031,--,--,--,--,--,--,left wing,OG
+188,MNH San Marcos Lima,15922,CWPA,Brotogeris,cyanoptera,skin study,11.6,9.16,21.0,0.032,--,--,--,--,--,--,right wing,OG
+189,MNH San Marcos Lima,16990,DBPA,Forpus,modestus,skin study,7.75,6.7,13.5,0.016,--,--,--,--,--,--,left wing,OG
+190,MNH San Marcos Lima,16990,DBPA,Forpus,modestus,skin study,7.85,7.4,5.7,0.017,--,--,--,--,--,--,right wing,OG
+191,MNH San Marcos Lima,16991,DBPA,Forpus,modestus,skin study,8.25,6.5,21.2,0.016,--,--,--,--,--,--,left wing,OG
+192,MNH San Marcos Lima,16991,DBPA,Forpus,modestus,skin study,8.15,6.3,22.7,0.015,--,--,--,--,--,--,right wing,OG
+193,MNH San Marcos Lima,16992,DBPA,Forpus,modestus,skin study,8.3,6.5,21.7,0.016,--,--,--,--,--,--,left wing,OG
+194,MNH San Marcos Lima,16992,DBPA,Forpus,modestus,skin study,8.4,6.55,22.0,0.017,--,--,--,--,--,--,right wing,OG
+195,MNH San Marcos Lima,21561,WBPA,Pionites,leucogaster,skin study,14.6,10.55,27.7,0.046,--,--,--,--,--,--,left wing,OG
+196,MNH San Marcos Lima,21561,WBPA,Pionites,leucogaster,skin study,14.35,11.2,22.0,0.048,--,--,--,--,--,--,right wing,OG
+197,MNH San Marcos Lima,21562,WBPA,Pionites,leucogaster,skin study,13.7,10.55,23.0,0.043,--,--,--,--,--,--,left wing,OG
+198,MNH San Marcos Lima,21562,WBPA,Pionites,leucogaster,skin study,13.75,10.8,21.5,0.045,--,--,--,--,--,--,right wing,OG

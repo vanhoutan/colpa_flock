@@ -36,8 +36,36 @@ themeKV <- theme_few()+
 #### read in beak and wing morph data
 # setwd("/Users/kylevanhoutan/colpa_flock/")
 morphs <- read.csv('data/museo_morphs.csv')
+morphs2 <- read.csv('data/museo_morphs2.csv')
 
-#### subset full data set for just wing data 
+
+#### examine data for differences between recorder effects 
+# subset full morphs data set for just wing data 
+head(morphs2)
+df <- morphs2 %>% select(c(COLLECTION, ID, CODE, Lw, S1, Hwi, RECORDER)) # just the cols I want
+df$
+
+df <- df[!(df$CODE == ""), ]  # remove blank CODE entries
+df$Lw <- as.numeric(df$Lw) # force numeric
+df$S1 <- as.numeric(df$S1) # force numeric
+df$Hwi <- as.numeric(df$Hwi) # force numeric
+head(df)
+#### plot densities of morphs to compare
+vlines = c(25,45)
+df %>% filter(!Hwi == "--") %>%
+  ggplot(aes(x=Hwi, fill = RECORDER, group = RECORDER)) + # comparing RECORDER effect
+  themeKV + theme(legend.position="bottom")+
+  geom_vline(xintercept = vlines, linewidth = 0.2, alpha = 0.2) +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
+  geom_density(alpha=0.6, adjust = 1)+
+  scale_fill_manual(values = c("#3288bd", "#990033")) +
+  scale_x_continuous(breaks = pretty_breaks()) +
+  xlab("hand wing index") +
+  facet_wrap(~CODE, ncol=3, scales = "free_y")
+
+
+
+#### subset full morphs data set for just wing data 
 # focusing here on dispersal ability, so pulling "wing_Hwi" 
 # wing_Hwi = hand wing index from Claramunt & Wright 2017, https://doi.org/10.1201/9781315120454
 morph_HWi <- subset(morphs, MORPH == "wing_Hwi")
@@ -93,7 +121,7 @@ p1 <- ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
   scale_fill_gradientn(colours = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#313695")) +
   # more detail at https://ggplot2.tidyverse.org/reference/scale_gradient.html
   # also here https://r-graphics.org/recipe-colors-palette-continuous
-  stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -1, hjust = 2.5,
+  stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -1, hjust = 2,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(25, 55, by = 5)) + 
   xlab("hand wing index") + 
@@ -139,7 +167,7 @@ p2 <- ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
   #  scale_fill_distiller(palette = "Spectral", direction = 1) + # continuous 7 color Brewer
   geom_density_ridges_gradient(scale = 2.5, alpha = 0.6, linewidth = 0.4, 
                                rel_min_height = 0.01, bandwidth = 0.4) +
-  stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -1, hjust = 2.5,
+  stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -1, hjust = 0,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(0, 16, by = 2)) + 
   xlab("culmen + mandible (cm)") + 
@@ -241,3 +269,5 @@ p1 + p2 + p5 +
   plot_layout(design = layout) +
   plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
 
+
+#### FIN
