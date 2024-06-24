@@ -43,20 +43,28 @@ morphs2 <- read.csv('data/museo_morphs2.csv')
 # subset full morphs data set for just wing data 
 head(morphs2)
 df <- morphs2 %>% select(c(COLLECTION, ID, CODE, Lw, S1, Hwi, RECORDER)) # just the cols I want
-df$
+
 
 df <- df[!(df$CODE == ""), ]  # remove blank CODE entries
 df$Lw <- as.numeric(df$Lw) # force numeric
 df$S1 <- as.numeric(df$S1) # force numeric
 df$Hwi <- as.numeric(df$Hwi) # force numeric
 head(df)
+
+## determing 95% ci for KV measurements across all spp
+dfKV <- df %>% filter(RECORDER == "KV",!Hwi == "--")
+mu <- mean(dfKV$Hwi)
+sigma <- sd(dfKV$Hwi)
+lo95 <- qnorm(0.025,mu,sigma) # 27.2
+hi95 <- qnorm(0.975,mu,sigma) # 48.9
+
 #### plot densities of morphs to compare
-vlines = c(25,45)
-df %>% filter(!Hwi == "--") %>%
+vlines = c(lo95,hi95) # make 95% ci
+df %>% filter(!Hwi == "--") %>% #remove no data 
   ggplot(aes(x=Hwi, fill = RECORDER, group = RECORDER)) + # comparing RECORDER effect
   themeKV + theme(legend.position="bottom")+
-  geom_vline(xintercept = vlines, linewidth = 0.2, alpha = 0.2) +
-  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
+  geom_vline(xintercept = vlines, linewidth = 1, alpha = 0.2) + #plot 95ci
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) + # don't need data
   geom_density(alpha=0.6, adjust = 1)+
   scale_fill_manual(values = c("#3288bd", "#990033")) +
   scale_x_continuous(breaks = pretty_breaks()) +
