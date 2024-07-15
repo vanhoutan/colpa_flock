@@ -58,18 +58,19 @@ sigma <- sd(dfKV$Hwi)
 lo95 <- qnorm(0.025,mu,sigma) # 27.2
 hi95 <- qnorm(0.975,mu,sigma) # 48.9
 
-#### plot densities of morphs to compare
+#### plot densities of morphs to compare RECORDERS for accuracy
+#### a quality control measure
 vlines = c(lo95,hi95) # make 95% ci
 df %>% filter(!Hwi == "--") %>% #remove no data 
   ggplot(aes(x=Hwi, fill = RECORDER, group = RECORDER)) + # comparing RECORDER effect
   themeKV + theme(legend.position="bottom")+
-  geom_vline(xintercept = vlines, linewidth = 1, alpha = 0.2) + #plot 95ci
+#  geom_vline(xintercept = vlines, linewidth = 1, alpha = 0.2) + #plot 95ci
   theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) + # don't need data
-  geom_density(alpha=0.6, adjust = 1)+
-  scale_fill_manual(values = c("#3288bd", "#990033")) +
+  geom_density(alpha=0.5, adjust = 0.8, size = 0.1)+
+  scale_fill_manual(values = c("#263252", "#c3202f")) +
   scale_x_continuous(breaks = pretty_breaks()) +
   xlab("hand wing index") +
-  facet_wrap(~CODE, ncol=3, scales = "free_y")
+  facet_wrap(~CODE, ncol=4, scales = "free_y")
 
 
 
@@ -78,6 +79,7 @@ df %>% filter(!Hwi == "--") %>% #remove no data
 # wing_Hwi = hand wing index from Claramunt & Wright 2017, https://doi.org/10.1201/9781315120454
 morph_HWi <- subset(morphs, MORPH == "wing_Hwi")
 morph_HWi <- morph_HWi[!(morph_HWi$CODE == ""), ]  # remove blank entries in species CODE, for congeners that haven't been rescaled and assigned a CODE
+morph_HWi <- morph_HWi[!(morph_HWi$CODE == "0"), ]  # remove blank entries in species CODE, for congeners that haven't been rescaled and assigned a CODE
 
 # make a density plot, facet by species CODE
 colourCount = length(unique(morph_HWi$CODE)) # but first expand the 11 brewer palette categories
@@ -121,9 +123,9 @@ p1 <- ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
                   axis.text.x = element_text(size = 7),
                   axis.title.x = element_text(size = 8),
                   axis.text.y = element_text(size = 7),
-                  axis.title.y = element_text(size = 8),) +
-  geom_density_ridges_gradient(linewidth = 0.4,
-                               scale = 2.5, 
+                  axis.title.y = element_text(size = 0),) +
+  geom_density_ridges_gradient(linewidth = 0.3,
+                               scale = 1.5, 
                                alpha = 0.2, 
                                rel_min_height = 0.01, bandwidth = 1) +
   scale_fill_gradientn(colours = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#313695")) +
@@ -132,8 +134,8 @@ p1 <- ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
   stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -1, hjust = 2,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(25, 55, by = 5)) + 
-  xlab("hand wing index") + 
-  ylab("species")
+  xlab("hand wing index") 
+  #ylab("species")
 
 # the distiller command doesn't work well here as it melds only 7 discrete colors 
 # from an existing palette, like viridis or brewer
@@ -173,7 +175,7 @@ p2 <- ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
                   axis.title.y = element_text(size = 0),) +
   scale_fill_gradientn(colours = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#313695")) +
   #  scale_fill_distiller(palette = "Spectral", direction = 1) + # continuous 7 color Brewer
-  geom_density_ridges_gradient(scale = 2.5, alpha = 0.6, linewidth = 0.4, 
+  geom_density_ridges_gradient(scale = 2.5, alpha = 0.6, linewidth = 0.3, 
                                rel_min_height = 0.01, bandwidth = 0.4) +
   stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -1, hjust = 0,
                fun = "median", aes(label = round(after_stat(x), 1))) +
@@ -259,16 +261,17 @@ p5 <- ggplot(massvol, aes(x = MASS_g, y = BRAIN_ml)) +
   geom_line(alpha = 0.25, size = 3, color = '#000000',
             stat = "smooth", method = 'nls', formula = 'y~a*x^b', # power fit using non-linear squares regression
             method.args = list(start= c(a = 1,b=1)), se = FALSE) + 
-  geom_point(shape = 16, size = 3.2, alpha = 0.8, 
-             aes(color = fct_reorder(CODE,MASS_g))) + # color by CODE, sorted big to small by MASS_g
-  scale_color_manual(values = Spectral13v2) +
-  geom_point(shape = 1,size = 3.2, colour = "black", stroke = 0.25,) +
+  geom_point(aes(fill = fct_reorder(CODE,MASS_g)),
+             pch=21, color="black",stroke=0.25,size = 3.2,
+             alpha = 0.8) + # color by CODE, sorted big to small by MASS_g
+  scale_fill_manual(values = Spectral13v2) +
+  #geom_point(shape = 1,size = 3.2, colour = "black", stroke = 0.25,) +
   scale_y_continuous(breaks = seq(0, 25, by = 5)) +
   scale_x_continuous(breaks = seq(0, 1400, by = 200)) +
   xlab("body mass (g)") + 
-  ylab("brain volume (ml)") +
-  guides(color = guide_legend(reverse=TRUE, # reverse legend sort order to match data sort
-                              override.aes = list(size=2.6))) # reduce point size in legend
+  ylab("brain volume (ml)")+
+  guides(fill = guide_legend(reverse=TRUE)) # reverse legend sort order to match data sort
+   #                           override.aes = list(size=2.6))) # reduce point size in legend
   
 
 layout <- "

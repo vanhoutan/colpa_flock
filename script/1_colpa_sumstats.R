@@ -107,6 +107,7 @@ glance(fit) # r-squared = 0.771, p < 0.0001
 # plot "z_dawn" to "x_dance" 
 figtext1 <- paste("r2 =", round(glance(fit)[1],3))
 figtext2 <- "p < 0.0001"
+
 p8 <- collpa2 %>% 
   ggplot(aes(z_dawn,x_dance)) +
   themeKV + theme(legend.position = "none", 
@@ -114,9 +115,9 @@ p8 <- collpa2 %>%
                   axis.text.y = element_text(size = 8),
                   axis.title.x = element_text(size = 9),
                   axis.title.y = element_text(size = 9)) + 
-  geom_point(color = "#9e0142", size = 3, shape = 16, alpha = 0.4) + 
-  geom_point(size = 2.8, shape = 21, alpha = 0.25) +
-  geom_line(method = "lm", stat="smooth", linewidth = 1, color = "black", alpha=0.75) +
+  geom_point(color = "#9e0142", size = 2.6, shape = 16, alpha = 0.35) + 
+#  geom_point(size = 2.8, shape = 21, alpha = 0.25) +
+  geom_line(method = "loess", stat="smooth", linewidth = 1, color = "black", alpha=0.75) +
   scale_y_continuous(breaks = seq(5.5, 7, by = 0.2)) +
   scale_x_continuous(breaks = seq(5, 6, by = 0.1)) +
   xlab("dawn (hour)") + ylab("dance begin (hour)") +

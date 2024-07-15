@@ -39,7 +39,7 @@ DF <- read.csv('data/duration_relative_t.csv')
 # rescale Brewer palette to 13 categories
 colourCount = length(unique(DF$SPECIES)) 
 getPalette = colorRampPalette(brewer.pal(11, "Spectral")) # interpolate colors to fit the 13 parrot species
-Spectral12 <- getPalette(colourCount) # 13 color Spectral palette 
+Spectral12 <- getPalette(colourCount) # 12 color Spectral palette 
 
 #reorder in order of appearance
 DF$SPECIES <- factor(DF$SPECIES, levels=c("BHPA", "GRMA", "YCPA", "BYMA", "WEPA", "OCPA", "DHPA", "CWPA", "SCMA", "WBPA", "MEPA", "RGMA"))
