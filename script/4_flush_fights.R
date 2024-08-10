@@ -105,7 +105,8 @@ p3 <- ggplot(cause2, aes(x=total_count, y=fct_rev(fct_reorder(CAUSE, reorder)), 
   geom_col(alpha = 0.8, width=0.9) +
   scale_fill_manual(values=c("#f46d43","#fdae61")) +
   scale_x_continuous(breaks = seq(0, 100, by = 20),
-                                  limits = c(0,100)) +
+                     #             limits = c(0,100)
+                     ) +
     ylab("known cause") + 
     xlab("no. flushes")
 p3
@@ -116,10 +117,10 @@ p3
 fights <- read.csv('data/fights.csv')
 # make 14 color Brewer palette
 getPalette = colorRampPalette(brewer.pal(11, "Spectral")) # interpolate colors to fit the 13 parrot species
-Spectral14 <- getPalette(14) 
+Spectral12 <- getPalette(12) 
 
 
-p4 <- ggplot(fights, aes(x=FIGHT_RT, y=WIN_RT)) + 
+p4 <- ggplot(fights, aes(x=FIGHT_RT, y=INT_spp)) + 
   themeKV + theme(axis.text.x = element_text(size = 8),
                   axis.title.x = element_text(size = 9),
                   axis.text.y = element_text(size = 8),
@@ -127,33 +128,26 @@ p4 <- ggplot(fights, aes(x=FIGHT_RT, y=WIN_RT)) +
                   legend.key.height = unit(0.25, 'cm'), # shrink the native height of legend
                   legend.text = element_text(size=6),
                   ) + # reduce font size on legend
-  geom_vline(xintercept = ave(fights$FIGHT_RT), alpha = 0.25, size = 1.5, color = "#000000") +
-  geom_hline(yintercept = ave(fights$WIN_RT), alpha = 0.25, size = 1.5, color = "#000000") +
-  geom_point(aes(fill = fct_rev(fct_reorder(SPECIES,WIN_RT))),# color code by species win rate 
-             pch=21,color="black", stroke=0.25, size = 2.2, alpha = 0.8, # make point borders   
+  geom_vline(xintercept = median(fights$FIGHT_RT), alpha = 0.25, size = 1, color = "#000000") +
+  geom_hline(yintercept = median(fights$INT_spp), alpha = 0.25, size = 1, color = "#000000") +
+  geom_point(aes(fill = fct_rev(fct_reorder(SPECIES,FIGHT_RT))),# color code by species win rate 
+             pch=21,color="black", stroke=0.25, size = 2.2, alpha = 0.7, # make point borders   
              ) +
   #geom_point(shape = 1,size = 3, colour = "black", stroke = 0.25,) +
-  scale_fill_manual(values = Spectral14) +
-  scale_x_continuous(breaks = seq(0, 28, by = 4), limits = c(-1,30)) + # give a little more room 
-  scale_y_continuous(breaks = seq(0, 0.8, by = 0.2), limits = c(-0.05,0.9)) +
+  scale_fill_manual(values = Spectral12) +
+  scale_x_continuous(breaks = seq(0, 200, by = 30), 
+                     #limits = c(-1,30)
+                     ) + # give a little more room 
+  scale_y_continuous(breaks = seq(0, 100, by = 20), 
+                     limits = c(0,80)) +
   xlab("interactions indiv-1") + 
-  ylab("wins interactions-1") + 
-  annotate("text", x = 0, y = 0.86, label = "II", alpha = 0.75, size = 3, fontface = "bold") +
-  annotate("text", x = 0, y = 0.225, label = "IV", alpha = 0.75, size = 3, fontface = "bold") +
-  annotate("text", x = 6.5, y = 0.86, label = "I", alpha = 0.75, size = 3, fontface = "bold") +
-  annotate("text", x = 7, y = 0.225, label = "III", alpha = 0.75, size = 3, fontface = "bold") 
-#  guides(color = guide_legend(override.aes = list(size = ))) 
+  ylab("spp. interacted (%)") + 
+  annotate("text", x = 40, y = 75, label = "I", alpha = 0.75, size = 2.6, fontface = "bold") +
+  annotate("text", x = 5, y = 75, label = "II", alpha = 0.75, size = 2.6, fontface = "bold") +
+  annotate("text", x = 39, y = 5, label = "III", alpha = 0.75, size = 2.6, fontface = "bold") +
+  annotate("text", x = 7, y = 5, label = "IV", alpha = 0.75, size = 2.6, fontface = "bold")
+  #guides(color = guide_legend(override.aes = list(size = ))) 
 p4
-
-
-
-layout2 <- "
-AB
-CD"
-  p1 + p2 + p3 + p4 +
-  plot_layout(design = layout2) +
-  plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
-
 
 
 
@@ -175,22 +169,22 @@ p5 <- displace %>%
                  legend.text = element_text(size=7), # reduce font size on legend
                  #legend.position = "none", 
                  ) +
-  geom_pointrange(aes(ymin=winrt_p-winrt_sd, ymax=winrt_p+winrt_sd, # combines error bar and point in one 
-                      fill = fct_reorder(LOSE,-rank_q), size=tot # size is inflate for some reason, idk
+  scale_fill_manual(values = Spectral12) +
+  scale_radius(range = c(0.5, 2.4))+ # manually re-size range of values
+  geom_pointrange(aes(size=tot, # size is inflate for some reason, idk
+                      fill = fct_reorder(LOSE,-rank_q), 
+                      ymin=winrt_p-winrt_sd, ymax=winrt_p+winrt_sd, # combines error bar and point in one 
                       ),
                   pch=21, color="black",stroke=0.25, # make point borders
                   alpha=0.7,
                   position = position_jitter(width = 0.2, height = 0.03))+
-  scale_radius(range = c(0.4, 2.1))+ # manually re-size range of values
-  scale_fill_manual(values = Spectral14) +
   scale_y_continuous(breaks = seq(0, 1, by = 0.2), limits = c(-0.1,1.1)) +
-  geom_hline(yintercept = 0.5, alpha = 0.25, size = 1, color = "#000000") +
-  ylab("win rate")+
-  xlab(NULL)+
+  geom_hline(yintercept = 0.5, alpha = 0.25, size = 0.75, color = "#000000") +
+  ylab("displacement rate")+
+  xlab(NULL) +
+  guides(fill = guide_legend(order = 2))+ # place size legend element last 
   coord_flip()
 p5
-# fct_reorder(LOSE,ORDER)
-
 
 
 layout3 <- "

@@ -130,10 +130,10 @@
 129,Carnegie MNH,P72387,GRMA,Orthopsittaca,manilatus,skin study,24,12.2,49.16666667,0.08784,--,--,--,--,--,--,right wing,KV
 130,Carnegie MNH,P82626,GRMA,Orthopsittaca,manilatus,skin study,21.6,12.7,41.2037037,0.082296,--,2.81,3.2,1.7,1.8,4.51,left wing,KV
 131,Carnegie MNH,P82626,GRMA,Orthopsittaca,manilatus,skin study,21.7,12.1,44.23963134,0.078771,--,--,--,--,--,--,right wing,KV
-132,Carnegie MNH,S11732,,Orthopsittaca,manilatus,wing spread,22.5,11.5,48.88888889,0.077625,28.9,--,--,--,--,--,left wing,KV
-133,Carnegie MNH,S14824,,Orthopsittaca,manilatus,wing spread,23.3,11.7,49.78540773,0.081783,31.5,--,--,--,--,--,left wing,KV
-134,Carnegie MNH,S15493,,Orthopsittaca,manilatus,wing spread,24.2,11.8,51.23966942,0.085668,29.8,--,--,--,--,--,left wing,KV
-135,Carnegie MNH,S15494,,Orthopsittaca,manilatus,wing spread,24.1,11.8,51.0373444,0.085314,30.7,--,--,--,--,--,right wing,KV
+132,Carnegie MNH,S11732,GRMA,Orthopsittaca,manilatus,wing spread,22.5,11.5,48.88888889,0.077625,28.9,--,--,--,--,--,left wing,KV
+133,Carnegie MNH,S14824,GRMA,Orthopsittaca,manilatus,wing spread,23.3,11.7,49.78540773,0.081783,31.5,--,--,--,--,--,left wing,KV
+134,Carnegie MNH,S15493,GRMA,Orthopsittaca,manilatus,wing spread,24.2,11.8,51.23966942,0.085668,29.8,--,--,--,--,--,left wing,KV
+135,Carnegie MNH,S15494,GRMA,Orthopsittaca,manilatus,wing spread,24.1,11.8,51.0373444,0.085314,30.7,--,--,--,--,--,right wing,KV
 136,Carnegie MNH,P38342,WBPA,Pionites,leucogaster,skin study,13.9,9.3,33.09352518,0.038781,--,2.22,2.9,1.41,1.6,3.63,left wing,KV
 137,Carnegie MNH,P38342,WBPA,Pionites,leucogaster,skin study,14.4,9.5,34.02777778,0.04104,--,--,--,--,--,--,right wing,KV
 138,Carnegie MNH,P38425,WBPA,Pionites,leucogaster,skin study,13.9,9.6,30.9352518,0.040032,--,2.52,3.1,1.64,1.5,4.16,left wing,KV
@@ -169,113 +169,169 @@
 168,Carnegie MNH,P91958,OCPA,Pyrilia,barrabandi,skin study,15.8,9.8,37.97468354,0.046452,--,--,--,--,--,--,right wing,KV
 169,Carnegie MNH,P96921,OCPA,Pyrilia,barrabandi,skin study,16.6,10.3,37.95180723,0.051294,--,2.39,2.7,1,1,3.39,left wing,KV
 170,Carnegie MNH,P96921,OCPA,Pyrilia,barrabandi,skin study,16.2,11,32.09876543,0.05346,--,--,--,--,--,--,right wing,KV
-171,Burke Museum ,50038,,Psittacara,holochlorus,wing spread,,,,0,,,,,,,right wing,KV
-172,Burke Museum ,56194,,Psittacara,holochlorus,wing spread,,,,0,24.3,,,,,,left wing,KV
-173,Burke Museum ,69043,,Psittacara,holochlorus,wing spread,,,,0,23.9,,,,,,right wing,KV
-174,Burke Museum ,69073,,Psittacara,finschi,wing spread,,,,0,,,,,,,right wing,KV
-175,MNH San Marcos Lima,1781,,Brotogeris,cyanoptera,skin study,11.9,8.6,27.73109244,0.030702,--,--,--,--,--,--,left wing,OG
-176,MNH San Marcos Lima,1781,,Brotogeris,cyanoptera,skin study,11.9,8.15,31.51260504,0.0290955,--,--,--,--,--,--,right wing,OG
-177,MNH San Marcos Lima,1957,,Psittacara,leucophthalmus,skin study,18.2,12.5,31.31868132,0.06825,--,--,--,--,--,--,left wing,OG
-178,MNH San Marcos Lima,1957,,Psittacara,leucophthalmus,skin study,18,12.2,32.22222222,0.06588,--,--,--,--,--,--,right wing,OG
-179,MNH San Marcos Lima,1958,,Psittacara,leucophthalmus,skin study,18.8,11.6,38.29787234,0.065424,--,--,--,--,--,--,left wing,OG
-180,MNH San Marcos Lima,1958,,Psittacara,leucophthalmus,skin study,18.5,11.5,37.83783784,0.063825,--,--,--,--,--,--,right wing,OG
-181,MNH San Marcos Lima,19173,,Aratinga,weddellii,skin study,14.45,10.2,29.41176471,0.044217,--,--,--,--,--,--,left wing,OG
-182,MNH San Marcos Lima,19173,,Aratinga,weddellii,skin study,14.55,9.85,32.3024055,0.04299525,--,--,--,--,--,--,right wing,OG
-183,MNH San Marcos Lima,7547,,Pionites,leucogaster,skin study,13,9.9,23.84615385,0.03861,--,--,--,--,--,--,left wing,OG
-184,MNH San Marcos Lima,7547,,Pionites,leucogaster,skin study,13.5,10.85,19.62962963,0.0439425,--,--,--,--,--,--,right wing,OG
-185,MNH San Marcos Lima,11591,,Brotogeris,cyanoptera,skin study,11.4,9.1,20.1754386,0.031122,--,--,--,--,--,--,left wing,OG
-186,MNH San Marcos Lima,11591,,Brotogeris,cyanoptera,skin study,11.25,9.1,19.11111111,0.0307125,--,--,--,--,--,--,right wing,OG
-187,MNH San Marcos Lima,15922,,Brotogeris,cyanoptera,skin study,11.55,9.05,21.64502165,0.03135825,--,--,--,--,--,--,left wing,OG
-188,MNH San Marcos Lima,15922,,Brotogeris,cyanoptera,skin study,11.6,9.16,21.03448276,0.0318768,--,--,--,--,--,--,right wing,OG
-189,MNH San Marcos Lima,16990,,Forpus,modestus,skin study,7.75,6.7,13.5483871,0.0155775,--,--,--,--,--,--,left wing,OG
-190,MNH San Marcos Lima,16990,,Forpus,modestus,skin study,7.85,7.4,5.732484076,0.017427,--,--,--,--,--,--,right wing,OG
-191,MNH San Marcos Lima,16991,,Forpus,modestus,skin study,8.25,6.5,21.21212121,0.0160875,--,--,--,--,--,--,left wing,OG
-192,MNH San Marcos Lima,16991,,Forpus,modestus,skin study,8.15,6.3,22.6993865,0.0154035,--,--,--,--,--,--,right wing,OG
-193,MNH San Marcos Lima,16992,,Forpus,modestus,skin study,8.3,6.5,21.68674699,0.016185,--,--,--,--,--,--,left wing,OG
-194,MNH San Marcos Lima,16992,,Forpus,modestus,skin study,8.4,6.55,22.02380952,0.016506,--,--,--,--,--,--,right wing,OG
-195,MNH San Marcos Lima,21561,,Pionites,leucogaster,skin study,14.6,10.55,27.73972603,0.046209,--,--,--,--,--,--,left wing,OG
-196,MNH San Marcos Lima,21561,,Pionites,leucogaster,skin study,14.35,11.2,21.95121951,0.048216,--,--,--,--,--,--,right wing,OG
-197,MNH San Marcos Lima,21562,,Pionites,leucogaster,skin study,13.7,10.55,22.99270073,0.0433605,--,--,--,--,--,--,left wing,OG
-198,MNH San Marcos Lima,21562,,Pionites,leucogaster,skin study,13.75,10.8,21.45454545,0.04455,--,--,--,--,--,--,right wing,OG
-199,Harvard MCZ,173485,MEPA,Amazona,farinosa,skin study,25.8,18.1,29.84496124,0.140094,--,--,--,--,--,--,right wing,NB
-200,Harvard MCZ,173488,MEPA,Amazona,farinosa,skin study,23.8,17,28.57142857,0.12138,--,--,--,--,--,--,right wing,NB
-201,Harvard MCZ,173494,MEPA,Amazona,farinosa,skin study,23.5,17,27.65957447,0.11985,--,--,--,--,--,--,right wing,NB
-202,Harvard MCZ,104830,YCPA,Amazona,ochrocephala,skin study,21.7,15.7,27.64976959,0.102207,--,--,--,--,--,--,right wing,NB
-203,Harvard MCZ,121496,YCPA,Amazona,ochrocephala,skin study,22.4,16.8,25,0.112896,--,--,--,--,--,--,right wing,NB
-204,Harvard MCZ,121494,YCPA,Amazona,ochrocephala,skin study,22.1,15.9,28.05429864,0.105417,--,--,--,--,--,--,right wing,NB
-205,Harvard MCZ,155191,RGMA,Ara,chloropterus,skin study,38.9,23.3,40.10282776,0.271911,--,--,--,--,--,--,right wing,NB
-206,Harvard MCZ,143342,RGMA,Ara,chloropterus,skin study,40.4,24.9,38.36633663,0.301788,--,--,--,--,--,--,right wing,NB
-207,Harvard MCZ,154565,RGMA,Ara,chloropterus,skin study,38.7,23.4,39.53488372,0.271674,--,--,--,--,--,--,right wing,NB
-208,Harvard MCZ,143535,BYMA,Ara,ararauna,skin study,38.1,23,39.63254593,0.26289,--,--,--,--,--,--,right wing,NB
-209,Harvard MCZ,7524,BYMA,Ara,ararauna,skin study,36.7,21.7,40.8719346,0.238917,--,--,--,--,--,--,right wing,NB
-210,Harvard MCZ,96339,BYMA,Ara,ararauna,skin study,37.7,22,41.64456233,0.24882,--,--,--,--,--,--,right wing,NB
-211,Harvard MCZ,137803,SCMA,Ara,macao,skin study,37.5,22.2,40.8,0.24975,--,--,--,--,--,--,right wing,NB
-212,Harvard MCZ,107748,SCMA,Ara,macao,skin study,37.2,21.1,43.27956989,0.235476,--,--,--,--,--,--,right wing,NB
-213,Harvard MCZ,109102,,Ara,macao,skin study,24.9,21.3,14.45783133,0.159111,--,--,--,--,--,--,right wing,NB
-214,Harvard MCZ,143338,GRMA,Ara,severus,skin study,22.7,13.8,39.20704846,0.093978,--,--,--,--,--,--,right wing,NB
-215,Harvard MCZ,143336,GRMA,Ara,severus,skin study,23.3,13.8,40.77253219,0.096462,--,--,--,--,--,--,right wing,NB
-216,Harvard MCZ,173417,GRMA,Ara,severus,skin study,22,13.5,38.63636364,0.0891,--,--,--,--,--,--,right wing,NB
-217,Harvard MCZ,147354,GRMA,Orthopsittaca,manilatus,skin study,21.6,11.3,47.68518519,0.073224,--,--,--,--,--,--,right wing,NB
-218,Harvard MCZ,137808,GRMA,Orthopsittaca,manilatus,skin study,24.2,12.2,49.58677686,0.088572,--,--,--,--,--,--,right wing,NB
-219,Harvard MCZ,169012,GRMA,Orthopsittaca,manilatus,skin study,22.8,12.4,45.61403509,0.084816,--,--,--,--,--,--,right wing,NB
-220,Harvard MCZ,96351,DHPA,Aratinga,weddellii,skin study,13.8,8,42.02898551,0.03312,--,--,--,--,--,--,right wing,NB
-221,Harvard MCZ,263764,DHPA,Aratinga,weddellii,skin study,14.2,7.7,45.77464789,0.032802,--,--,--,--,--,--,right wing,NB
-222,Harvard MCZ,137810,DHPA,Aratinga,weddellii,skin study,14.1,7.8,44.68085106,0.032994,--,--,--,--,--,--,right wing,NB
-223,Harvard MCZ,263773,CWPA,Brotogeris,cyanoptera,skin study,11.9,7.5,36.97478992,0.026775,--,--,--,--,--,--,right wing,NB
-224,Harvard MCZ,263776,CWPA,Brotogeris,cyanoptera,skin study,11.5,7.3,36.52173913,0.025185,--,--,--,--,--,--,right wing,NB
-225,Harvard MCZ,263777,CWPA,Brotogeris,cyanoptera,skin study,11.4,7.1,37.71929825,0.024282,--,--,--,--,--,--,right wing,NB
-226,Harvard MCZ,263767,DBPA,Forpus,modestus,skin study,7.6,4.9,35.52631579,0.011172,--,--,--,--,--,--,right wing,NB
-227,Harvard MCZ,134977,WBPA,Pionites,leucogaster,skin study,12.1,8.4,30.5785124,0.030492,--,--,--,--,--,--,right wing,NB
-228,Harvard MCZ,173537,WBPA,Pionites,leucogaster,skin study,12.8,8.7,32.03125,0.033408,--,--,--,--,--,--,right wing,NB
-229,Harvard MCZ,137860,WBPA,Pionites,leucogaster,skin study,13.3,9.2,30.82706767,0.036708,--,--,--,--,--,--,right wing,NB
-230,Harvard MCZ,137861,WBPA,Pionites,leucogaster,skin study,14.2,9.7,31.69014085,0.041322,--,--,--,--,--,--,right wing,NB
-231,Harvard MCZ,107756,BHPA,Pionus,menstruus,skin study,16.8,11.2,33.33333333,0.056448,--,--,--,--,--,--,right wing,NB
-232,Harvard MCZ,107758,BHPA,Pionus,menstruus,skin study,17.6,11.6,34.09090909,0.061248,--,--,--,--,--,--,right wing,NB
-233,Harvard MCZ,107760,BHPA,Pionus,menstruus,skin study,17.3,11.7,32.3699422,0.060723,--,--,--,--,--,--,right wing,NB
-234,Harvard MCZ,178213,WEPA,Psittacara,leucophthalmus,skin study,18.2,10.5,42.30769231,0.05733,--,--,--,--,--,--,right wing,NB
-235,Harvard MCZ,7497,WEPA,Psittacara,leucophthalmus,skin study,18.8,10.4,44.68085106,0.058656,--,--,--,--,--,--,right wing,NB
-236,Harvard MCZ,269822,WEPA,Psittacara,leucophthalmus,skin study,18.8,10.3,45.21276596,0.058092,--,--,--,--,--,--,right wing,NB
-237,Harvard MCZ,32621,OCPA,Pyrilia,barrabandi,skin study,15.8,10.4,34.17721519,0.049296,--,--,--,--,--,--,right wing,NB
-238,Harvard MCZ,147363,OCPA,Pyrilia,barrabandi,skin study,16.9,10.7,36.68639053,0.054249,--,--,--,--,--,--,right wing,NB
-239,Harvard MCZ,137854,OCPA,Pyrilia,barrabandi,skin study,16.2,10.9,32.71604938,0.052974,--,--,--,--,--,--,right wing,NB
-240,Harvard MCZ,173485,MEPA,Amazona,farinosa,skin study,25.9,19.2,25.86872587,0.149184,--,--,--,--,--,--,left wing,NB
-241,Harvard MCZ,173488,MEPA,Amazona,farinosa,skin study,23.8,17.6,26.05042017,0.125664,--,--,--,--,--,--,left wing,NB
-242,Harvard MCZ,173494,MEPA,Amazona,farinosa,skin study,23.5,17.1,27.23404255,0.120555,--,--,--,--,--,--,left wing,NB
-243,Harvard MCZ,104830,YCPA,Amazona,ochrocephala,skin study,22.2,15.5,30.18018018,0.10323,--,--,--,--,--,--,left wing,NB
-244,Harvard MCZ,121496,YCPA,Amazona,ochrocephala,skin study,22.6,16.3,27.87610619,0.110514,--,--,--,--,--,--,left wing,NB
-245,Harvard MCZ,121494,YCPA,Amazona,ochrocephala,skin study,22,15.7,28.63636364,0.10362,--,--,--,--,--,--,left wing,NB
-246,Harvard MCZ,155191,RGMA,Ara,chloropterus,skin study,38.4,22.9,40.36458333,0.263808,--,--,--,--,--,--,left wing,NB
-247,Harvard MCZ,143342,RGMA,Ara,chloropterus,skin study,40.1,24.4,39.1521197,0.293532,--,--,--,--,--,--,left wing,NB
-248,Harvard MCZ,154565,RGMA,Ara,chloropterus,skin study,38.4,23.8,38.02083333,0.274176,--,--,--,--,--,--,left wing,NB
-249,Harvard MCZ,143535,BYMA,Ara,ararauna,skin study,38.1,23.6,38.05774278,0.269748,--,--,--,--,--,--,left wing,NB
-250,Harvard MCZ,7524,BYMA,Ara,ararauna,skin study,36.4,21.7,40.38461538,0.236964,--,--,--,--,--,--,left wing,NB
-251,Harvard MCZ,96339,BYMA,Ara,ararauna,skin study,37,22,40.54054054,0.2442,--,--,--,--,--,--,left wing,NB
-252,Harvard MCZ,137803,SCMA,Ara,macao,skin study,37.4,22.1,40.90909091,0.247962,--,--,--,--,--,--,left wing,NB
-253,Harvard MCZ,107748,SCMA,Ara,macao,skin study,37.1,21.3,42.58760108,0.237069,--,--,--,--,--,--,left wing,NB
-254,Harvard MCZ,109102,,Ara,macao,skin study,25,21,16,0.1575,--,--,--,--,--,--,left wing,NB
-255,Harvard MCZ,143338,GRMA,Ara,severus,skin study,22.6,13.5,40.26548673,0.09153,--,--,--,--,--,--,left wing,NB
-256,Harvard MCZ,143336,GRMA,Ara,severus,skin study,23.3,13.8,40.77253219,0.096462,--,--,--,--,--,--,left wing,NB
-257,Harvard MCZ,173417,GRMA,Ara,severus,skin study,22.5,13.9,38.22222222,0.093825,--,--,--,--,--,--,left wing,NB
-258,Harvard MCZ,147354,GRMA,Orthopsittaca,manilatus,skin study,21.4,11.2,47.6635514,0.071904,--,--,--,--,--,--,left wing,NB
-259,Harvard MCZ,137808,GRMA,Orthopsittaca,manilatus,skin study,24.4,12.3,49.59016393,0.090036,--,--,--,--,--,--,left wing,NB
-260,Harvard MCZ,169012,GRMA,Orthopsittaca,manilatus,skin study,23.2,12.6,45.68965517,0.087696,--,--,--,--,--,--,left wing,NB
-261,Harvard MCZ,96351,DHPA,Aratinga,weddellii,skin study,14.2,8.4,40.84507042,0.035784,--,--,--,--,--,--,left wing,NB
-262,Harvard MCZ,263764,DHPA,Aratinga,weddellii,skin study,14.2,8,43.66197183,0.03408,--,--,--,--,--,--,left wing,NB
-263,Harvard MCZ,137810,DHPA,Aratinga,weddellii,skin study,13.8,7.7,44.20289855,0.031878,--,--,--,--,--,--,left wing,NB
-264,Harvard MCZ,263773,CWPA,Brotogeris,cyanoptera,skin study,11.9,7.5,36.97478992,0.026775,--,--,--,--,--,--,left wing,NB
-265,Harvard MCZ,263776,CWPA,Brotogeris,cyanoptera,skin study,11.6,7.3,37.06896552,0.025404,--,--,--,--,--,--,left wing,NB
-266,Harvard MCZ,263777,CWPA,Brotogeris,cyanoptera,skin study,11.4,7.1,37.71929825,0.024282,--,--,--,--,--,--,left wing,NB
-267,Harvard MCZ,263767,DBPA,Forpus,modestus,skin study,7.6,5,34.21052632,0.0114,--,--,--,--,--,--,left wing,NB
-268,Harvard MCZ,134977,WBPA,Pionites,leucogaster,skin study,12.3,8.5,30.89430894,0.031365,--,--,--,--,--,--,left wing,NB
-269,Harvard MCZ,173537,WBPA,Pionites,leucogaster,skin study,12.9,8.4,34.88372093,0.032508,--,--,--,--,--,--,left wing,NB
-270,Harvard MCZ,137860,WBPA,Pionites,leucogaster,skin study,13,8.9,31.53846154,0.03471,--,--,--,--,--,--,left wing,NB
-271,Harvard MCZ,137861,WBPA,Pionites,leucogaster,skin study,14.4,10,30.55555556,0.0432,--,--,--,--,--,--,left wing,NB
-272,Harvard MCZ,107756,BHPA,Pionus,menstruus,skin study,17,11.4,32.94117647,0.05814,--,--,--,--,--,--,left wing,NB
-273,Harvard MCZ,107758,BHPA,Pionus,menstruus,skin study,17.6,11.4,35.22727273,0.060192,--,--,--,--,--,--,left wing,NB
-274,Harvard MCZ,107760,BHPA,Pionus,menstruus,skin study,17.3,11.7,32.3699422,0.060723,--,--,--,--,--,--,left wing,NB
-275,Harvard MCZ,178213,WEPA,Psittacara,leucophthalmus,skin study,18.1,10.5,41.98895028,0.057015,--,--,--,--,--,--,left wing,NB
-276,Harvard MCZ,7497,WEPA,Psittacara,leucophthalmus,skin study,18.7,10.4,44.38502674,0.058344,--,--,--,--,--,--,left wing,NB
-277,Harvard MCZ,269822,WEPA,Psittacara,leucophthalmus,skin study,18.8,10.3,45.21276596,0.058092,--,--,--,--,--,--,left wing,NB
-278,Harvard MCZ,32621,OCPA,Pyrilia,barrabandi,skin study,16,10.5,34.375,0.0504,--,--,--,--,--,--,left wing,NB
-279,Harvard MCZ,147363,OCPA,Pyrilia,barrabandi,skin study,16.9,10.7,36.68639053,0.054249,--,--,--,--,--,--,left wing,NB
-280,Harvard MCZ,137854,OCPA,Pyrilia,barrabandi,skin study,16.2,10.7,33.95061728,0.052002,--,--,--,--,--,--,left wing,NB
+171,Burke Museum ,50038,,Psittacara,holochlorus,wing spread,--,--,--,--,--,--,--,--,--,--,right wing,KV
+172,Burke Museum ,56194,,Psittacara,holochlorus,wing spread,--,--,--,--,24.3,--,--,--,--,--,left wing,KV
+173,Burke Museum ,69043,,Psittacara,holochlorus,wing spread,--,--,--,--,23.9,--,--,--,--,--,right wing,KV
+174,Burke Museum ,69073,,Psittacara,finschi,wing spread,--,--,--,--,--,--,--,--,--,--,right wing,KV
+175,Harvard MCZ,173485,MEPA,Amazona,farinosa,skin study,25.8,18.1,29.84496124,0.140094,--,--,--,--,--,--,right wing,NB
+176,Harvard MCZ,173488,MEPA,Amazona,farinosa,skin study,23.8,17,28.57142857,0.12138,--,--,--,--,--,--,right wing,NB
+177,Harvard MCZ,173494,MEPA,Amazona,farinosa,skin study,23.5,17,27.65957447,0.11985,--,--,--,--,--,--,right wing,NB
+178,Harvard MCZ,104830,YCPA,Amazona,ochrocephala,skin study,21.7,15.7,27.64976959,0.102207,--,--,--,--,--,--,right wing,NB
+179,Harvard MCZ,121496,YCPA,Amazona,ochrocephala,skin study,22.4,16.8,25,0.112896,--,--,--,--,--,--,right wing,NB
+180,Harvard MCZ,121494,YCPA,Amazona,ochrocephala,skin study,22.1,15.9,28.05429864,0.105417,--,--,--,--,--,--,right wing,NB
+181,Harvard MCZ,155191,RGMA,Ara,chloropterus,skin study,38.9,23.3,40.10282776,0.271911,--,--,--,--,--,--,right wing,NB
+182,Harvard MCZ,143342,RGMA,Ara,chloropterus,skin study,40.4,24.9,38.36633663,0.301788,--,--,--,--,--,--,right wing,NB
+183,Harvard MCZ,154565,RGMA,Ara,chloropterus,skin study,38.7,23.4,39.53488372,0.271674,--,--,--,--,--,--,right wing,NB
+184,Harvard MCZ,143535,BYMA,Ara,ararauna,skin study,38.1,23,39.63254593,0.26289,--,--,--,--,--,--,right wing,NB
+185,Harvard MCZ,7524,BYMA,Ara,ararauna,skin study,36.7,21.7,40.8719346,0.238917,--,--,--,--,--,--,right wing,NB
+186,Harvard MCZ,96339,BYMA,Ara,ararauna,skin study,37.7,22,41.64456233,0.24882,--,--,--,--,--,--,right wing,NB
+187,Harvard MCZ,137803,SCMA,Ara,macao,skin study,37.5,22.2,40.8,0.24975,--,--,--,--,--,--,right wing,NB
+188,Harvard MCZ,107748,SCMA,Ara,macao,skin study,37.2,21.1,43.27956989,0.235476,--,--,--,--,--,--,right wing,NB
+189,Harvard MCZ,109102,,Ara,macao,skin study,24.9,21.3,14.45783133,0.159111,--,--,--,--,--,--,right wing,NB
+190,Harvard MCZ,143338,GRMA,Ara,severus,skin study,22.7,13.8,39.20704846,0.093978,--,--,--,--,--,--,right wing,NB
+191,Harvard MCZ,143336,GRMA,Ara,severus,skin study,23.3,13.8,40.77253219,0.096462,--,--,--,--,--,--,right wing,NB
+192,Harvard MCZ,173417,GRMA,Ara,severus,skin study,22,13.5,38.63636364,0.0891,--,--,--,--,--,--,right wing,NB
+193,Harvard MCZ,147354,GRMA,Orthopsittaca,manilatus,skin study,21.6,11.3,47.68518519,0.073224,--,--,--,--,--,--,right wing,NB
+194,Harvard MCZ,137808,GRMA,Orthopsittaca,manilatus,skin study,24.2,12.2,49.58677686,0.088572,--,--,--,--,--,--,right wing,NB
+195,Harvard MCZ,169012,GRMA,Orthopsittaca,manilatus,skin study,22.8,12.4,45.61403509,0.084816,--,--,--,--,--,--,right wing,NB
+196,Harvard MCZ,96351,DHPA,Aratinga,weddellii,skin study,13.8,8,42.02898551,0.03312,--,--,--,--,--,--,right wing,NB
+197,Harvard MCZ,263764,DHPA,Aratinga,weddellii,skin study,14.2,7.7,45.77464789,0.032802,--,--,--,--,--,--,right wing,NB
+198,Harvard MCZ,137810,DHPA,Aratinga,weddellii,skin study,14.1,7.8,44.68085106,0.032994,--,--,--,--,--,--,right wing,NB
+199,Harvard MCZ,263773,CWPA,Brotogeris,cyanoptera,skin study,11.9,7.5,36.97478992,0.026775,--,--,--,--,--,--,right wing,NB
+200,Harvard MCZ,263776,CWPA,Brotogeris,cyanoptera,skin study,11.5,7.3,36.52173913,0.025185,--,--,--,--,--,--,right wing,NB
+201,Harvard MCZ,263777,CWPA,Brotogeris,cyanoptera,skin study,11.4,7.1,37.71929825,0.024282,--,--,--,--,--,--,right wing,NB
+202,Harvard MCZ,263767,DBPA,Forpus,modestus,skin study,7.6,4.9,35.52631579,0.011172,--,--,--,--,--,--,right wing,NB
+203,Harvard MCZ,134977,WBPA,Pionites,leucogaster,skin study,12.1,8.4,30.5785124,0.030492,--,--,--,--,--,--,right wing,NB
+204,Harvard MCZ,173537,WBPA,Pionites,leucogaster,skin study,12.8,8.7,32.03125,0.033408,--,--,--,--,--,--,right wing,NB
+205,Harvard MCZ,137860,WBPA,Pionites,leucogaster,skin study,13.3,9.2,30.82706767,0.036708,--,--,--,--,--,--,right wing,NB
+206,Harvard MCZ,137861,WBPA,Pionites,leucogaster,skin study,14.2,9.7,31.69014085,0.041322,--,--,--,--,--,--,right wing,NB
+207,Harvard MCZ,107756,BHPA,Pionus,menstruus,skin study,16.8,11.2,33.33333333,0.056448,--,--,--,--,--,--,right wing,NB
+208,Harvard MCZ,107758,BHPA,Pionus,menstruus,skin study,17.6,11.6,34.09090909,0.061248,--,--,--,--,--,--,right wing,NB
+209,Harvard MCZ,107760,BHPA,Pionus,menstruus,skin study,17.3,11.7,32.3699422,0.060723,--,--,--,--,--,--,right wing,NB
+210,Harvard MCZ,178213,WEPA,Psittacara,leucophthalmus,skin study,18.2,10.5,42.30769231,0.05733,--,--,--,--,--,--,right wing,NB
+211,Harvard MCZ,7497,WEPA,Psittacara,leucophthalmus,skin study,18.8,10.4,44.68085106,0.058656,--,--,--,--,--,--,right wing,NB
+212,Harvard MCZ,269822,WEPA,Psittacara,leucophthalmus,skin study,18.8,10.3,45.21276596,0.058092,--,--,--,--,--,--,right wing,NB
+213,Harvard MCZ,32621,OCPA,Pyrilia,barrabandi,skin study,15.8,10.4,34.17721519,0.049296,--,--,--,--,--,--,right wing,NB
+214,Harvard MCZ,147363,OCPA,Pyrilia,barrabandi,skin study,16.9,10.7,36.68639053,0.054249,--,--,--,--,--,--,right wing,NB
+215,Harvard MCZ,137854,OCPA,Pyrilia,barrabandi,skin study,16.2,10.9,32.71604938,0.052974,--,--,--,--,--,--,right wing,NB
+216,Harvard MCZ,173485,MEPA,Amazona,farinosa,skin study,25.9,19.2,25.86872587,0.149184,--,--,--,--,--,--,left wing,NB
+217,Harvard MCZ,173488,MEPA,Amazona,farinosa,skin study,23.8,17.6,26.05042017,0.125664,--,--,--,--,--,--,left wing,NB
+218,Harvard MCZ,173494,MEPA,Amazona,farinosa,skin study,23.5,17.1,27.23404255,0.120555,--,--,--,--,--,--,left wing,NB
+219,Harvard MCZ,104830,YCPA,Amazona,ochrocephala,skin study,22.2,15.5,30.18018018,0.10323,--,--,--,--,--,--,left wing,NB
+220,Harvard MCZ,121496,YCPA,Amazona,ochrocephala,skin study,22.6,16.3,27.87610619,0.110514,--,--,--,--,--,--,left wing,NB
+221,Harvard MCZ,121494,YCPA,Amazona,ochrocephala,skin study,22,15.7,28.63636364,0.10362,--,--,--,--,--,--,left wing,NB
+222,Harvard MCZ,155191,RGMA,Ara,chloropterus,skin study,38.4,22.9,40.36458333,0.263808,--,--,--,--,--,--,left wing,NB
+223,Harvard MCZ,143342,RGMA,Ara,chloropterus,skin study,40.1,24.4,39.1521197,0.293532,--,--,--,--,--,--,left wing,NB
+224,Harvard MCZ,154565,RGMA,Ara,chloropterus,skin study,38.4,23.8,38.02083333,0.274176,--,--,--,--,--,--,left wing,NB
+225,Harvard MCZ,143535,BYMA,Ara,ararauna,skin study,38.1,23.6,38.05774278,0.269748,--,--,--,--,--,--,left wing,NB
+226,Harvard MCZ,7524,BYMA,Ara,ararauna,skin study,36.4,21.7,40.38461538,0.236964,--,--,--,--,--,--,left wing,NB
+227,Harvard MCZ,96339,BYMA,Ara,ararauna,skin study,37,22,40.54054054,0.2442,--,--,--,--,--,--,left wing,NB
+228,Harvard MCZ,137803,SCMA,Ara,macao,skin study,37.4,22.1,40.90909091,0.247962,--,--,--,--,--,--,left wing,NB
+229,Harvard MCZ,107748,SCMA,Ara,macao,skin study,37.1,21.3,42.58760108,0.237069,--,--,--,--,--,--,left wing,NB
+230,Harvard MCZ,109102,,Ara,macao,skin study,25,21,16,0.1575,--,--,--,--,--,--,left wing,NB
+231,Harvard MCZ,143338,GRMA,Ara,severus,skin study,22.6,13.5,40.26548673,0.09153,--,--,--,--,--,--,left wing,NB
+232,Harvard MCZ,143336,GRMA,Ara,severus,skin study,23.3,13.8,40.77253219,0.096462,--,--,--,--,--,--,left wing,NB
+233,Harvard MCZ,173417,GRMA,Ara,severus,skin study,22.5,13.9,38.22222222,0.093825,--,--,--,--,--,--,left wing,NB
+234,Harvard MCZ,147354,GRMA,Orthopsittaca,manilatus,skin study,21.4,11.2,47.6635514,0.071904,--,--,--,--,--,--,left wing,NB
+235,Harvard MCZ,137808,GRMA,Orthopsittaca,manilatus,skin study,24.4,12.3,49.59016393,0.090036,--,--,--,--,--,--,left wing,NB
+236,Harvard MCZ,169012,GRMA,Orthopsittaca,manilatus,skin study,23.2,12.6,45.68965517,0.087696,--,--,--,--,--,--,left wing,NB
+237,Harvard MCZ,96351,DHPA,Aratinga,weddellii,skin study,14.2,8.4,40.84507042,0.035784,--,--,--,--,--,--,left wing,NB
+238,Harvard MCZ,263764,DHPA,Aratinga,weddellii,skin study,14.2,8,43.66197183,0.03408,--,--,--,--,--,--,left wing,NB
+239,Harvard MCZ,137810,DHPA,Aratinga,weddellii,skin study,13.8,7.7,44.20289855,0.031878,--,--,--,--,--,--,left wing,NB
+240,Harvard MCZ,263773,CWPA,Brotogeris,cyanoptera,skin study,11.9,7.5,36.97478992,0.026775,--,--,--,--,--,--,left wing,NB
+241,Harvard MCZ,263776,CWPA,Brotogeris,cyanoptera,skin study,11.6,7.3,37.06896552,0.025404,--,--,--,--,--,--,left wing,NB
+242,Harvard MCZ,263777,CWPA,Brotogeris,cyanoptera,skin study,11.4,7.1,37.71929825,0.024282,--,--,--,--,--,--,left wing,NB
+243,Harvard MCZ,263767,DBPA,Forpus,modestus,skin study,7.6,5,34.21052632,0.0114,--,--,--,--,--,--,left wing,NB
+244,Harvard MCZ,134977,WBPA,Pionites,leucogaster,skin study,12.3,8.5,30.89430894,0.031365,--,--,--,--,--,--,left wing,NB
+245,Harvard MCZ,173537,WBPA,Pionites,leucogaster,skin study,12.9,8.4,34.88372093,0.032508,--,--,--,--,--,--,left wing,NB
+246,Harvard MCZ,137860,WBPA,Pionites,leucogaster,skin study,13,8.9,31.53846154,0.03471,--,--,--,--,--,--,left wing,NB
+247,Harvard MCZ,137861,WBPA,Pionites,leucogaster,skin study,14.4,10,30.55555556,0.0432,--,--,--,--,--,--,left wing,NB
+248,Harvard MCZ,107756,BHPA,Pionus,menstruus,skin study,17,11.4,32.94117647,0.05814,--,--,--,--,--,--,left wing,NB
+249,Harvard MCZ,107758,BHPA,Pionus,menstruus,skin study,17.6,11.4,35.22727273,0.060192,--,--,--,--,--,--,left wing,NB
+250,Harvard MCZ,107760,BHPA,Pionus,menstruus,skin study,17.3,11.7,32.3699422,0.060723,--,--,--,--,--,--,left wing,NB
+251,Harvard MCZ,178213,WEPA,Psittacara,leucophthalmus,skin study,18.1,10.5,41.98895028,0.057015,--,--,--,--,--,--,left wing,NB
+252,Harvard MCZ,7497,WEPA,Psittacara,leucophthalmus,skin study,18.7,10.4,44.38502674,0.058344,--,--,--,--,--,--,left wing,NB
+253,Harvard MCZ,269822,WEPA,Psittacara,leucophthalmus,skin study,18.8,10.3,45.21276596,0.058092,--,--,--,--,--,--,left wing,NB
+254,Harvard MCZ,32621,OCPA,Pyrilia,barrabandi,skin study,16,10.5,34.375,0.0504,--,--,--,--,--,--,left wing,NB
+255,Harvard MCZ,147363,OCPA,Pyrilia,barrabandi,skin study,16.9,10.7,36.68639053,0.054249,--,--,--,--,--,--,left wing,NB
+256,Harvard MCZ,137854,OCPA,Pyrilia,barrabandi,skin study,16.2,10.7,33.95061728,0.052002,--,--,--,--,--,--,left wing,NB
+257,MNH San Marcos Lima,1796,DHPA,Aratinga,weddellii,skin study,13.81,7.745,43.91745112,0.032087535,--,--,--,--,--,--,left wing,OG
+258,MNH San Marcos Lima,1796,DHPA,Aratinga,weddellii,skin study,13.78,7.48,45.71843251,0.03092232,--,--,--,--,--,--,right wing,OG
+259,MNH San Marcos Lima,1812,DHPA,Aratinga,weddellii,skin study,13.22,8.21,37.89712557,0.03256086,--,--,--,--,--,--,left wing,OG
+260,MNH San Marcos Lima,1812,DHPA,Aratinga,weddellii,skin study,13.135,8.56,34.83060525,0.03373068,--,--,--,--,--,--,right wing,OG
+261,MNH San Marcos Lima,19173,DHPA,Aratinga,weddellii,skin study,14.2,7.96,43.94366197,0.0339096,--,--,--,--,--,--,left wing,OG
+262,MNH San Marcos Lima,19173,DHPA,Aratinga,weddellii,skin study,14.31,7.89,44.86373166,0.03387177,--,--,--,--,--,--,right wing,OG
+263,MNH San Marcos Lima,1781,CWPA,Brotogeris,cyanoptera,skin study,11.58,7.32,36.78756477,0.02542968,--,--,--,--,--,--,left wing,OG
+264,MNH San Marcos Lima,1781,CWPA,Brotogeris,cyanoptera,skin study,11.31,7.61,32.71441202,0.02582073,--,--,--,--,--,--,right wing,OG
+265,MNH San Marcos Lima,11591,,Brotogeris,cyanoptera,skin study,11.14,8.18,26.57091562,0.02733756,--,--,--,--,--,--,left wing,OG
+266,MNH San Marcos Lima,11591,,Brotogeris,cyanoptera,skin study,11.11,7.98,28.17281728,0.02659734,--,--,--,--,--,--,right wing,OG
+267,MNH San Marcos Lima,15922,,Brotogeris,cyanoptera,skin study,11.7,8.09,30.85470085,0.0283959,--,--,--,--,--,--,left wing,OG
+268,MNH San Marcos Lima,15922,,Brotogeris,cyanoptera,skin study,11.4,7.99,29.9122807,0.0273258,--,--,--,--,--,--,right wing,OG
+269,MNH San Marcos Lima,16990,DBPA,Forpus,modestus,skin study,7.7,5.325,30.84415584,0.01230075,--,--,--,--,--,--,left wing,OG
+270,MNH San Marcos Lima,16990,DBPA,Forpus,modestus,skin study,7.83,5.365,31.48148148,0.012602385,--,--,--,--,--,--,right wing,OG
+271,MNH San Marcos Lima,16991,DBPA,Forpus,modestus,skin study,8.2,5.34,34.87804878,0.0131364,--,--,--,--,--,--,left wing,OG
+272,MNH San Marcos Lima,16991,DBPA,Forpus,modestus,skin study,8.06,5.47,32.13399504,0.01322646,--,--,--,--,--,--,right wing,OG
+273,MNH San Marcos Lima,16992,DBPA,Forpus,modestus,skin study,8.1,5.19,35.92592593,0.0126117,--,--,--,--,--,--,left wing,OG
+274,MNH San Marcos Lima,16992,DBPA,Forpus,modestus,skin study,8.22,5.6,31.87347932,0.0138096,--,--,--,--,--,--,right wing,OG
+275,MNH San Marcos Lima,7547,WBPA,Pionites,leucogaster,skin study,13.58,8.74,35.64064801,0.03560676,--,--,--,--,--,--,left wing,OG
+276,MNH San Marcos Lima,7547,WBPA,Pionites,leucogaster,skin study,13.49,8.91,33.95107487,0.03605877,--,--,--,--,--,--,right wing,OG
+277,MNH San Marcos Lima,21561,WBPA,Pionites,leucogaster,skin study,13.8,9.06,34.34782609,0.0375084,--,--,--,--,--,--,left wing,OG
+278,MNH San Marcos Lima,21561,WBPA,Pionites,leucogaster,skin study,13.85,9.5,31.40794224,0.0394725,--,--,--,--,--,--,right wing,OG
+279,MNH San Marcos Lima,21562,WBPA,Pionites,leucogaster,skin study,13.6,9.27,31.83823529,0.0378216,--,--,--,--,--,--,left wing,OG
+280,MNH San Marcos Lima,21562,WBPA,Pionites,leucogaster,skin study,13.7,9.36,31.67883212,0.0384696,--,--,--,--,--,--,right wing,OG
+281,MNH San Marcos Lima,1957,WEPA,Psittacara,leucophthalmus,skin study,18,10.59,41.16666667,0.057186,--,--,--,--,--,--,left wing,OG
+282,MNH San Marcos Lima,1957,WEPA,Psittacara,leucophthalmus,skin study,18.6,10.54,43.33333333,0.0588132,--,--,--,--,--,--,right wing,OG
+283,MNH San Marcos Lima,28991,WEPA,Psittacara,leucophthalmus,skin study,18.1,11.1,38.67403315,0.060273,--,--,--,--,--,--,left wing,OG
+284,MNH San Marcos Lima,28991,WEPA,Psittacara,leucophthalmus,skin study,17.9,10.73,40.05586592,0.0576201,--,--,--,--,--,--,right wing,OG
+285,MNH San Marcos Lima,10285,WEPA,Psittacara,leucophthalmus,skin study,17.7,10.54,40.4519774,0.0559674,--,--,--,--,--,--,left wing,OG
+286,MNH San Marcos Lima,10285,WEPA,Psittacara,leucophthalmus,skin study,17.7,10.63,39.94350282,0.0564453,--,--,--,--,--,--,right wing,OG
+287,MNH San Marcos Lima,863,OCPA,Pyrilia,barrabandi,skin study,16.4,11.28,31.2195122,0.0554976,--,--,--,--,--,--,left wing,OG
+288,MNH San Marcos Lima,863,OCPA,Pyrilia,barrabandi,skin study,16.8,11.06,34.16666667,0.0557424,--,--,--,--,--,--,right wing,OG
+289,MNH San Marcos Lima,3832,OCPA,Pyrilia,barrabandi,skin study,16.6,10.92,34.21686747,0.0543816,--,--,--,--,--,--,left wing,OG
+290,MNH San Marcos Lima,3832,OCPA,Pyrilia,barrabandi,skin study,16.8,11.2,33.33333333,0.056448,--,--,--,--,--,--,right wing,OG
+291,MNH San Marcos Lima,19843,OCPA,Pyrilia,barrabandi,skin study,16.8,11.03,34.3452381,0.0555912,--,--,--,--,--,--,left wing,OG
+292,MNH San Marcos Lima,19843,OCPA,Pyrilia,barrabandi,skin study,16.9,10.98,35.0295858,0.0556686,--,--,--,--,--,--,right wing,OG
+293,MNH San Marcos Lima,72189,BHPA,Pionus,menstruus,skin study,19.4,12.84,33.81443299,0.0747288,--,--,--,--,--,--,left wing,OG
+294,MNH San Marcos Lima,72189,BHPA,Pionus,menstruus,skin study,19.7,12.9,34.5177665,0.076239,--,--,--,--,--,--,right wing,OG
+295,MNH San Marcos Lima,11924,BHPA,Pionus,menstruus,skin study,18.5,12.2,34.05405405,0.06771,--,--,--,--,--,--,left wing,OG
+296,MNH San Marcos Lima,11924,BHPA,Pionus,menstruus,skin study,18.8,12.39,34.09574468,0.0698796,--,--,--,--,--,--,right wing,OG
+297,MNH San Marcos Lima,31751,BHPA,Pionus,menstruus,skin study,19.8,12.8,35.35353535,0.076032,--,--,--,--,--,--,left wing,OG
+298,MNH San Marcos Lima,31751,BHPA,Pionus,menstruus,skin study,19.3,12.86,33.36787565,0.0744594,--,--,--,--,--,--,right wing,OG
+299,MNH San Marcos Lima,5649,GRMA,Orthopsittaca,manilata,skin study,24.8,14.2,42.74193548,0.105648,--,--,--,--,--,--,left wing,OG
+300,MNH San Marcos Lima,5649,GRMA,Orthopsittaca,manilata,skin study,24.6,13.64,44.55284553,0.1006632,--,--,--,--,--,--,right wing,OG
+301,MNH San Marcos Lima,12151,GRMA,Orthopsittaca,manilata,skin study,23.6,12.4,47.45762712,0.087792,--,--,--,--,--,--,left wing,OG
+302,MNH San Marcos Lima,12151,GRMA,Orthopsittaca,manilata,skin study,23.9,13.25,44.56066946,0.0950025,--,--,--,--,--,--,right wing,OG
+303,MNH San Marcos Lima,5650,GRMA,Orthopsittaca,manilata,skin study,24.2,13.15,45.66115702,0.095469,--,--,--,--,--,--,left wing,OG
+304,MNH San Marcos Lima,5650,GRMA,Orthopsittaca,manilata,skin study,24.2,13.4,44.62809917,0.097284,--,--,--,--,--,--,right wing,OG
+305,Kansas BI,24826,MEPA,Amazona,farinosa,skin study,24.22,17.02,29.72749794,0.12366732,--,--,--,--,--,--,right wing,AF
+306,Kansas BI,24826,MEPA,Amazona,farinosa,skin study,24.01,17.19,28.40483132,0.12381957,--,--,--,--,--,--,left wing,AF
+307,Kansas BI,32649,MEPA,Amazona,farinosa,skin study,23.21,16.59,28.52218871,0.11551617,--,--,--,--,--,--,right wing,AF
+308,Kansas BI,32649,MEPA,Amazona,farinosa,skin study,23.01,16.81,26.94480661,0.11603943,--,--,--,--,--,--,left wing,AF
+309,Kansas BI,37754,MEPA,Amazona,farinosa,skin study,23.41,15.95,31.86672362,0.11201685,--,--,--,--,--,--,right wing,AF
+310,Kansas BI,37754,MEPA,Amazona,farinosa,skin study,23.67,16,32.40388678,0.113616,--,--,--,--,--,--,left wing,AF
+311,Kansas BI,23756,YCPA,Amazona ,ochrocephala,skin study,22.17,15.96,28.01082544,0.10614996,--,--,--,--,--,--,right wing,AF
+312,Kansas BI,23756,YCPA,Amazona ,ochrocephala,skin study,22.01,15.67,28.8050886,0.10346901,--,--,--,--,--,--,left wing,AF
+313,Kansas BI,24825,YCPA,Amazona ,ochrocephala,skin study,21.25,15.42,27.43529412,0.0983025,--,--,--,--,--,--,right wing,AF
+314,Kansas BI,24825,YCPA,Amazona ,ochrocephala,skin study,21.75,15.62,28.18390805,0.1019205,--,--,--,--,--,--,left wing,AF
+315,Kansas BI,34490,YCPA,Amazona ,ochrocephala,skin study,21.79,14.95,31.39054612,0.09772815,--,--,--,--,--,--,right wing,AF
+316,Kansas BI,34490,YCPA,Amazona ,ochrocephala,skin study,21.99,15.41,29.92269213,0.10165977,--,--,--,--,--,--,left wing,AF
+317,Kansas BI,24150,SCMA,Ara ,macao,skin study,41.1,24.18,41.16788321,0.2981394,--,--,--,--,--,--,right wing,AF
+318,Kansas BI,24150,SCMA,Ara ,macao,skin study,41.2,23.96,41.84466019,0.2961456,--,--,--,--,--,--,left wing,AF
+319,Kansas BI,24151,SCMA,Ara ,macao,skin study,39.2,22.49,42.62755102,0.2644824,--,--,--,--,--,--,right wing,AF
+320,Kansas BI,24151,SCMA,Ara ,macao,skin study,38.7,22.29,42.40310078,0.2587869,--,--,--,--,--,--,left wing,AF
+321,Kansas BI,89684,GRMA,Orthopsittaca,manilatus,skin study,22.9,12.5,45.41484716,0.085875,--,--,--,--,--,--,right wing,AF
+322,Kansas BI,89684,GRMA,Orthopsittaca,manilatus,skin study,22.83,12.41,45.64169952,0.08499609,--,--,--,--,--,--,left wing,AF
+323,Kansas BI,84168,CWPA,Brotogeris,cyanoptera,skin study,12.42,7.5,39.61352657,0.027945,--,--,--,--,--,--,right wing,AF
+324,Kansas BI,84168,CWPA,Brotogeris,cyanoptera,skin study,12.44,7.51,39.63022508,0.02802732,--,--,--,--,--,--,left wing,AF
+325,Kansas BI,52634,BHPA,Pionus,menstruus,skin study,18.01,11.71,34.98056635,0.06326913,--,--,--,--,--,--,right wing,AF
+326,Kansas BI,52634,BHPA,Pionus,menstruus,skin study,18.06,11.7,35.21594684,0.0633906,--,--,--,--,--,--,left wing,AF
+327,Kansas BI,88924,BHPA,Pionus,menstruus,skin study,19.09,12.72,33.36825563,0.07284744,--,--,--,--,--,--,right wing,AF
+328,Kansas BI,88924,BHPA,Pionus,menstruus,skin study,18.97,12.7,33.05218766,0.0722757,--,--,--,--,--,--,left wing,AF
+329,Kansas BI,113612,BHPA,Pionus,menstruus,skin study,18.31,12.19,33.42435827,0.06695967,--,--,--,--,--,--,right wing,AF
+330,Kansas BI,113612,BHPA,Pionus,menstruus,skin study,18.18,11.88,34.65346535,0.06479352,--,--,--,--,--,--,left wing,AF
+331,Kansas BI,68190,WEPA,Psittacara,leucophthalmus,skin study,17.79,10.52,40.86565486,0.05614524,--,--,--,--,--,--,right wing,AF
+332,Kansas BI,68190,WEPA,Psittacara,leucophthalmus,skin study,17.97,10.58,41.12409572,0.05703678,--,--,--,--,--,--,left wing,AF
+333,Kansas BI,94922,WEPA,Psittacara,leucophthalmus,skin study,16.44,9.44,42.57907543,0.04655808,--,--,--,--,--,--,right wing,AF
+334,Kansas BI,94922,WEPA,Psittacara,leucophthalmus,skin study,16.43,9.85,40.04869142,0.04855065,--,--,--,--,--,--,left wing,AF
+335,Kansas BI,88345,WEPA,Psittacara,leucophthalmus,skin study,16.85,9.55,43.32344214,0.04827525,--,--,--,--,--,--,right wing,AF
+336,Kansas BI,88345,WEPA,Psittacara,leucophthalmus,skin study,17.01,9.81,42.32804233,0.05006043,--,--,--,--,--,--,left wing,AF

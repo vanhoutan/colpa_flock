@@ -36,12 +36,14 @@ themeKV <- theme_few()+
 
 #### read in raw survey data
 # setwd("/Users/kylevanhoutan/colpa_flock/")
-DF <- read.csv('data/survey_talldb.csv')
+DF <- read.csv('data/survey_talldb0.csv')
 
 
 #### subset full data set for just time/hour occurrence observation data 
 # first remove unnecessary columns 
 survey <- subset(DF, select = c(DATE, DAY, MIN_morn, SPECIES, COUNT)) # subset full dataset for only columns of interest
+head(survey)
+
 survey1 <- survey %>% 
   filter(!(MIN_morn == 'NA')) %>%  # remove rows with NA values, after the morning flock
   filter(!(COUNT == 0)) %>% # remove rows with 0 birds counted
@@ -50,13 +52,16 @@ survey1 <- survey %>%
 # count the no. birds on collpa on each day, at each 5min interval
 flock_birds <- survey1 %>% # new DF with only 3 cols: DAY, MIN_morn, and new summation
   group_by(DAY, MIN_morn) %>% 
-  summarise(total_birds=sum(COUNT)) # total_birds is the new sum/operator col
+  summarise(total_birds=sum(COUNT)) %>% # total_birds is the new sum/operator col
+  ungroup()
 
+  
 # count the species richness on collpa on each day, at each 5min interval
 flock_spp <- survey1 %>% # repeating form immediately above
   group_by(DAY, MIN_morn) %>% 
-  summarise(spp_rich=n_distinct(SPECIES)) # 'n_distinct' sums unique category/character entries in group
-
+  summarise(spp_rich=n_distinct(SPECIES)) %>% # 'n_distinct' sums unique category/character entries in group
+  ungroup()
+  
 #now make plots with new DFs
 # make box plot of birds by monitoring interval
 p1 <- ggplot(flock_birds, aes(x=MIN_morn, y=total_birds)) +
@@ -93,6 +98,7 @@ p2 <- ggplot(flock_spp, aes(x=MIN_morn, y=spp_rich)) +
   ylab("no. species") +
   scale_x_continuous(breaks = seq(10, 90, by = 10), limits = c(3,92)) +
   scale_y_continuous(breaks = seq(0, 14, by = 1), limits = c(0,9.5))
+p2
 
 # patch them together
 layout <- "

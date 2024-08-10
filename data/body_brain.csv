@@ -1,14 +1,13 @@
 ﻿NAME,CODE,BRAIN_ml,MASS_g
-Mealy Amazon,MEPA,10.21,610
-Yellow-crowned Amazon,YCPA,9.33,510
 Red-and-green Macaw,RGMA,22.17,1250
 Blue-and-yellow Macaw,BYMA,17.9,1125
 Scarlet Macaw,SCMA,19.14,1015
+Mealy Amazon,MEPA,10.21,610
+Yellow-crowned Amazon,YCPA,9.33,510
 Chestnut-fronted and Red-bellied Macaw,GRMA,8.845,400
-Dusky-headed Parakeet,DHPA,4.01,108
-Cobalt-winged parakeet,CWPA,2.2561,57
-Dusky-billed Parrotlet,DBPA,1.29405,32.5
-White-bellied Parrot,WBPA,5.11,155
 Blue-headed Parrot,BHPA,5.78,247
 White-eyed Parakeet,WEPA,5.32,157
+White-bellied Parrot,WBPA,5.11,155
 Orange-cheeked Parrot,OCPA,4.08,140
+Dusky-headed Parakeet,DHPA,4.01,108
+Cobalt-winged parakeet,CWPA,2.2501,67

@@ -58,12 +58,11 @@ p1 <- ggplot(DF, aes(x = TIME_rel, y = KG_HR_DAY, group = SPECIES, color = SPECI
            alpha = 0.75) + 
   scale_color_manual(values = Spectral12) +
   geom_line(alpha = 0.25, size = 2, color = '#000000',
-            stat = "smooth", method = 'loess', formula = 'y~x', span = 0.65) + 
+            stat = "smooth", method = 'loess', formula = 'y~x', span = 0.6) + 
   xlab("relative time") +
   ylab("duration (kg hr-1)") +
   scale_y_continuous(breaks=pretty_breaks()) +
-  facet_wrap(~SPECIES, ncol=1, scales = "free_y")
-
+  facet_wrap(~SPECIES, ncol=2, scales = "free_y")
 p1
 
 loess <- ggplot_build(p1) # extract LOESS trend model values from ggplot
@@ -79,16 +78,16 @@ loess_max <- loess_vals %>%
 loess_max <- subset(loess_max, select = c(PANEL,x,y)) 
 # since the ggplot build dropped species names, add them back in
 # generate the DF
-spp_order <- data.frame(SPECIES = c("BHPA", "GRMA", "YCPA", "BYMA", "WEPA", "OCPA", "DHPA", "CWPA", "SCMA", "WBPA", "MEPA", "RGMA"))
+spp_order <- data.frame(SPECIES = c("BHPA", "GRMA", "YCPA", "BYMA", "WEPA", "OCPA", "DHPA", "CWPA", "SCMA", "WBPA", "RGMA", "MEPA"))
 # bind it to the previous output
 loess_max2 <- cbind(loess_max,spp_order)
 # export the CSV
-getwd()
+# getwd()
 write.csv(loess_max2, file="/Users/kylevanhoutan/projects/colpa_flock/data/loess_max2", row.names=FALSE)
 
 
 # plot again in correct order, reorder from loess_max2
-DF$SPECIES <- factor(DF$SPECIES, levels=c("YCPA", "GRMA", "BHPA", "BYMA", "OCPA", "WEPA", "WBPA", "DHPA", "CWPA", "SCMA", "RGMA", "MEPA"))
+DF$SPECIES <- factor(DF$SPECIES, levels=c("YCPA", "GRMA", "BHPA", "BYMA", "WEPA", "OCPA", "DHPA", "WBPA", "CWPA", "SCMA", "RGMA", "MEPA"))
 # make plot
 p2 <- ggplot(DF, aes(x = TIME_rel, y = KG_HR_DAY, group = SPECIES, color = SPECIES)) +
   themeKV + theme(legend.position = "none",
@@ -99,17 +98,18 @@ p2 <- ggplot(DF, aes(x = TIME_rel, y = KG_HR_DAY, group = SPECIES, color = SPECI
                   strip.text.x = element_text(size = 6),
                   panel.spacing.y = unit(-0.4, "lines"), # trying to reduce vertical spacing between panels
   ) +
+  scale_color_manual(values = Spectral12) +
+  geom_line(alpha = 0.4, size = 2.5, color = '#000000',
+            stat = "smooth", method = 'loess', formula = 'y~x', span = 0.6) + 
   geom_point(aes(fill = SPECIES),
              shape = 16, size = 2,
              alpha = 0.75, size = 2) + 
-  scale_color_manual(values = Spectral12) +
   geom_point(shape = 1,size = 2, colour = "black", stroke = 0.25,) +
-  geom_line(alpha = 0.4, size = 2.5, color = '#000000',
-            stat = "smooth", method = 'loess', formula = 'y~x', span = 0.65) + 
   xlab("morning flock time (relative)") +
   ylab("abundance (kg hr-1)") +
   scale_y_continuous(breaks=pretty_breaks()) +
-  facet_wrap(~SPECIES, ncol=1, scales = "free_y")
+  scale_x_continuous(breaks = seq(0, 1, by = 0.2)) +
+  facet_wrap(~SPECIES, ncol=3, scales = "free_y")
 p2
 
 
@@ -140,12 +140,12 @@ p4 <- ggplot(loess_max2, aes(x = x, group = SPECIES, fill = SPECIES,
                   axis.text.x = element_text(size = 7),
                   axis.title.x = element_text(size = 9),
                   axis.title.y = element_text(size = 0),) +
-  geom_point(shape = 16, size = 3, alpha = 0.8,
+  geom_point(shape = 16, size = 2.6, alpha = 0.8,
              aes(color = fct_reorder(SPECIES,x))) +
   scale_color_manual(values = Spectral12) + # reverse the order of the palette to match p1
-  geom_point(shape = 1,size = 3, colour = "black", stroke = 0.25,) +
+  geom_point(shape = 1,size = 2.6, colour = "black", stroke = 0.25,) +
   scale_x_continuous(breaks = seq(0, 1, by = 0.1), 
-                     limits = c(0,0.61),
+                     limits = c(0,0.65),
                      ) +
   #scale_x_datetime(breaks = breaks_width("1 hour"), 
   #                 date_labels = "%H") + # set the time scales and drop date info
@@ -155,10 +155,14 @@ p4
 
 
 layout <- "
-AAAA###
-AAAABBB
-AAAACCC
-AAAA###"
+AAAAB
+AAAAB
+AAAAB
+AAAAB
+AAAAC
+AAAAC
+AAAAC
+AAAAC"
 p2 + p4 + p3 +
   plot_layout(design = layout) +
   plot_annotation(tag_levels = 'a') # add panel labels a, b, c... et

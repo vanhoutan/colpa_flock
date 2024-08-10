@@ -37,22 +37,21 @@ themeKV <- theme_few()+
 #### read in raw survey data
 # setwd("/Users/kylevanhoutan/colpa_flock/")
 lilDF <- read.csv('data/colpa_raw.csv')
-DF <- read.csv('data/survey_talldb.csv')
-
 
 ### wrangle the tall db... gather, filter out monospp flocks
 lilDF <- gather(lilDF, key="SPECIES", value="COUNT", 7:19) #gather
 nrow(lilDF) #24414
 lilDF <- lilDF %>% filter(!(SPP==0)) #filter out monospp flocks 
-nrow(lilDF) #19136
-100*19136/24414 # 78.4% of recorded data entries are legit mixed species aggregations
+nrow(lilDF) #19175
+100*19175/24414 # 78.4% of recorded data entries are legit mixed species aggregations
 lilDF <- lilDF %>% filter(!(COUNT=="NA")) #filter out zero counts
-nrow(lilDF) #5557
+nrow(lilDF) #5590
 head(lilDF) #check it
 write.csv(lilDF, 'data/lilDF.csv')
 class(lilDF$HOUR) # character
 
 ###### need to remove DBPA data, there are only 0s now bc they're all monospp flocks
+DF <- read.csv('data/survey_talldb.csv')
 head(DF)
 
 #### subset full data set for just time/hour occurrence observation data 
@@ -60,6 +59,7 @@ head(DF)
 survey <- DF %>% 
   filter(!(SPECIES=="DBPA")) %>% #filter out DBPA flocks 
   subset(select = c(SPECIES, TIMEad, DURATION_kg_hr)) # subset full dataset for only columns of interest
+head(survey)
 
 class(survey$TIMEad) # check on data format of "time" col
 # returns [1] "character", need convert to time/date

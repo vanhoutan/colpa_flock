@@ -46,6 +46,7 @@ df <- morphs2 %>% select(c(COLLECTION, ID, CODE, Lw, S1, Hwi, RECORDER)) # just 
 
 
 df <- df[!(df$CODE == ""), ]  # remove blank CODE entries
+df <- df[!(df$CODE == "DBPA"), ]  # remove DBPA CODE entries
 df$Lw <- as.numeric(df$Lw) # force numeric
 df$S1 <- as.numeric(df$S1) # force numeric
 df$Hwi <- as.numeric(df$Hwi) # force numeric
@@ -55,8 +56,8 @@ head(df)
 dfKV <- df %>% filter(RECORDER == "KV",!Hwi == "--")
 mu <- mean(dfKV$Hwi)
 sigma <- sd(dfKV$Hwi)
-lo95 <- qnorm(0.025,mu,sigma) # 27.2
-hi95 <- qnorm(0.975,mu,sigma) # 48.9
+lo95 <- qnorm(0.025,mu,sigma) # 26.97
+hi95 <- qnorm(0.975,mu,sigma) # 50.1
 
 #### plot densities of morphs to compare RECORDERS for accuracy
 #### a quality control measure
@@ -67,7 +68,7 @@ df %>% filter(!Hwi == "--") %>% #remove no data
 #  geom_vline(xintercept = vlines, linewidth = 1, alpha = 0.2) + #plot 95ci
   theme(axis.text.y = element_blank(), axis.ticks.y = element_blank()) + # don't need data
   geom_density(alpha=0.5, adjust = 0.8, size = 0.1)+
-  scale_fill_manual(values = c("#263252", "#c3202f")) +
+#  scale_fill_manual(values = c("#263252", "#c3202f")) +
   scale_x_continuous(breaks = pretty_breaks()) +
   xlab("hand wing index") +
   facet_wrap(~CODE, ncol=4, scales = "free_y")
@@ -80,15 +81,17 @@ df %>% filter(!Hwi == "--") %>% #remove no data
 morph_HWi <- subset(morphs, MORPH == "wing_Hwi")
 morph_HWi <- morph_HWi[!(morph_HWi$CODE == ""), ]  # remove blank entries in species CODE, for congeners that haven't been rescaled and assigned a CODE
 morph_HWi <- morph_HWi[!(morph_HWi$CODE == "0"), ]  # remove blank entries in species CODE, for congeners that haven't been rescaled and assigned a CODE
+morph_HWi <- morph_HWi[!(morph_HWi$CODE == "DBPA"), ]  # remove DBPA entries in species CODE, for congeners that haven't been rescaled and assigned a CODE
+
 
 # make a density plot, facet by species CODE
 colourCount = length(unique(morph_HWi$CODE)) # but first expand the 11 brewer palette categories
-getPalette = colorRampPalette(brewer.pal(11, "Spectral")) # interpolate colors to fit the 13 parrot species
-Spectral13 <- getPalette(colourCount) # 13 color Spectral palette 
+getPalette = colorRampPalette(brewer.pal(12, "Spectral")) # interpolate colors to fit the 12 parrot species
+Spectral12 <- getPalette(colourCount) # 13 color Spectral palette 
 
 #make in another Brewer palette too
 getPalette = colorRampPalette(brewer.pal(9, "YlGnBu")) # interpolate different color palette
-Spectral13v2 <- getPalette(colourCount) # 13 color Spectral palette 
+Spectral12v2 <- getPalette(colourCount) # 13 color Spectral palette 
 
 
 # then make the plot and call in the expanded Brewer pal
@@ -125,17 +128,18 @@ p1 <- ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
                   axis.text.y = element_text(size = 7),
                   axis.title.y = element_text(size = 0),) +
   geom_density_ridges_gradient(linewidth = 0.3,
-                               scale = 1.5, 
+                               scale = 1.8, 
                                alpha = 0.2, 
                                rel_min_height = 0.01, bandwidth = 1) +
   scale_fill_gradientn(colours = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#313695")) +
   # more detail at https://ggplot2.tidyverse.org/reference/scale_gradient.html
   # also here https://r-graphics.org/recipe-colors-palette-continuous
-  stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -1, hjust = 2,
+  stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -0.5, hjust = 2,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(25, 55, by = 5)) + 
   xlab("hand wing index") 
   #ylab("species")
+p1
 
 # the distiller command doesn't work well here as it melds only 7 discrete colors 
 # from an existing palette, like viridis or brewer
@@ -148,6 +152,7 @@ p1 <- ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
 # culm_mand_SL = cumulative straight length of culmen and mandible in cm
 morph_CMs <- subset(morphs, MORPH == "culm_mand_SL")
 morph_CMs <- morph_CMs[!(morph_CMs$CODE == ""), ]  # remove blank entries in species CODE, for congeners that haven't been rescaled and assigned a CODE
+morph_CMs <- morph_CMs[!(morph_CMs$CODE == "DBPA"), ]  # remove DBPA
 
 
 colourCount = length(unique(morph_CMs$CODE))
@@ -175,14 +180,16 @@ p2 <- ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
                   axis.title.y = element_text(size = 0),) +
   scale_fill_gradientn(colours = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#313695")) +
   #  scale_fill_distiller(palette = "Spectral", direction = 1) + # continuous 7 color Brewer
-  geom_density_ridges_gradient(scale = 2.5, alpha = 0.6, linewidth = 0.3, 
-                               rel_min_height = 0.01, bandwidth = 0.4) +
-  stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -1, hjust = 0,
+  geom_density_ridges_gradient(scale = 1.5, 
+                               alpha = 0.6, linewidth = 0.3, 
+                               rel_min_height = 0.01, 
+                               bandwidth = 0.4) +
+  stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -0.5, hjust = 0.25,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(0, 16, by = 2)) + 
   xlab("culmen + mandible (cm)") + 
   ylab("species")
-
+p2
 
 
 #### subset full data set for beak data
@@ -191,6 +198,8 @@ p2 <- ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
 # culmen_CL = curved culmen length in cm
 morph_CCL <- subset(morphs, MORPH == "culmen_CL")
 morph_CCL <- morph_CCL[!(morph_CCL$CODE == ""), ]  # remove blank entries in species CODE, for congeners that haven't been rescaled and assigned a CODE
+morph_CCL <- morph_CCL[!(morph_CCL$CODE == "DBPA"), ]  # remove DBPA
+
 
 colourCount = length(unique(morph_CCL$CODE))
 getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
@@ -209,6 +218,7 @@ ggplot(morph_CCL, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
 
 #### read in body mass and brain volume data
 massvol <- read.csv('data/body_brain.csv')
+massvol <- massvol[!(massvol$CODE == "DBPA"), ]  # remove DBPA
 
 #### bar plot of body mass
 p3 <- ggplot(massvol, aes(x = MASS_g, color = MASS_g, 
@@ -223,7 +233,7 @@ p3 <- ggplot(massvol, aes(x = MASS_g, color = MASS_g,
   # scale_y_continuous(breaks = seq(0, 40, by = 5)) +
   scale_x_continuous(breaks = seq(0, 1400, by = 200)) +
   xlab("body mass (g)")
-
+p3
 
 #### allometric function of body mass vs brain volume
 ## model fit is power function, residuals form this model interpreted as proxy for cognitive aptitude
@@ -246,7 +256,7 @@ p4 <- ggplot(massvol, aes(x = MASS_g, y = BRAIN_ml)) +
   scale_x_continuous(breaks = seq(0, 1400, by = 200)) +
   xlab("body mass (g)") + 
   ylab("brain volume (ml)")
-
+p4
 
 # try this plot a different way, ranking by CODE class
 # but means have to force expand the palette
@@ -258,11 +268,14 @@ p5 <- ggplot(massvol, aes(x = MASS_g, y = BRAIN_ml)) +
                   axis.title.y = element_text(size = 8),
                   legend.key.height = unit(0.3, 'cm'), # shrink the native height of legend
                   legend.text = element_text(size=6.5)) + # reduce font size on legend
-  geom_line(alpha = 0.25, size = 3, color = '#000000',
-            stat = "smooth", method = 'nls', formula = 'y~a*x^b', # power fit using non-linear squares regression
-            method.args = list(start= c(a = 1,b=1)), se = FALSE) + 
+  geom_line(alpha = 0.25, size = 2.1, color = '#000000',
+            stat = "smooth", method = 'nls', 
+            formula = 'y~a*x^b', # power fit using non-linear squares regression
+            method.args = list(start= c(a = 1,b=1)), 
+            lineend = "round",
+            se = FALSE) + 
   geom_point(aes(fill = fct_reorder(CODE,MASS_g)),
-             pch=21, color="black",stroke=0.25,size = 3.2,
+             pch=21, color="black",stroke=0.25,size = 3,
              alpha = 0.8) + # color by CODE, sorted big to small by MASS_g
   scale_fill_manual(values = Spectral13v2) +
   #geom_point(shape = 1,size = 3.2, colour = "black", stroke = 0.25,) +
@@ -272,7 +285,7 @@ p5 <- ggplot(massvol, aes(x = MASS_g, y = BRAIN_ml)) +
   ylab("brain volume (ml)")+
   guides(fill = guide_legend(reverse=TRUE)) # reverse legend sort order to match data sort
    #                           override.aes = list(size=2.6))) # reduce point size in legend
-  
+p5 
 
 layout <- "
 ABC"
