@@ -18,6 +18,7 @@ library(ggridges)
 library(colorspace)
 library(patchwork)
 library(lubridate)    # formatting times dates
+library(infer) # sampling
 
 
 # my custom ggplot theme
@@ -37,7 +38,7 @@ themeKV <- theme_few()+
 #setwd("/Users/kylevanhoutan/colpa_flock/")
 # df <- read.csv('data/sociality.csv')
 df <- read.csv('data/sociality2.csv')
-sociality <- df %>% gather(key="OBSERV", value="ESTIMATE", 2:9) 
+sociality <- df %>% gather(key="OBSERV", value="ESTIMATE", 2:10) 
 sociality$OBSERV <- str_replace(sociality$OBSERV,"X", "")  # remove Xs that were added
 sociality$OBSERV <- as.numeric(sociality$OBSERV)  # convert to numeric
 
@@ -78,27 +79,85 @@ ggplot(sociality, aes(x=OBSERV, y=ESTIMATE, group = SPECIES)) +
 
 vlines <- c(2.5, 4.5, 6.5) # define breaks between groups of sociality index factors
 
-ggplot(sociality, aes(x=OBSERV, y=ESTIMATE, group = SPECIES, color=fct_reorder(SPECIES,-ESTIMATE, .fun=min))) +
-  themeKV + theme(axis.text.x = element_text(size = 9),
-                  axis.title.x = element_text(size = 10),
-                  axis.text.y = element_text(size = 9),
-                  axis.title.y = element_text(size = 10),
+p1 <- ggplot(sociality, aes(x=OBSERV, y=ESTIMATE, group = SPECIES, color=fct_reorder(SPECIES,-ESTIMATE, .fun=min))) +
+  themeKV + theme(axis.text.x = element_text(size = 8),
+                  axis.title.x = element_text(size = 9),
+                  axis.text.y = element_text(size = 8),
+                  axis.title.y = element_text(size = 9),
                   legend.key.height = unit(0.35, 'cm'), # shrink the native height of legend
                   legend.text = element_text(size=7)) + # reduce font size on legend
   #geom_point(shape = 21, size = 2.5, stroke = 1.2,
    #          aes(color=fct_reorder(SPECIES,ESTIMATE, .fun=max, alpha=0.9), ))+
   geom_vline(xintercept = vlines, alpha = 0.2, size = 0.2, color = "#000000") +
-  geom_line(aes(color=fct_reorder(SPECIES,-ESTIMATE, .fun=min)),linewidth = 3, alpha = 0.75) + 
+  geom_line(aes(color=fct_reorder(SPECIES,-ESTIMATE, .fun=min)),
+            linewidth = 3, lineend = "round", alpha = 0.75) + 
   # geom_point(shape = 21, size = 3.2, stroke = 0.25, alpha = 0.9)+
   scale_color_manual(values = Spectral13) + # bring in manual palette
-  scale_x_continuous(breaks = seq(1, 8, by = 1), limits = c(1,8)) + # tighten up white space
+  scale_x_continuous(breaks = seq(1, 10, by = 1), limits = c(1,9)) + # tighten up white space
   ylab("cumulative score") +
   xlab("index component") +
-  annotate("text", x = 1.6, y = 520, label = "abundance", alpha = 0.75, size = 3)+
-  annotate("text", x = 3.5, y = 520, label = "chronology", alpha = 0.75, size = 3)+
-  annotate("text", x = 5.5, y = 520, label = "function", alpha = 0.75, size = 3)+
-  annotate("text", x = 7.4, y = 520, label = "interaction", alpha = 0.75, size = 3)
+  annotate("text", x = 1.6, y = 500, label = "abundance", alpha = 0.75, size = 3)+
+  annotate("text", x = 3.5, y = 500, label = "sequence", alpha = 0.75, size = 3)+
+  annotate("text", x = 5.5, y = 500, label = "function", alpha = 0.75, size = 3)+
+  annotate("text", x = 7.9, y = 500, label = "interaction", alpha = 0.75, size = 3)
+p1
 #  guides(color = guide_legend(reverse=TRUE,)) # reverse legend sort order to match data sort
 #                              override.aes = list(size=2))) # reduce point size in legend
+# consider post-process in Ai with effect/stylize/drop shadow and object/path/outline stroke
 
-# must post-process in Ai with effect/stylize/drop shadow and object/path/outline stroke
+
+#### perform non-parametric bootstrap of social index components
+#### sample and replicate with weighting scheme to equalize pulling from 4 factors
+
+# first read in the sociality index component data, the weiht data
+df <- read.csv('data/sociality.csv')
+df <- df %>% gather(key="COMPONENT", value="VALUE", 2:10)
+df$COMPONENT <- str_replace(df$COMPONENT,"X", "")  # remove Xs that were added
+df$COMPONENT <- as.numeric(df$COMPONENT)  # convert to numeric
+weight <- read.csv('data/weights.csv')
+df2 <- left_join(df, weight) # join the 2 together
+
+# run the bootstrap
+y=1000 # no. replicates
+x=90 # no. sample draws 
+boots <- replicate(y, df2 %>% # repeat 1000x 
+                   group_by(SPECIES) %>% # group operation for each species
+                   sample_n(size=x, replace=T, prob=WEIGHT) %>% # no. samples, replace, weighting 
+                   summarise(INDEX=sum(VALUE)) %>% # add this up
+                   ungroup(), # undo grouping
+                 simplify=FALSE) # creates a list
+boots <- do.call(rbind.data.frame, boots) # turn the list output into a DF
+boots$INDEX <- boots$INDEX/(x/9) # normalize to one full set draw (n=9 components)
+
+
+p2 <- ggplot(boots, aes(x = INDEX, y = fct_reorder(SPECIES,INDEX), fill = fct_reorder(SPECIES,-INDEX))) + 
+  # both y and fill are reordered by CODE's median value of MEASURE 
+  themeKV + theme(legend.position = "none",
+                  axis.text.x = element_text(size = 8),
+                  axis.title.x = element_text(size = 9),
+                  axis.text.y = element_text(size = 7),
+                  axis.title.y = element_text(size = 9)) + # reduce font size on legend
+  scale_fill_manual(values = getPalette(colourCount)) +
+  geom_density_ridges(scale = 4, alpha = 0.75, linewidth = 0.35,
+                      rel_min_height = 0.003, #bandwidth = 6.25,
+                      ) +
+  scale_x_continuous(breaks = seq(0, 1000, by = 100), limits = c(0,600)) + 
+  scale_y_discrete(expand = expand_scale(add = c(0.75, 1.5)))+
+  xlab("cumul. social index")+ylab(NULL)
+p2
+
+
+# patch them together
+layout <- "
+AA#
+AAB
+AAB
+AAB
+AAB
+AA#"
+p1 + p2 + 
+  plot_layout(design = layout) +
+  plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
+
+
+# FIN  

@@ -35,6 +35,7 @@ themeKV <- theme_few()+
 #### read in raw survey data
 # setwd("/Users/kylevanhoutan/colpa_flock/")
 DF <- read.csv('data/duration_relative_t.csv')
+# DF <- DF %>% filter(!(SPECIES == 'DBPA'))
 
 # rescale Brewer palette to 13 categories
 colourCount = length(unique(DF$SPECIES)) 
@@ -58,7 +59,7 @@ p1 <- ggplot(DF, aes(x = TIME_rel, y = KG_HR_DAY, group = SPECIES, color = SPECI
            alpha = 0.75) + 
   scale_color_manual(values = Spectral12) +
   geom_line(alpha = 0.25, size = 2, color = '#000000',
-            stat = "smooth", method = 'loess', formula = 'y~x', span = 0.6) + 
+            stat = "smooth", method = 'loess', formula = 'y~x', span = 0.75) + 
   xlab("relative time") +
   ylab("duration (kg hr-1)") +
   scale_y_continuous(breaks=pretty_breaks()) +
@@ -78,16 +79,21 @@ loess_max <- loess_vals %>%
 loess_max <- subset(loess_max, select = c(PANEL,x,y)) 
 # since the ggplot build dropped species names, add them back in
 # generate the DF
-spp_order <- data.frame(SPECIES = c("BHPA", "GRMA", "YCPA", "BYMA", "WEPA", "OCPA", "DHPA", "CWPA", "SCMA", "WBPA", "RGMA", "MEPA"))
+spp_order <- data.frame(SPECIES = c("YCPA", "GRMA", "BHPA", "BYMA", 
+                                    "WEPA", "OCPA", "CWPA", "DHPA", 
+                                    "SCMA", "WBPA", "RGMA", "MEPA"))
 # bind it to the previous output
 loess_max2 <- cbind(loess_max,spp_order)
 # export the CSV
 # getwd()
-write.csv(loess_max2, file="/Users/kylevanhoutan/projects/colpa_flock/data/loess_max2", row.names=FALSE)
+write.csv(loess_max2, file="/Users/kylevanhoutan/projects/colpa_flock/data/loess_max2.csv", row.names=FALSE)
 
 
 # plot again in correct order, reorder from loess_max2
-DF$SPECIES <- factor(DF$SPECIES, levels=c("YCPA", "GRMA", "BHPA", "BYMA", "WEPA", "OCPA", "DHPA", "WBPA", "CWPA", "SCMA", "RGMA", "MEPA"))
+DF$SPECIES <- factor(DF$SPECIES, levels=c("YCPA", "GRMA", "BHPA", "BYMA", 
+                                          "WEPA", "OCPA", "CWPA", "DHPA", 
+                                          "SCMA", "WBPA", "RGMA", "MEPA"))
+
 # make plot
 p2 <- ggplot(DF, aes(x = TIME_rel, y = KG_HR_DAY, group = SPECIES, color = SPECIES)) +
   themeKV + theme(legend.position = "none",
@@ -100,7 +106,7 @@ p2 <- ggplot(DF, aes(x = TIME_rel, y = KG_HR_DAY, group = SPECIES, color = SPECI
   ) +
   scale_color_manual(values = Spectral12) +
   geom_line(alpha = 0.4, size = 2.5, color = '#000000',
-            stat = "smooth", method = 'loess', formula = 'y~x', span = 0.6) + 
+            stat = "smooth", method = 'loess', formula = 'y~x', span = 0.75) + 
   geom_point(aes(fill = SPECIES),
              shape = 16, size = 2,
              alpha = 0.75, size = 2) + 
