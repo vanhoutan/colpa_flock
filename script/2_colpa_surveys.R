@@ -39,7 +39,7 @@ themeKV <- theme_few()+
 lilDF <- read.csv('data/colpa_raw.csv')
 
 ### wrangle the tall db... gather, filter out monospp flocks
-lilDF <- gather(lilDF, key="SPECIES", value="COUNT", 7:19) #gather
+lilDF <- gather(lilDF, key="SPECIES", value="COUNT", 8:20) #gather
 nrow(lilDF) #24414
 lilDF <- lilDF %>% filter(!(SPP==0)) #filter out monospp flocks 
 nrow(lilDF) #19175
@@ -207,7 +207,9 @@ p3 <- ggplot(survey3, aes(y = fct_reorder(SPECIES,total_KG), x = total_KG, group
              aes(color = fct_reorder(SPECIES,total_KG))) +
   scale_color_manual(values = rev(Spectral12)) + # reverse the order of the palette to match p1
   geom_point(shape = 1,size = 3.2, colour = "black", stroke = 0.25,) +
-  scale_x_continuous(breaks = seq(0, 16, by = 2), limits = c(0,16),) +
+  scale_x_continuous(breaks = seq(0, 20, by = 2), 
+                     #limits = c(0,16),
+                     ) +
   #scale_x_datetime(breaks = breaks_width("1 hour"), 
   #                 date_labels = "%H") + # set the time scales and drop date info
   # xlab("hour of day") +
@@ -239,7 +241,9 @@ p4 <- ggplot(mass_ind, aes(y = fct_reorder(SPECIES,indiv), x = indiv, group = SP
              aes(color = fct_reorder(SPECIES,total_KG))) +
   scale_color_manual(values = rev(Spectral12)) + # reverse the order of the palette to match p1
   geom_point(shape = 1,size = 3.2, colour = "black", stroke = 0.25,) +
-  scale_x_continuous(breaks = seq(0, 45, by = 5), limits = c(0,45),) +
+  scale_x_continuous(breaks = seq(0, 50, by = 5), 
+                     #limits = c(0,45),
+                     ) +
   #scale_x_datetime(breaks = breaks_width("1 hour"), 
   #                 date_labels = "%H") + # set the time scales and drop date info
   # xlab("hour of day") +

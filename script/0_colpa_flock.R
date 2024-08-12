@@ -36,8 +36,7 @@ themeKV <- theme_few()+
 
 #### read in raw survey data
 # setwd("/Users/kylevanhoutan/colpa_flock/")
-DF <- read.csv('data/survey_talldb0.csv')
-
+DF <- read.csv('data/survey_talldb.csv')
 
 #### subset full data set for just time/hour occurrence observation data 
 # first remove unnecessary columns 
@@ -47,7 +46,7 @@ head(survey)
 survey1 <- survey %>% 
   filter(!(MIN_morn == 'NA')) %>%  # remove rows with NA values, after the morning flock
   filter(!(COUNT == 0)) %>% # remove rows with 0 birds counted
-  filter(!(MIN_morn > 90)) # remove rows >90min, as n=1 birds from 95-130min
+  filter(!(MIN_morn > 86)) # remove rows >90min, as n=1 birds from 90-130min
 
 # count the no. birds on collpa on each day, at each 5min interval
 flock_birds <- survey1 %>% # new DF with only 3 cols: DAY, MIN_morn, and new summation
@@ -69,35 +68,38 @@ p1 <- ggplot(flock_birds, aes(x=MIN_morn, y=total_birds)) +
                   axis.title.x = element_text(size = 8),axis.title.y = element_text(size = 8),
                   legend.position = "none") + 
   geom_line(stat="smooth", method = "loess", formula = y ~ x, 
-            span = 0.4, se = FALSE, linewidth = 2.5, alpha = 0.5) +
+            span = 0.5, se = FALSE,  alpha = 0.5,
+            linewidth = 2.5, lineend = "round") +
   geom_jitter(alpha=0.25, color="#f768a1", shape=16, size=2, width=1.25, height=0) +  
   geom_boxplot(aes(group = MIN_morn),
                outlier.shape = NA, # remove outliers, WE HAVE JITTER
                fatten=1, # NULL = remove median line
                fill = "#7a0177", coef = 1, # whiskers sd =1 
                lwd=0.375, alpha = 0.7) +
-    xlab("flock duration (min.)") +
-  ylab("no. birds") +
-  scale_x_continuous(breaks = seq(10, 100, by = 10), limits = c(3,92)) +
-  scale_y_continuous(breaks = seq(0, 350, by = 40), limits = c(0,320))
+    xlab("duration (min.)") +
+  ylab("flock abundance (no. indiv.)") +
+  scale_x_continuous(breaks = seq(0, 85, by = 10), limits = c(3,87)) +
+  scale_y_continuous(breaks = seq(0, 400, by = 50), limits = c(0,350))
 
+  
 # make box plot of spp richness by monitoring interval
 p2 <- ggplot(flock_spp, aes(x=MIN_morn, y=spp_rich)) +
   themeKV + theme(axis.text.y = element_text(size = 7), axis.text.x = element_text(size = 7),
                   axis.title.x = element_text(size = 8),axis.title.y = element_text(size = 8),
                   legend.position = "none") + 
   geom_line(stat="smooth", method = "loess", formula = y ~ x, 
-            span = 0.4, se = FALSE, linewidth = 2.5, alpha = 0.5) +
+            span = 0.4, se = FALSE,  alpha = 0.5,
+            linewidth = 2.5, lineend = "round") +
   geom_jitter(alpha=0.25, color="#41b6c4", shape=16, size=2, width=1.25, height=0.5) +  
   geom_boxplot(aes(group = MIN_morn),
                outlier.shape = NA, # remove outliers, WE HAVE JITTER
                fatten=1, # NULL = remove median line, we're doing LOESS
                fill = "#253494", coef = 1, # whiskers sd =1 
                lwd=0.375, alpha = 0.7) +
-  xlab("flock duration (min.)") +
-  ylab("no. species") +
-  scale_x_continuous(breaks = seq(10, 90, by = 10), limits = c(3,92)) +
-  scale_y_continuous(breaks = seq(0, 14, by = 1), limits = c(0,9.5))
+  xlab("duration (min.)") +
+  ylab("flock richness (no. species)") +
+  scale_x_continuous(breaks = seq(0, 85, by = 10), limits = c(3,87)) +
+  scale_y_continuous(breaks = seq(2, 10, by = 1), limits = c(1,9.5))
 p2
 
 # patch them together
