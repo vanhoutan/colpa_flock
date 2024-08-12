@@ -119,11 +119,11 @@ df2 <- left_join(df, weight) # join the 2 together
 
 # run the bootstrap
 y=1000 # no. replicates
-x=90 # no. sample draws 
-boots <- replicate(y, df2 %>% # repeat 1000x 
+x=90 # no. sample draws (ideally a multiple of 9)
+boots <- replicate(y, df2 %>% # y = no. replicates 
                    group_by(SPECIES) %>% # group operation for each species
                    sample_n(size=x, replace=T, prob=WEIGHT) %>% # no. samples, replace, weighting 
-                   summarise(INDEX=sum(VALUE)) %>% # add this up
+                   summarise(INDEX=sum(VALUE)) %>% # add all components up
                    ungroup(), # undo grouping
                  simplify=FALSE) # creates a list
 boots <- do.call(rbind.data.frame, boots) # turn the list output into a DF

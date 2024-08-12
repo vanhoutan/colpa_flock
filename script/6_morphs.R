@@ -130,13 +130,16 @@ p1 <- ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
   geom_density_ridges_gradient(linewidth = 0.3,
                                scale = 1.8, 
                                alpha = 0.2, 
-                               rel_min_height = 0.01, bandwidth = 1) +
+                               rel_min_height = 0.005, 
+                               # bandwidth = 1,
+                               ) +
   scale_fill_gradientn(colours = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#313695")) +
   # more detail at https://ggplot2.tidyverse.org/reference/scale_gradient.html
   # also here https://r-graphics.org/recipe-colors-palette-continuous
   stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -0.5, hjust = 2,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(25, 55, by = 5)) + 
+  scale_y_discrete(expand = expand_scale(add = c(1, 1.2)))+
   xlab("hand wing index") 
   #ylab("species")
 p1
@@ -180,14 +183,16 @@ p2 <- ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
                   axis.title.y = element_text(size = 0),) +
   scale_fill_gradientn(colours = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#313695")) +
   #  scale_fill_distiller(palette = "Spectral", direction = 1) + # continuous 7 color Brewer
-  geom_density_ridges_gradient(scale = 1.5, 
+  geom_density_ridges_gradient(scale = 1.9, 
                                alpha = 0.6, linewidth = 0.3, 
-                               rel_min_height = 0.01, 
-                               bandwidth = 0.4) +
+                               rel_min_height = 0.005, 
+                               #bandwidth = 0.4,
+                               ) +
   stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -0.5, hjust = 0.25,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(0, 16, by = 2)) + 
   xlab("culmen + mandible (cm)") + 
+  scale_y_discrete(expand = expand_scale(add = c(1, 1.2)))+
   ylab("species")
 p2
 
@@ -268,7 +273,7 @@ p5 <- ggplot(massvol, aes(x = MASS_g, y = BRAIN_ml)) +
                   axis.title.y = element_text(size = 8),
                   legend.key.height = unit(0.3, 'cm'), # shrink the native height of legend
                   legend.text = element_text(size=6.5)) + # reduce font size on legend
-  geom_line(alpha = 0.25, size = 2.1, color = '#000000',
+  geom_line(alpha = 0.25, size = 1.8, color = '#000000',
             stat = "smooth", method = 'nls', 
             formula = 'y~a*x^b', # power fit using non-linear squares regression
             method.args = list(start= c(a = 1,b=1)), 
