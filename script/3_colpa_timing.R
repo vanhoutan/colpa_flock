@@ -43,7 +43,9 @@ getPalette = colorRampPalette(brewer.pal(11, "Spectral")) # interpolate colors t
 Spectral12 <- getPalette(colourCount) # 12 color Spectral palette 
 
 #reorder in order of appearance
-DF$SPECIES <- factor(DF$SPECIES, levels=c("BHPA", "GRMA", "YCPA", "BYMA", "WEPA", "OCPA", "DHPA", "CWPA", "SCMA", "WBPA", "MEPA", "RGMA"))
+DF$SPECIES <- factor(DF$SPECIES, levels=c("YCPA", "GRMA", "BHPA", "BYMA", 
+                                          "WEPA", "OCPA", "CWPA",  "DHPA", 
+                                          "SCMA", "WBPA", "RGMA", "MEPA"))
 
 # make plot
 p1 <- ggplot(DF, aes(x = TIME_rel, y = KG_HR_DAY, group = SPECIES, color = SPECIES)) +
@@ -91,7 +93,7 @@ write.csv(loess_max2, file="/Users/kylevanhoutan/projects/colpa_flock/data/loess
 
 # plot again in correct order, reorder from loess_max2
 DF$SPECIES <- factor(DF$SPECIES, levels=c("YCPA", "GRMA", "BHPA", "BYMA", 
-                                          "WEPA", "OCPA", "CWPA", "DHPA", 
+                                          "WEPA", "OCPA", "CWPA",  "DHPA", 
                                           "SCMA", "WBPA", "RGMA", "MEPA"))
 
 # make plot
@@ -115,7 +117,7 @@ p2 <- ggplot(DF, aes(x = TIME_rel, y = KG_HR_DAY, group = SPECIES, color = SPECI
   ylab("abundance (kg hr-1)") +
   scale_y_continuous(breaks=pretty_breaks()) +
   scale_x_continuous(breaks = seq(0, 1, by = 0.2)) +
-  facet_wrap(~SPECIES, ncol=3, scales = "free_y")
+  facet_wrap(~SPECIES, ncol=2, scales = "free_y")
 p2
 
 
@@ -123,7 +125,7 @@ p2
 # this is already in shape for plotting
 lands <- read.csv('data/first_down.csv')
 
-p3 <- ggplot(lands, aes(x= fct_infreq(FIRST_DOWN), group=FIRST_DOWN, fill=FIRST_DOWN)) +
+p4 <- ggplot(lands, aes(x= fct_infreq(FIRST_DOWN), group=FIRST_DOWN, fill=FIRST_DOWN)) +
   themeKV + theme(legend.position = "none", 
                   axis.text.x = element_text(size = 7),
                   axis.text.y = element_text(size = 7),
@@ -135,16 +137,17 @@ p3 <- ggplot(lands, aes(x= fct_infreq(FIRST_DOWN), group=FIRST_DOWN, fill=FIRST_
   scale_y_continuous(breaks = seq(0, 50, by = 5)) +
   xlab("species") +
   ylab("first to land (days)")
-p3
+
 
 
 # plot extracts of arrival order, by peak loess model data
-p4 <- ggplot(loess_max2, aes(x = x, group = SPECIES, fill = SPECIES,
+
+p3 <- ggplot(loess_max2, aes(x = x, group = SPECIES, fill = SPECIES,
                              y = fct_reorder(SPECIES,desc(x)))) +  # desc reverse orders from small to big
   themeKV + theme(legend.position = "none",
                   axis.text.y = element_text(size = 7),
                   axis.text.x = element_text(size = 7),
-                  axis.title.x = element_text(size = 9),
+                  axis.title.x = element_text(size = 8),
                   axis.title.y = element_text(size = 0),) +
   geom_point(shape = 16, size = 2.6, alpha = 0.8,
              aes(color = fct_reorder(SPECIES,x))) +
@@ -157,19 +160,19 @@ p4 <- ggplot(loess_max2, aes(x = x, group = SPECIES, fill = SPECIES,
   #                 date_labels = "%H") + # set the time scales and drop date info
   # xlab("hour of day") +
   xlab("rel. time of max abund.")
-p4
+
 
 
 layout <- "
-AAAAB
-AAAAB
-AAAAB
-AAAAB
-AAAAC
-AAAAC
-AAAAC
-AAAAC"
-p2 + p4 + p3 +
+AAAB
+AAAB
+AAAB
+AAAC
+AAAC
+AAAC
+AAA#
+AAA#"
+p2 + p3 + p4 +
   plot_layout(design = layout) +
   plot_annotation(tag_levels = 'a') # add panel labels a, b, c... et
 

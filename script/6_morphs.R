@@ -22,10 +22,13 @@ library(patchwork)
 
 # my custom ggplot theme
 themeKV <- theme_few()+
-  theme(strip.background = element_blank(),
+  theme(plot.margin = unit(c(0,0,0,0), "cm"),
+        strip.background = element_blank(),
         axis.line = element_blank(),
-        axis.text.x = element_text(colour = "black", margin = margin(0.2, unit = "cm")),
-        axis.text.y = element_text(colour = "black", margin = margin(c(1, 0.2), unit = "cm")),
+        axis.text.x = element_text(size = 7, colour = "black", margin = margin(0.2, unit = "cm")),
+        axis.text.y = element_text(size = 7, colour = "black", margin = margin(c(1, 0.2), unit = "cm")),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8),
         axis.ticks.x = element_line(colour = "black"), axis.ticks.y = element_line(colour = "black"),
         axis.ticks.length=unit(-0.15, "cm"),element_line(colour = "black", linewidth=.25),
         panel.border = element_rect(colour = "black", fill=NA, linewidth=.5),
@@ -131,7 +134,7 @@ p1 <- ggplot(morph_HWi, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = a
                                scale = 1.8, 
                                alpha = 0.2, 
                                rel_min_height = 0.005, 
-                               # bandwidth = 1,
+                               bandwidth = 1.3,
                                ) +
   scale_fill_gradientn(colours = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#313695")) +
   # more detail at https://ggplot2.tidyverse.org/reference/scale_gradient.html
@@ -176,24 +179,19 @@ ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = fct_reo
 # same data, but ridgeline plot continuous x axis fill 
 p2 <- ggplot(morph_CMs, aes(x = MEASURE, y = fct_reorder(CODE,MEASURE), fill = after_stat(x))) + 
   # just y is reordered by CODE's median value of MEASURE of CMs
-  themeKV + theme(legend.position = "none",
-                  axis.text.x = element_text(size = 7),
-                  axis.title.x = element_text(size = 8),
-                  axis.text.y = element_text(size = 7),
-                  axis.title.y = element_text(size = 0),) +
+  themeKV + theme(legend.position = "none") +
   scale_fill_gradientn(colours = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#313695")) +
   #  scale_fill_distiller(palette = "Spectral", direction = 1) + # continuous 7 color Brewer
   geom_density_ridges_gradient(scale = 1.9, 
                                alpha = 0.6, linewidth = 0.3, 
                                rel_min_height = 0.005, 
-                               #bandwidth = 0.4,
+                               bandwidth = 0.4,
                                ) +
   stat_summary(geom = "text", alpha = 0.5, size = 2.5, vjust = -0.5, hjust = 0.25,
                fun = "median", aes(label = round(after_stat(x), 1))) +
   scale_x_continuous(breaks = seq(0, 16, by = 2)) + 
-  xlab("culmen + mandible (cm)") + 
-  scale_y_discrete(expand = expand_scale(add = c(1, 1.2)))+
-  ylab("species")
+  ylab(NULL) + xlab("culmen + mandible (cm)") + 
+  scale_y_discrete(expand = expand_scale(add = c(1, 1.2)))
 p2
 
 
@@ -271,7 +269,7 @@ p5 <- ggplot(massvol, aes(x = MASS_g, y = BRAIN_ml)) +
                   axis.title.x = element_text(size = 8),
                   axis.text.y = element_text(size = 7),
                   axis.title.y = element_text(size = 8),
-                  legend.key.height = unit(0.3, 'cm'), # shrink the native height of legend
+                  legend.key.height = unit(0.1, 'cm'), # shrink the native height of legend
                   legend.text = element_text(size=6.5)) + # reduce font size on legend
   geom_line(alpha = 0.25, size = 1.8, color = '#000000',
             stat = "smooth", method = 'nls', 
@@ -288,15 +286,40 @@ p5 <- ggplot(massvol, aes(x = MASS_g, y = BRAIN_ml)) +
   scale_x_continuous(breaks = seq(0, 1400, by = 200)) +
   xlab("body mass (g)") + 
   ylab("brain volume (ml)")+
-  guides(fill = guide_legend(reverse=TRUE)) # reverse legend sort order to match data sort
-   #                           override.aes = list(size=2.6))) # reduce point size in legend
+  guides(fill = guide_legend(reverse=TRUE, # reverse legend sort order to match data sort
+         override.aes = list(size=2.7))) # reduce point size in legend
 p5 
 
+
+
+#### read in covariate data, includes wing loading
+covars <- read.csv('data/covars.csv')
+
+# make col plot of alarm species
+p6 <- ggplot(covars, aes(x = WING_load, y = fct_rev(fct_infreq(CODE, WING_load)))) +
+  themeKV + theme(legend.position = "none", 
+                  axis.text.y = element_text(size = 7),
+                  axis.title.y = element_text(size = 8),
+                  axis.text.x = element_text(size = 7),
+                  axis.title.x = element_text(size = 8),
+  ) + 
+  geom_col(fill = c("#66c2a5"), alpha =1, width=0.9) +
+  #scale_fill_manual(values=c("#66c2a5")) +
+  scale_x_continuous(breaks = seq(0, 60, by = 8), limits = c(0,50)) +
+  scale_y_discrete(expand = expand_scale(add = c(1.1, 1.1)))+
+  ylab(NULL) + xlab("wing load (N m s-2)")
+p6
+
+
+#### patch them all together
 layout <- "
-ABC"
-p1 + p2 + p5 + 
-  plot_layout(design = layout) +
-  plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
+A
+B
+C
+D"
+p1 + p2 + p6 + p5 +
+plot_layout(design = layout) +
+plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
 
 
 #### FIN

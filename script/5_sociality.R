@@ -96,10 +96,10 @@ p1 <- ggplot(sociality, aes(x=OBSERV, y=ESTIMATE, group = SPECIES, color=fct_reo
   scale_x_continuous(breaks = seq(1, 10, by = 1), limits = c(1,9)) + # tighten up white space
   ylab("cumulative score") +
   xlab("index component") +
-  annotate("text", x = 1.6, y = 500, label = "abundance", alpha = 0.75, size = 3)+
-  annotate("text", x = 3.5, y = 500, label = "sequence", alpha = 0.75, size = 3)+
-  annotate("text", x = 5.5, y = 500, label = "function", alpha = 0.75, size = 3)+
-  annotate("text", x = 7.9, y = 500, label = "interaction", alpha = 0.75, size = 3)
+  annotate("text", x = 1.6, y = 500, label = "abund.", alpha = 0.75, size = 2.8)+
+  annotate("text", x = 3.5, y = 500, label = "sequence", alpha = 0.75, size = 2.8)+
+  annotate("text", x = 5.5, y = 500, label = "function", alpha = 0.75, size = 2.8)+
+  annotate("text", x = 7.9, y = 500, label = "interaction", alpha = 0.75, size = 2.8)
 p1
 #  guides(color = guide_legend(reverse=TRUE,)) # reverse legend sort order to match data sort
 #                              override.aes = list(size=2))) # reduce point size in legend
@@ -118,8 +118,9 @@ weight <- read.csv('data/weights.csv')
 df2 <- left_join(df, weight) # join the 2 together
 
 # run the bootstrap
+set.seed(916) # ensure same results
 y=1000 # no. replicates
-x=90 # no. sample draws (ideally a multiple of 9)
+x=90 # no. sample draws (a multiple of 9 --> there are 9 index components)
 boots <- replicate(y, df2 %>% # y = no. replicates 
                    group_by(SPECIES) %>% # group operation for each species
                    sample_n(size=x, replace=T, prob=WEIGHT) %>% # no. samples, replace, weighting 
@@ -149,12 +150,15 @@ p2
 
 # patch them together
 layout <- "
-AA#
-AAB
-AAB
-AAB
-AAB
-AA#"
+AAA##
+AAABB
+AAABB
+AAABB
+AAABB
+AAABB
+AAABB
+AAABB
+AAA##"
 p1 + p2 + 
   plot_layout(design = layout) +
   plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
