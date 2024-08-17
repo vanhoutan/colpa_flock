@@ -23,13 +23,16 @@ library(infer) # sampling
 
 # my custom ggplot theme
 themeKV <- theme_few()+
-  theme(strip.background = element_blank(),
+  theme(plot.margin = unit(c(0.1,0,0,0), "cm"),
+        strip.background = element_blank(),
         axis.line = element_blank(),
-        axis.text.x = element_text(colour = "black", margin = margin(0.2, unit = "cm")),
-        axis.text.y = element_text(colour = "black", margin = margin(c(1, 0.2), unit = "cm")),
+        axis.text.x = element_text(size = 7, colour = "black", margin = unit(c(0.15,0,0,0), "cm")),
+        axis.text.y = element_text(size = 7, colour = "black", margin = unit(c(0,0.15,0,0), "cm")),
+        axis.title.x = element_text(size = 8),
+        axis.title.y = element_text(size = 8),
         axis.ticks.x = element_line(colour = "black"), axis.ticks.y = element_line(colour = "black"),
         axis.ticks.length=unit(-0.15, "cm"),element_line(colour = "black", linewidth=.25),
-        panel.border = element_rect(colour = "black", fill=NA, linewidth=.5),
+        panel.border = element_rect(colour = "black", fill=NA, linewidth=.25),
         legend.title=element_blank(),
         strip.text=element_text(hjust=0))
 
@@ -118,7 +121,7 @@ weight <- read.csv('data/weights.csv')
 df2 <- left_join(df, weight) # join the 2 together
 
 # run the bootstrap
-set.seed(916) # ensure same results
+set.seed(916) # ensure same results when rerun Genesis 9:16
 y=1000 # no. replicates
 x=90 # no. sample draws (a multiple of 9 --> there are 9 index components)
 boots <- replicate(y, df2 %>% # y = no. replicates 

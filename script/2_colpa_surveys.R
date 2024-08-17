@@ -22,7 +22,8 @@ library(lubridate)    # formatting times dates
 
 # custom ggplot theme
 themeKV <- theme_few()+
-  theme(strip.background = element_blank(),
+  theme(plot.margin = unit(c(0,0,0,0), "cm"),
+        strip.background = element_blank(),
         axis.line = element_blank(),
         axis.text.x = element_text(colour = "black", margin = margin(0.2, unit = "cm")),
         axis.text.y = element_text(colour = "black", margin = margin(c(1, 0.2), unit = "cm")),
@@ -122,11 +123,11 @@ survey2$SPECIES <- factor(survey2$SPECIES, levels=c("YCPA", "GRMA", "WEPA", "BHP
 
 p1 <- ggplot(survey2, aes(x = TIMEad, y = KG_HR_DAY, group = SPECIES, fill = SPECIES)) +
   themeKV + theme(legend.position = "none",
-                  axis.text.y = element_text(size = 6),
+                  axis.text.y = element_text(size = 7),
                   axis.text.x = element_text(size = 8),
                   axis.title.x = element_text(size = 9),
                   axis.title.y = element_text(size = 9),
-                  strip.text.x = element_text(size = 6),
+                  strip.text.x = element_text(size = 7),
                   panel.spacing.y = unit(-0.25, "lines"),) + # trying to reduce vertical spacing between panels
   # see: https://stackoverflow.com/questions/3681647/ggplot-how-to-increase-spacing-between-faceted-plots
   geom_area(alpha=0.85) +
@@ -174,11 +175,11 @@ p2 <- ggplot(survey3, aes(x = TIMEad, y = KG_HR_DAY, group = SPECIES, fill = SPE
                   axis.text.y = element_text(size = 7),
                   axis.text.x = element_text(size = 7),
                   axis.title.x = element_text(size = 9),
-                  axis.title.y = element_text(size = 9),) +
-  geom_point(shape = 16, size = 3.2, alpha = 0.8,
+                  axis.title.y = element_text(size = 8),) +
+  geom_point(shape = 16, size = 3, alpha = 0.8,
              aes(color = fct_reorder(SPECIES,total_KG))) +
   scale_color_manual(values = rev(Spectral12)) + # reverse the order of the palette to match p1
-  geom_point(shape = 1,size = 3.2, colour = "black", stroke = 0.25,) +
+  geom_point(shape = 1,size = 3, colour = "black", stroke = 0.25,) +
   scale_y_continuous(trans = log_trans(), 
                      breaks = c(0.001, 0.01, 0.1, 1, 10, 100),
                      limits = c(0.0007,10),
@@ -192,7 +193,6 @@ p2 <- ggplot(survey3, aes(x = TIMEad, y = KG_HR_DAY, group = SPECIES, fill = SPE
            label = "afternoon", alpha = 0.75, size = 3)+
   xlab("hour after dawn") +
   ylab("max biomass (kg hr-1 dy-1)")
-p2
 
 
 
@@ -203,10 +203,10 @@ p3 <- ggplot(survey3, aes(y = fct_reorder(SPECIES,total_KG), x = total_KG, group
                   axis.text.x = element_text(size = 7),
                   axis.title.x = element_text(size = 9),
                   axis.title.y = element_text(size = 0),) +
-  geom_point(shape = 16, size = 3.2, alpha = 0.8,
+  geom_point(shape = 16, size = 3, alpha = 0.8,
              aes(color = fct_reorder(SPECIES,total_KG))) +
   scale_color_manual(values = rev(Spectral12)) + # reverse the order of the palette to match p1
-  geom_point(shape = 1,size = 3.2, colour = "black", stroke = 0.25,) +
+  geom_point(shape = 1,size = 3, colour = "black", stroke = 0.25,) +
   scale_x_continuous(breaks = seq(0, 20, by = 2), 
                      #limits = c(0,16),
                      ) +
@@ -214,7 +214,6 @@ p3 <- ggplot(survey3, aes(y = fct_reorder(SPECIES,total_KG), x = total_KG, group
   #                 date_labels = "%H") + # set the time scales and drop date info
   # xlab("hour of day") +
   xlab("tot. biomass (kg hr-1 dy-1)")
-p3
 
 
 
@@ -237,10 +236,10 @@ p4 <- ggplot(mass_ind, aes(y = fct_reorder(SPECIES,indiv), x = indiv, group = SP
                   axis.text.x = element_text(size = 7),
                   axis.title.x = element_text(size = 9),
                   axis.title.y = element_text(size = 0),) +
-  geom_point(shape = 16, size = 3.2, alpha = 0.8,
+  geom_point(shape = 16, size = 3, alpha = 0.8,
              aes(color = fct_reorder(SPECIES,total_KG))) +
   scale_color_manual(values = rev(Spectral12)) + # reverse the order of the palette to match p1
-  geom_point(shape = 1,size = 3.2, colour = "black", stroke = 0.25,) +
+  geom_point(shape = 1,size = 3, colour = "black", stroke = 0.25,) +
   scale_x_continuous(breaks = seq(0, 50, by = 5), 
                      #limits = c(0,45),
                      ) +
@@ -248,15 +247,14 @@ p4 <- ggplot(mass_ind, aes(y = fct_reorder(SPECIES,indiv), x = indiv, group = SP
   #                 date_labels = "%H") + # set the time scales and drop date info
   # xlab("hour of day") +
   xlab("tot. birds (indiv. hr-1 dy-1)")
-p4
 
 
 # patch them together
 layout <- "
-A
-B
-C"
-p2 + p3 + p4 +
+AAAB
+AAAC
+AAAD"
+p1 + p2 + p3 + p4 +
   plot_layout(design = layout) +
   plot_annotation(tag_levels = 'a') # add panel labels a, b, c... etc
 

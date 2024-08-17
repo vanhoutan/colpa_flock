@@ -22,16 +22,16 @@ library(patchwork)
 
 # my custom ggplot theme
 themeKV <- theme_few()+
-  theme(plot.margin = unit(c(0,0,0,0), "cm"),
+  theme(plot.margin = unit(c(0.1,0,0,0), "cm"),
         strip.background = element_blank(),
         axis.line = element_blank(),
-        axis.text.x = element_text(size = 7, colour = "black", margin = margin(0.2, unit = "cm")),
-        axis.text.y = element_text(size = 7, colour = "black", margin = margin(c(1, 0.2), unit = "cm")),
+        axis.text.x = element_text(size = 7, colour = "black", margin = unit(c(0.15,0,0,0), "cm")),
+        axis.text.y = element_text(size = 7, colour = "black", margin = unit(c(0,0.15,0,0), "cm")),
         axis.title.x = element_text(size = 8),
         axis.title.y = element_text(size = 8),
         axis.ticks.x = element_line(colour = "black"), axis.ticks.y = element_line(colour = "black"),
         axis.ticks.length=unit(-0.15, "cm"),element_line(colour = "black", linewidth=.25),
-        panel.border = element_rect(colour = "black", fill=NA, linewidth=.5),
+        panel.border = element_rect(colour = "black", fill=NA, linewidth=.25),
         legend.title=element_blank(),
         strip.text=element_text(hjust=0))
 
@@ -296,7 +296,7 @@ p5
 covars <- read.csv('data/covars.csv')
 
 # make col plot of alarm species
-p6 <- ggplot(covars, aes(x = WING_load, y = fct_rev(fct_infreq(CODE, WING_load)))) +
+p6 <- ggplot(covars, aes(x = WING_load, y = fct_rev(fct_infreq(SPECIES, WING_load)))) +
   themeKV + theme(legend.position = "none", 
                   axis.text.y = element_text(size = 7),
                   axis.title.y = element_text(size = 8),
