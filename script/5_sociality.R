@@ -110,28 +110,28 @@ p1
 
 
 #### perform non-parametric bootstrap of social index components
-#### sample and replicate with weighting scheme to equalize pulling from 4 factors
+#### sample and replicate with weighting scheme to equalize pulling from 4 factor categories
 
-# first read in the sociality index component data, the weiht data
+# first read in the sociality index component data, the weight data
 df <- read.csv('data/sociality.csv')
-df <- df %>% gather(key="COMPONENT", value="VALUE", 2:10)
+df <- df %>% gather(key="COMPONENT", value="VALUE", 2:10) # wide to tall df
 df$COMPONENT <- str_replace(df$COMPONENT,"X", "")  # remove Xs that were added
 df$COMPONENT <- as.numeric(df$COMPONENT)  # convert to numeric
 weight <- read.csv('data/weights.csv')
 df2 <- left_join(df, weight) # join the 2 together
 
 # run the bootstrap
-set.seed(916) # ensure same results when rerun Genesis 9:16
+set.seed(916) # ensure model reproducibility
 y=1000 # no. replicates
-x=90 # no. sample draws (a multiple of 9 --> there are 9 index components)
+x=90 # no. sample draws (a multiple of 9 --> there are 9 category factors in index)
 boots <- replicate(y, df2 %>% # y = no. replicates 
-                   group_by(SPECIES) %>% # group operation for each species
+                   group_by(SPECIES) %>% # group operation by species
                    sample_n(size=x, replace=T, prob=WEIGHT) %>% # no. samples, replace, weighting 
                    summarise(INDEX=sum(VALUE)) %>% # add all components up
                    ungroup(), # undo grouping
                  simplify=FALSE) # creates a list
 boots <- do.call(rbind.data.frame, boots) # turn the list output into a DF
-boots$INDEX <- boots$INDEX/(x/9) # normalize to one full set draw (n=9 components)
+boots$INDEX <- boots$INDEX/(x/9) # normalize value to one full set draw (n=9 components)
 
 
 p2 <- ggplot(boots, aes(x = INDEX, y = fct_reorder(SPECIES,INDEX), fill = fct_reorder(SPECIES,-INDEX))) + 
