@@ -53,7 +53,7 @@ p1 <- ggplot(flush2, aes(x = total_count, fill=c("#3288bd"))) +
   geom_density(size = 0.25, alpha = 0.8, adjust = 0.65) +
   scale_fill_manual(values=c("#3288bd")) +
   scale_x_continuous(breaks = seq(0, 40, by = 4)) +
-  ylab("density (morning flocks)")+
+  ylab("density (dawn flocks)")+
   xlab("no. flushes")+
   annotate("text", x = 24, y = 0.005, label = "n = 1200", color = "white", alpha = 0.85, size = 3)
 p1

@@ -3,7 +3,7 @@
 
 
 library(ggplot2)      # plotting and viz
-library(plyr)         # legacy df manipulation
+#library(plyr)         # legacy df manipulation
 library(dplyr)        # variable grouping and manipulation
 library(reshape)      # legacy df manipulation
 library(data.table)   # legacy functions on df 
@@ -99,7 +99,7 @@ p1 <- ggplot(sociality, aes(x=OBSERV, y=ESTIMATE, group = SPECIES, color=fct_reo
   scale_x_continuous(breaks = seq(1, 10, by = 1), limits = c(1,9)) + # tighten up white space
   ylab("cumulative score") +
   xlab("index component") +
-  annotate("text", x = 1.6, y = 500, label = "abund.", alpha = 0.75, size = 2.8)+
+  annotate("text", x = 1.6, y = 500, label = "abundance", alpha = 0.75, size = 2.8)+
   annotate("text", x = 3.5, y = 500, label = "sequence", alpha = 0.75, size = 2.8)+
   annotate("text", x = 5.5, y = 500, label = "function", alpha = 0.75, size = 2.8)+
   annotate("text", x = 7.9, y = 500, label = "interaction", alpha = 0.75, size = 2.8)
@@ -112,7 +112,7 @@ p1
 #### perform non-parametric bootstrap of social index components
 #### sample and replicate with weighting scheme to equalize pulling from 4 factor categories
 
-# first read in the sociality index component data, the weight data
+# first read in the sociality index component data & the weight data
 df <- read.csv('data/sociality.csv')
 df <- df %>% gather(key="COMPONENT", value="VALUE", 2:10) # wide to tall df
 df$COMPONENT <- str_replace(df$COMPONENT,"X", "")  # remove Xs that were added
@@ -120,18 +120,19 @@ df$COMPONENT <- as.numeric(df$COMPONENT)  # convert to numeric
 weight <- read.csv('data/weights.csv')
 df2 <- left_join(df, weight) # join the 2 together
 
-# run the bootstrap
-set.seed(916) # ensure model reproducibility
+# run the nonparam bootstrap
+set.seed(916) # ensure model result reproducibility
 y=1000 # no. replicates
-x=90 # no. sample draws (a multiple of 9 --> there are 9 category factors in index)
+z=9 # there are 9 category factors in the index
+x=9*z # no. sample draws, one for each component
 boots <- replicate(y, df2 %>% # y = no. replicates 
-                   group_by(SPECIES) %>% # group operation by species
-                   sample_n(size=x, replace=T, prob=WEIGHT) %>% # no. samples, replace, weighting 
-                   summarise(INDEX=sum(VALUE)) %>% # add all components up
+                   group_by(SPECIES) %>% # perform group operation by species
+                   sample_n(size=x, replace=T, prob=WEIGHT) %>% # no. samples, replacement YES, weighting 
+                   summarise(INDEX=sum(VALUE)) %>% # add all sampled components up
                    ungroup(), # undo grouping
                  simplify=FALSE) # creates a list
 boots <- do.call(rbind.data.frame, boots) # turn the list output into a DF
-boots$INDEX <- boots$INDEX/(x/9) # normalize value to one full set draw (n=9 components)
+boots$INDEX <- boots$INDEX/(x/z) # normalize value to one full set draw (n=9 components)
 
 
 p2 <- ggplot(boots, aes(x = INDEX, y = fct_reorder(SPECIES,INDEX), fill = fct_reorder(SPECIES,-INDEX))) + 
@@ -147,7 +148,7 @@ p2 <- ggplot(boots, aes(x = INDEX, y = fct_reorder(SPECIES,INDEX), fill = fct_re
                       ) +
   scale_x_continuous(breaks = seq(0, 1000, by = 100), limits = c(0,600)) + 
   scale_y_discrete(expand = expand_scale(add = c(0.75, 1.5)))+
-  xlab("cumul. social index")+ylab(NULL)
+  xlab("cumulative social index")+ylab(NULL)
 p2
 
 

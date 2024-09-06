@@ -1,17 +1,15 @@
-#### this script develops the RF model and resulting ICE and PDP dataviz 
+#### this script develops the RF model and resulting pairwise xy and PDP dataviz 
 
-library(ggplot2)      # plotting and viz
-library(plyr)         # legacy df manipulation
 library(dplyr)        # variable grouping and manipulation
-library(tidyr)        # gathering and spreading
-library(tidyverse)
+library(tidyverse)    # gathering and spreading
+library(caret)        # RF
+library(randomForest) # duh
+library(pdp)          # PDP plots
+library(ggplot2)      # plotting and viz
 library(ggthemes)     # helpful ggplot themes
 library(RColorBrewer) # pretty colors
 library(colorspace)
 library(patchwork)    # assembling composite plots
-library(caret)        # RF
-library(randomForest) # duh
-library(pdp)          # PDP plots
 
 
 # my custom ggplot theme
@@ -50,7 +48,7 @@ p5 <- loroRF %>% ggplot(aes(x=fct_reorder(TRIBE,-INDEX), y=INDEX)) +
                   axis.text.x = element_text(size = 6, colour = "black", margin = unit(c(0.15,0,0,0), "cm"))) + 
   geom_boxplot(outlier.shape = NA, # remove outliers
                fatten=1, # NULL = remove median line
-               color = "#9e0142", coef = 1, # whiskers sd =1 
+               color = "#f46d43", coef = 1, # whiskers sd =1 
                lwd=0.5, alpha = 0.7, # lwd = linewidth
                width=0.65) + 
   xlab("taxonomic tribe") +
@@ -89,7 +87,7 @@ p3 <- loroRF %>% ggplot(aes(x=WING_load, y=INDEX)) +
   geom_boxplot(aes(group = SPECIES), fatten=NULL, outlier.shape = NA, 
                coef = 1, lwd=0.25, alpha = 1, width=1, varwidth = TRUE, position=position_dodge())+
   geom_line(stat = "smooth", method = "loess", formula = y ~ x,
-            color = "#66c2a5", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
+            color = "#9e0142", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
   xlab("wing load (N m s-2)") + ylab("sociality index") +
   scale_y_continuous(breaks = seq(0, 1000, by = 150),limits = c(0,600))
 
@@ -101,7 +99,7 @@ p4 <- loroRF %>% ggplot(aes(x=BEAK_cmsl, y=INDEX)) +
   geom_boxplot(aes(group = SPECIES), fatten=NULL, outlier.shape = NA, coef = 1, lwd=0.25, 
                width=0.4,varwidth = TRUE, position=position_dodge())+
   geom_line(stat = "smooth", method = "loess", formula = y ~ x,
-            color = "#f46d43", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
+            color = "#66c2a5", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
   xlab("culmen + mandible (cm)") + ylab("sociality index") +
   scale_y_continuous(breaks = seq(0, 1000, by = 150),limits = c(0,600))+
   scale_x_continuous(breaks = seq(0, 14, by = 2))
@@ -113,7 +111,7 @@ B
 C
 D
 E"
-p1 + p2 + p3 + p4 + p5 +
+p1 + p2 + p4 + p5 + p3 +
 plot_layout(design = layout) +
 plot_annotation(tag_levels = 'a') # add panel labels
 
@@ -121,11 +119,13 @@ plot_annotation(tag_levels = 'a') # add panel labels
 
 #### develop, train, and test RF model
 head(loroRF)
+
+#### don't need to manually partition the data as it's happening in CARET
 set.seed(916)
 test_index <- createDataPartition(loroRF$INDEX, times = 1, p = 0.2, list = FALSE)
 test_loro <- loroRF[test_index, ]
 train_loro <- loroRF[-test_index, ]
-
+#check the product
 nrow(train_loro) # 9060 obs in training set
 nrow(test_loro) # 2400 obs in test set
 # What proportion of species in training set have INDEX value > 250?
@@ -146,6 +146,7 @@ registerDoParallel(c1) # just to save some processing time
 # for resampling, use cross validation instead of bootstrap
 # 10-fold cv, repeated 5x
 tc <- trainControl(method = "repeatedcv", number = 10, repeats = 5) # http://zevross.com/blog/2017/09/19/predictive-modeling-and-machine-learning-in-r-with-the-caret-package/
+tc2 <- trainControl(method = "repeatedcv", number = 5, repeats = 5)
 
 
 # develop full RF with all 9 covariates
@@ -160,7 +161,23 @@ plot(train_rf9)
 train_rf9$results
 train_rf9$bestTune # 9 covars, ntree =1000, CV resampling, mtry=9, Rsq = 0.96
 
-# drop highly correlated covars, since they're poop
+# run the trained RF with all 9 predictors
+set.seed(0819)
+rf9 <- randomForest(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres + TRIBE + WING_twai + MASS + BRAIN_ml + GENUS,
+                   data=loroRF, importance = T, 
+                   trControl = tc,
+                   ntree = 1000, mtry = 9)
+# extract variable importance rankings
+rf9_imp <- importance(rf9, type=1)
+rf9_imp <- as.data.frame(rf9_imp) # make into df
+rf9_imp <- tibble::rownames_to_column(rf9_imp, "value") # convert row name to col
+names(rf9_imp)[names(rf9_imp) == "%IncMSE"] <- "IncMSE" # rename col header
+rf9_imp <- rf9_imp[order(rf9_imp$IncMSE, decreasing = T),]
+rf9_imp
+
+
+# drop highly correlated predictors since they're redunaant
+# from a mechanism standpoints they're also indirect
 set.seed(916)
 train_rf5 <- train(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres + TRIBE, # these 5 are independent
                    method = "rf", trControl = tc,
@@ -172,23 +189,22 @@ plot(train_rf5)
 train_rf5$results
 train_rf5$bestTune # 5 covars, ntree =1000, CV resampling, mtry=5, Rsq = 0.96
 
-stopCluster(c1) # end parallel processing
-
 # run tuned RF model 
 set.seed(0819)
 rf <- randomForest(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres + TRIBE,
-                   data=loroRF, 
-                   importance = TRUE, 
-                   ntree = 1000, mtry = 5,trControl = tc)
+                   data=loroRF, importance = T, 
+                   trControl = tc,
+                   ntree = 1000, mtry = 5)
 # call in results
-rf # MS resids = 810.0965, Rsquare = 0.9638
+rf # MS resids = 810.1302, Rsquare = 0.9638
 
 # calculate variable importance 
 rf_imp <- importance(rf, type=1)
 rf_imp <- as.data.frame(rf_imp) # make into df
 rf_imp <- tibble::rownames_to_column(rf_imp, "value") # convert row name to col
 names(rf_imp)[names(rf_imp) == "%IncMSE"] <- "IncMSE" # rename col header
-head(rf_imp)
+rf_imp <- rf_imp[order(rf_imp$IncMSE, decreasing = T),] # sort df by rank order to retain colors fr pair-wise plots
+rf_imp # now ready for ggplot
 
 
 #### develop the data for the full 2-way PDPs
@@ -201,11 +217,20 @@ partial_factxy_all <- NULL
 for (x in 1:j) {
   partial_factxy <- pdp::partial(rf, pred.var = c(flistx[x], flisty[x]), plot = F, rug = T, chull = T)
   partial_factxy$mfactorsxy <- paste0(flistx[x],":", flisty[x])
-  partial_factxy <- partial_factxy %>% rename("factorx" = names(partial_factxy[1]), "factory" = names(partial_factxy[2]))
+  partial_factxy <- partial_factxy %>% dplyr::rename("factorx" = names(partial_factxy[1]), "factory" = names(partial_factxy[2]))
   partial_factxy_all <- rbind(partial_factxy, partial_factxy_all)
 }
+# note that if plyr loaded, could potentially pull in plyr 'rename()' command causing errors
+# don't need plyr here so don't load! 
+# when it was loaded, I was getting the following error message:
+# Error in rename(., factorx = names(partial_factxy[1]), factory = names(partial_factxy[2])) : 
+# unused arguments (factorx = names(partial_factxy[1]), factory = names(partial_factxy[2]))
+
+
+stopCluster(c1) # end parallel processing
 
 partial_factxy_all$mfactorsxy <- as.factor(partial_factxy_all$mfactorsxy)
+partial_factxy_all <- as.data.frame(partial_factxy_all)
 
 # define color ramp + fix scale limits
 cols = c("#9e0142", "#d53e4f",  "#fdae61", "#fee08b", "#e6f598", "#abdda4", "#66c2a5", "#3288bd", "#313695")
@@ -219,7 +244,7 @@ partial_factxy_all$mfactorsxy<- factor(partial_factxy_all$mfactorsxy,
 p10<- ggplot(data = partial_factxy_all, aes(x = factorx, y = factory, fill = yhat))+
   themeKV+ theme(legend.key.height=unit(0.4,"cm"), legend.key.width=unit(0.32,"cm"), 
                  axis.text.x = element_text(size = 6, colour = "black", margin = unit(c(0.15,0,0,0), "cm"))) + 
-  geom_tile(data = filter(partial_factxy_all, mfactorsxy == "BRAIN_Yres:TRIBE"))+
+  geom_tile(data = dplyr::filter(partial_factxy_all, mfactorsxy == "BRAIN_Yres:TRIBE"))+
   scale_fill_gradientn(colours = cols, limits=lims)+
   scale_x_continuous(breaks = seq(-2, 2.3)) +
   xlab("brain vol. resids")+ ylab(NULL) + coord_flip()
@@ -246,18 +271,15 @@ p9 <- ggplot(data = partial_factxy_all, aes(x = factorx, y = factory, fill = yha
   themeKV+ theme(legend.position = "none") +
   geom_tile(data = filter(partial_factxy_all, mfactorsxy == "BRAIN_Yres:BEAK_cmsl"))+
   scale_fill_gradientn(colours = cols, limits=lims)+
-  scale_x_continuous(breaks = seq(-2, 2),limits = c(-2, 2.3)) +
+  #scale_x_continuous(breaks = seq(-2, 2),limits = c(-2, 2.3)) +
   scale_y_continuous(breaks = seq(0, 14, by = 2)) +
   xlab("brain volume residuals") + ylab("culmen + mandible (cm)")
 
 
 # plot variable importance ranks
-# sort df by rank order to retain colors fr pair-wise plots
-rf_imp <- rf_imp[order(rf_imp$value, decreasing = FALSE),]
-
 p6 <- rf_imp %>% ggplot(aes(x = IncMSE, y = fct_rev(fct_infreq(value, IncMSE)))) +
   themeKV + theme(axis.text.y = element_text(size = 6)) +
-  geom_col(alpha =0.9, width=0.85,
+  geom_col(alpha =0.8, width=0.85,
            fill = c("#5e4fa2", "#3288bd", "#66c2a5", "#f46d43", "#9e0142")) +
   scale_x_continuous(breaks = seq(0, 1000, by = 150)) +
   scale_y_discrete(expand = expand_scale(add = c(0.8, 0.8)))+
@@ -270,11 +292,9 @@ BG
 CH
 DI
 EJ"
-p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9 + p10 +
+p1 + p2 + p4 + p5 + p3 + p6 + p7 + p9 + p8 + p10 +
   plot_layout(design = layout) +
   plot_annotation(tag_levels = 'a')
 
 
-
-
-#### FIN
+#### EL FÍN
