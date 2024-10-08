@@ -1,2 +1,2 @@
 # colpa_flock
-analysis and data visualization to understand the social activity of parrots at clay cliffs in Perú
+wrangling, analyses, and data visualization to understand the social activity of mixed societies of parrots foraging at clay cliffs in Perú
