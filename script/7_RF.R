@@ -45,10 +45,10 @@ head(loroRF)
 # first taxon, boxplot
 p5 <- loroRF %>% ggplot(aes(x=fct_reorder(TRIBE,-INDEX), y=INDEX)) +
   themeKV + theme(legend.position = "none",
-                  axis.text.x = element_text(size = 6, colour = "black", margin = unit(c(0.15,0,0,0), "cm"))) + 
+                  axis.text.x = element_text(size = 7, colour = "black", margin = unit(c(0.15,0,0,0), "cm"))) + 
   geom_boxplot(outlier.shape = NA, # remove outliers
                fatten=1, # NULL = remove median line
-               color = "#f46d43", coef = 1, # whiskers sd =1 
+               color = "#9e0142", coef = 1, # whiskers sd =1 
                lwd=0.5, alpha = 0.7, # lwd = linewidth
                width=0.65) + 
   xlab("taxonomic tribe") +
@@ -67,7 +67,7 @@ p1 <- loroRF %>% ggplot(aes(x=BRAIN_Yres, y=INDEX)) +
   geom_line(stat = "smooth", method = "loess", formula = y ~ x,
             color = "#5e4fa2", alpha = 0.6,
             span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
-  xlab("brain volume residuals") + ylab("sociality index") +
+  xlab("brain size") + ylab("sociality index") +
   scale_y_continuous(breaks = seq(0, 1000, by = 150),limits = c(0,600))
 
 # hand wing index
@@ -87,11 +87,11 @@ p3 <- loroRF %>% ggplot(aes(x=WING_load, y=INDEX)) +
   geom_boxplot(aes(group = SPECIES), fatten=NULL, outlier.shape = NA, 
                coef = 1, lwd=0.25, alpha = 1, width=1, varwidth = TRUE, position=position_dodge())+
   geom_line(stat = "smooth", method = "loess", formula = y ~ x,
-            color = "#9e0142", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
+            color = "#66c2a5", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
   xlab("wing load (N m s-2)") + ylab("sociality index") +
   scale_y_continuous(breaks = seq(0, 1000, by = 150),limits = c(0,600))
 
-# beak size
+# bill lengths
 p4 <- loroRF %>% ggplot(aes(x=BEAK_cmsl, y=INDEX)) +
   themeKV + theme(axis.text.y = element_text(size = 7), axis.text.x = element_text(size = 7),
                   axis.title.x = element_text(size = 8),axis.title.y = element_text(size = 8),
@@ -99,8 +99,8 @@ p4 <- loroRF %>% ggplot(aes(x=BEAK_cmsl, y=INDEX)) +
   geom_boxplot(aes(group = SPECIES), fatten=NULL, outlier.shape = NA, coef = 1, lwd=0.25, 
                width=0.4,varwidth = TRUE, position=position_dodge())+
   geom_line(stat = "smooth", method = "loess", formula = y ~ x,
-            color = "#66c2a5", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
-  xlab("culmen + mandible (cm)") + ylab("sociality index") +
+            color = "#f46d43", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
+  xlab("bill lengths (cm)") + ylab("sociality index") +
   scale_y_continuous(breaks = seq(0, 1000, by = 150),limits = c(0,600))+
   scale_x_continuous(breaks = seq(0, 14, by = 2))
 
@@ -111,7 +111,7 @@ B
 C
 D
 E"
-p1 + p2 + p4 + p5 + p3 +
+p1 + p2 + p4 + p3 + p5 +
 plot_layout(design = layout) +
 plot_annotation(tag_levels = 'a') # add panel labels
 
@@ -151,29 +151,30 @@ tc2 <- trainControl(method = "repeatedcv", number = 5, repeats = 5)
 
 # develop full RF with all 9 covariates
 set.seed(916)
-train_rf9 <- train(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres + TRIBE + WING_twai + MASS + BRAIN_ml + GENUS,
+train_rf10 <- train(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres + TRIBE + WING_twai + MASS + BRAIN_ml + GENUS + SPECIES,
                   method = "rf", trControl = tc,
-                  ntree = 1000,
-                  tuneGrid = data.frame(mtry = seq(1:9)),
+                  ntree = 2000,
+                  tuneGrid = data.frame(mtry = seq(1:10)),
                   data=loroRF)
 # examine results
-plot(train_rf9) 
-train_rf9$results
-train_rf9$bestTune # 9 covars, ntree =1000, CV resampling, mtry=9, Rsq = 0.96
+plot(train_rf10) 
+train_rf10$results
+train_rf10$bestTune # 10 covars, ntree =2000, CV resampling, mtry=9, Rsq = 0.96
 
-# run the trained RF with all 9 predictors
+# run the trained RF with all 10 predictors
 set.seed(0819)
-rf9 <- randomForest(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres + TRIBE + WING_twai + MASS + BRAIN_ml + GENUS,
+rf10 <- randomForest(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres + TRIBE + WING_twai + MASS + BRAIN_ml + GENUS + SPECIES,
                    data=loroRF, importance = T, 
                    trControl = tc,
-                   ntree = 1000, mtry = 9)
+                   ntree = 2000, mtry = 9)
 # extract variable importance rankings
-rf9_imp <- importance(rf9, type=1)
-rf9_imp <- as.data.frame(rf9_imp) # make into df
-rf9_imp <- tibble::rownames_to_column(rf9_imp, "value") # convert row name to col
-names(rf9_imp)[names(rf9_imp) == "%IncMSE"] <- "IncMSE" # rename col header
-rf9_imp <- rf9_imp[order(rf9_imp$IncMSE, decreasing = T),]
-rf9_imp
+rf10_imp <- importance(rf10, type=1)
+rf10_imp <- as.data.frame(rf10_imp) # make into df
+rf10_imp <- tibble::rownames_to_column(rf10_imp, "value") # convert row name to col
+names(rf10_imp)[names(rf10_imp) == "%IncMSE"] <- "IncMSE" # rename col header
+rf10_imp <- rf10_imp[order(rf10_imp$IncMSE, decreasing = T),]
+rf10_imp <- rf10_imp %>% mutate(relIncMSE = 100*(IncMSE/max(IncMSE))) # add rel IncMSE
+rf10_imp
 
 
 # drop highly correlated predictors since they're redunaant
@@ -181,7 +182,7 @@ rf9_imp
 set.seed(916)
 train_rf5 <- train(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres + TRIBE, # these 5 are independent
                    method = "rf", trControl = tc,
-                   ntree = 1000,
+                   ntree = 2000,
                    tuneGrid = data.frame(mtry = seq(1:5)),
                    data=loroRF)
 # training model results
@@ -191,19 +192,20 @@ train_rf5$bestTune # 5 covars, ntree =1000, CV resampling, mtry=5, Rsq = 0.96
 
 # run tuned RF model 
 set.seed(0819)
-rf <- randomForest(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres + TRIBE,
+rf5 <- randomForest(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres + TRIBE,
                    data=loroRF, importance = T, 
                    trControl = tc,
-                   ntree = 1000, mtry = 5)
+                   ntree = 2000, mtry = 5)
 # call in results
-rf # MS resids = 810.1302, Rsquare = 0.9638
+rf5 # MS resids = 917, Rsquare = 0.9592
 
 # calculate variable importance 
-rf_imp <- importance(rf, type=1)
+rf_imp <- importance(rf5, type=1)
 rf_imp <- as.data.frame(rf_imp) # make into df
 rf_imp <- tibble::rownames_to_column(rf_imp, "value") # convert row name to col
 names(rf_imp)[names(rf_imp) == "%IncMSE"] <- "IncMSE" # rename col header
 rf_imp <- rf_imp[order(rf_imp$IncMSE, decreasing = T),] # sort df by rank order to retain colors fr pair-wise plots
+rf_imp <- rf_imp %>% mutate(relIncMSE = 100*(IncMSE/max(IncMSE))) # add rel IncMSE
 rf_imp # now ready for ggplot
 
 
@@ -227,8 +229,6 @@ for (x in 1:j) {
 # unused arguments (factorx = names(partial_factxy[1]), factory = names(partial_factxy[2]))
 
 
-stopCluster(c1) # end parallel processing
-
 partial_factxy_all$mfactorsxy <- as.factor(partial_factxy_all$mfactorsxy)
 partial_factxy_all <- as.data.frame(partial_factxy_all)
 
@@ -243,7 +243,7 @@ partial_factxy_all$mfactorsxy<- factor(partial_factxy_all$mfactorsxy,
 # plot categorical PDP first
 p10<- ggplot(data = partial_factxy_all, aes(x = factorx, y = factory, fill = yhat))+
   themeKV+ theme(legend.key.height=unit(0.4,"cm"), legend.key.width=unit(0.32,"cm"), 
-                 axis.text.x = element_text(size = 6, colour = "black", margin = unit(c(0.15,0,0,0), "cm"))) + 
+                 axis.text.x = element_text(size = 7, colour = "black", margin = unit(c(0.15,0,0,0), "cm"))) + 
   geom_tile(data = dplyr::filter(partial_factxy_all, mfactorsxy == "BRAIN_Yres:TRIBE"))+
   scale_fill_gradientn(colours = cols, limits=lims)+
   scale_x_continuous(breaks = seq(-2, 2.3)) +
@@ -258,14 +258,14 @@ p7 <- ggplot(data = partial_factxy_all, aes(x = factorx, y = factory, fill = yha
   geom_tile(data = filter(partial_factxy_all, mfactorsxy == "BRAIN_Yres:WING_hwi"))+
   scale_fill_gradientn(colours = cols, limits=lims)+
   #scale_x_continuous(breaks = seq(-2, 2),limits = c(-2, 2.3)) +
-  xlab("brain volume residuals") + ylab("hand wing index")
+  xlab("brain size") + ylab("hand wing index")
 
 p8 <- ggplot(data = partial_factxy_all, aes(x = factorx, y = factory, fill = yhat))+
   themeKV+ theme(legend.position = "none") +
   geom_tile(data = filter(partial_factxy_all, mfactorsxy == "BRAIN_Yres:WING_load"))+
   scale_fill_gradientn(colours = cols, limits=lims)+
   #scale_x_continuous(breaks = seq(-2, 2),limits = c(-2, 2.3)) +
-  xlab("brain volume residuals") + ylab("wing load (N m s-2)")
+  xlab("brain size") + ylab("wing load (N m s-2)")
 
 p9 <- ggplot(data = partial_factxy_all, aes(x = factorx, y = factory, fill = yhat))+
   themeKV+ theme(legend.position = "none") +
@@ -273,17 +273,17 @@ p9 <- ggplot(data = partial_factxy_all, aes(x = factorx, y = factory, fill = yha
   scale_fill_gradientn(colours = cols, limits=lims)+
   #scale_x_continuous(breaks = seq(-2, 2),limits = c(-2, 2.3)) +
   scale_y_continuous(breaks = seq(0, 14, by = 2)) +
-  xlab("brain volume residuals") + ylab("culmen + mandible (cm)")
+  xlab("brain size") + ylab("bill lengths (cm)")
 
 
 # plot variable importance ranks
-p6 <- rf_imp %>% ggplot(aes(x = IncMSE, y = fct_rev(fct_infreq(value, IncMSE)))) +
+p6 <- rf_imp %>% ggplot(aes(x = relIncMSE, y = fct_rev(fct_infreq(value, IncMSE)))) +
   themeKV + theme(axis.text.y = element_text(size = 6)) +
   geom_col(alpha =0.8, width=0.85,
            fill = c("#5e4fa2", "#3288bd", "#66c2a5", "#f46d43", "#9e0142")) +
-  scale_x_continuous(breaks = seq(0, 1000, by = 150)) +
+  scale_x_continuous(breaks = seq(0, 100, by = 20)) +
   scale_y_discrete(expand = expand_scale(add = c(0.8, 0.8)))+
-  ylab(NULL) + xlab("Δ MSE if removed (%)")
+  ylab(NULL) + xlab("relavtive ΔMSE (%)")
 
 #### patch them all together
 layout <- "
@@ -292,9 +292,58 @@ BG
 CH
 DI
 EJ"
-p1 + p2 + p4 + p5 + p3 + p6 + p7 + p9 + p8 + p10 +
+p1 + p2 + p3 + p4 + p5 + p6 + p7 + p9 + p8 + p10 +
   plot_layout(design = layout) +
   plot_annotation(tag_levels = 'a')
+
+stopCluster(c1) # end parallel processing
+
+
+#### run sensitivity RF posthoc, 
+
+head(loroRF)
+# split loroDF by tribe
+androDF <- loroRF %>% filter(TRIBE == "Androglossini")
+ariniDF <- loroRF %>% filter(TRIBE == "Arini")
+#check splits
+nrow(androDF) # 10000 
+nrow(ariniDF) # 14000
+
+# run RF for each and check variable ranks
+# run tuned RF model 
+
+# first for Androglossini
+set.seed(0819)
+androRF <- randomForest(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres,
+                   data=androDF, importance = T, 
+                   trControl = tc,
+                   ntree = 2000, mtry = 4)
+androRF # MS resids = 1040, Rsquare = 0.9673
+
+androRF_imp <- importance(androRF, type=1) # calculate variable importance 
+androRF_imp <- as.data.frame(androRF_imp) # make into df
+androRF_imp <- tibble::rownames_to_column(androRF_imp, "value") # convert row name to col
+names(androRF_imp)[names(androRF_imp) == "%IncMSE"] <- "IncMSE" # rename col header
+androRF_imp <- androRF_imp[order(androRF_imp$IncMSE, decreasing = T),] # sort df by rank order to retain colors fr pair-wise plots
+androRF_imp <- androRF_imp %>% mutate(relIncMSE = 100*(IncMSE/max(IncMSE))) # add relative IncMSE col
+androRF_imp # brain size is 94% rel IncMSE
+
+
+# then for Arini
+set.seed(0819)
+ariniRF <- randomForest(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres,
+                        data=ariniDF, importance = T, 
+                        trControl = tc,
+                        ntree = 2000, mtry = 4)
+ariniRF # MS resids = 812, Rsquare = 0.9448
+
+ariniRF_imp <- importance(ariniRF, type=1) # calculate variable importance 
+ariniRF_imp <- as.data.frame(ariniRF_imp) # make into df
+ariniRF_imp <- tibble::rownames_to_column(ariniRF_imp, "value") # convert row name to col
+names(ariniRF_imp)[names(ariniRF_imp) == "%IncMSE"] <- "IncMSE" # rename col header
+ariniRF_imp <- ariniRF_imp[order(ariniRF_imp$IncMSE, decreasing = T),] # sort df by rank order to retain colors fr pair-wise plots
+ariniRF_imp <- ariniRF_imp %>% mutate(relIncMSE = 100*(IncMSE/max(IncMSE))) # add rel
+ariniRF_imp # brain size is runaway dominant predictor, 100% rel IncMSE
 
 
 #### EL FÍN

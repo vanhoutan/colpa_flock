@@ -93,10 +93,9 @@ write.csv(loess_max2, file="/Users/kylevanhoutan/projects/colpa_flock/data/loess
 
 
 # plot again in correct order, reorder from loess_max2
-DF$SPECIES <- factor(DF$SPECIES, levels=c("YCPA", "GRMA", "BHPA", "BYMA", 
-                                          "WEPA", "OCPA", "CWPA",  "DHPA", 
-                                          "SCMA", "WBPA", "RGMA", "MEPA"))
-
+DF$SPECIES <- factor(DF$SPECIES, levels= c("YCPA", "GRMA", "BHPA", "BYMA", 
+                                           "WEPA", "OCPA", "CWPA", "DHPA", 
+                                           "SCMA", "WBPA", "MEPA", "RGMA"))
 # make plot
 p2 <- ggplot(DF, aes(x = TIME_rel, y = KG_HR_DAY, group = SPECIES, color = SPECIES)) +
   themeKV + theme(legend.position = "none",
@@ -108,7 +107,7 @@ p2 <- ggplot(DF, aes(x = TIME_rel, y = KG_HR_DAY, group = SPECIES, color = SPECI
                   panel.spacing.y = unit(-0.4, "lines"), # trying to reduce vertical spacing between panels
   ) +
   scale_color_manual(values = Spectral12) +
-  geom_line(alpha = 0.4, size = 2.5, color = '#000000',
+  geom_line(alpha = 0.4, size = 2.5, color = '#000000', lineend = "round",
             stat = "smooth", method = 'loess', formula = 'y~x', span = 0.75) + 
   geom_point(aes(fill = SPECIES),
              shape = 16, size = 2,
@@ -143,8 +142,10 @@ p4 <- ggplot(lands, aes(x= fct_infreq(FIRST_DOWN), group=FIRST_DOWN, fill=FIRST_
 
 # plot extracts of arrival order, by peak loess model data
 
-p3 <- ggplot(loess_max2, aes(x = x, group = SPECIES, fill = SPECIES,
-                             y = fct_reorder(SPECIES,desc(x)))) +  # desc reverse orders from small to big
+# loess_max3 <- loess_max2[order(loess_max2$x,loess_max2$y),]
+
+p3 <- loess_max2 %>% ggplot(aes(x = x, group = SPECIES, fill = SPECIES,
+             y = fct_reorder(SPECIES,desc(x)))) +  # desc reverse orders from small to big
   themeKV + theme(legend.position = "none",
                   axis.text.y = element_text(size = 7),
                   axis.text.x = element_text(size = 7),
@@ -161,7 +162,6 @@ p3 <- ggplot(loess_max2, aes(x = x, group = SPECIES, fill = SPECIES,
   #                 date_labels = "%H") + # set the time scales and drop date info
   # xlab("hour of day") +
   xlab("rel. time of max abund.")
-
 
 
 layout <- "

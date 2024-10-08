@@ -122,9 +122,9 @@ df2 <- left_join(df, weight) # join the 2 together
 
 # run the nonparam bootstrap
 set.seed(916) # ensure model result reproducibility
-y=1000 # no. replicates
-z=9 # there are 9 category factors in the index
-x=9*z # no. sample draws, one for each component
+y=2000 # no. replicates
+z=9 # 9 category factors in the index
+x=9*z # no. sample draws, recursively, one for each component (z)
 boots <- replicate(y, df2 %>% # y = no. replicates 
                    group_by(SPECIES) %>% # perform group operation by species
                    sample_n(size=x, replace=T, prob=WEIGHT) %>% # no. samples, replacement YES, weighting 
