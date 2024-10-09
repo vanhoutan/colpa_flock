@@ -2,6 +2,7 @@
 #### of bills and wings parrots, macaws, and parakeets measured in museums
 #### these form part of potential model predictors influencing sociality
 #### graphics will appear in cols beside bill and wing silhouettes
+#### will be figure #7 in the manuscript
 
 
 library(ggplot2)      # plotting and viz
