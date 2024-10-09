@@ -1,6 +1,6 @@
-#### this script is organizing and mapping daily bird counts on collpa
-#### should be ~ 2 figure in the manuscript
-#### it communicates across the study period the numbers and duration of parrots on the cliff
+#### this script organizes, tidies, and maps daily bird counts in dawn and day flocks
+#### should be figure #3 in the manuscript
+#### communicates the abundance (in mass, in no. indiv) and duration of species
 
 
 library(ggplot2)      # plotting and viz

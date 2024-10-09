@@ -1,4 +1,6 @@
-#### this script develops the RF model and resulting pairwise xy and PDP dataviz 
+#### this script tunes, trains, and runs the RF multiple nonlinear regressions 
+#### develops RF outputs and resulting pairwise xy and PDP dataviz 
+#### will be figure #8 in the manuscript
 
 library(dplyr)        # variable grouping and manipulation
 library(tidyverse)    # gathering and spreading

@@ -1,6 +1,6 @@
-#### this script is plotting the high-level stats of collpa activity and monitoring effort
-#### should be one of the first figures in the manuscript
-#### it communicates across the study period the diurnal activity and monitoring effort
+#### this script plots high-level collpa dawn flock event occurrence, behavior, sequences
+#### as well as monitoring effort across days and seasons
+#### should be figure #2 in the manuscript
 
 
 library(ggplot2)      # plotting and viz

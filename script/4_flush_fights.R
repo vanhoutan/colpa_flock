@@ -1,5 +1,7 @@
-#### this script organizes data, plots flush and fights data
-#### should be figure ~4 in the manuscript
+#### this script organizes, tidies data and calculates and plots the flush, alarm, and fight data
+#### should be figure #5 in the manuscript
+#### "fights" are really interspecies agonistic interactions with winners and losers
+#### agonistic interactions form 3 sociality components and quantify dominance and status
 
 library(ggplot2)      # plotting and viz
 library(plyr)         # legacy df manipulation

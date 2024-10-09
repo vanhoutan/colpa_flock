@@ -1,7 +1,7 @@
-#### this script is exploring the morphometric data 
-#### from parrots, macaws, and parakeets measured in museums
-#### interested in factors contributing to social roles and hierarchies
-#### then some basic dataviz
+#### this script explores and visualizes various morphometric data 
+#### of bills and wings parrots, macaws, and parakeets measured in museums
+#### these form part of potential model predictors influencing sociality
+#### graphics will appear in cols beside bill and wing silhouettes
 
 
 library(ggplot2)      # plotting and viz

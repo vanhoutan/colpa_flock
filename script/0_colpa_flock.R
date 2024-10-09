@@ -1,6 +1,8 @@
-#### this script is basic reporting on collpa morning flock size and spp richness
-#### should be figure #0 in the manuscript
-#### will have photos composited with figures 
+#### this script visualizes the collpa dawn flock size and species richness
+#### should be figure #1 in the manuscript
+#### will have composited photos of the entire collpa
+#### and various canonical groups and behaviors
+#### this is only 2 panels below
 
 
 library(ggplot2)      # plotting and viz

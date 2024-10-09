@@ -1,5 +1,7 @@
-#### this script is compiling data for the sociality index 
-#### then some basic dataviz
+#### this script compiles data metrics from previous scripts 
+#### to assemble all the 9 components of the sociality index 
+#### runs non-param bootstrap, visualizes all the results
+#### will be figure #6 in the manuscript
 
 
 library(ggplot2)      # plotting and viz

@@ -1,6 +1,6 @@
-#### this script is plotting parrot chronology on collpa
-#### should be ~ 3rd figure in the manuscript
-#### it communicates across the study period the numbers and duration of parrots on the cliff
+#### this script plots the chronology of parrot species in dawn flocks and pioneers
+#### should be figure #4 in the manuscript
+#### calculates sequence of participation and activity, and nuclear species in dance sorties
 
 library(ggplot2)      # plotting and viz
 library(plyr)         # legacy df manipulation
