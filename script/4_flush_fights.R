@@ -89,7 +89,7 @@ cause <- subset(flush, select = c(CAUSE, CATEGORY)) # subset full dataset for on
 cause1 <- cause %>% 
   filter(!(CAUSE == 'NA')) # filter out NA values
 
-# count number of cause occurences
+# count number of cause occurrences
 cause2 <- cause1 %>% group_by(CAUSE, CATEGORY) %>% # Group by count of multiple columns
   summarise(total_count=n(),.groups = 'drop') %>%
   as.data.frame() # make new df with these data
