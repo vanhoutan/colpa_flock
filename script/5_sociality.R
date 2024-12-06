@@ -60,7 +60,7 @@ ggplot(sociality, aes(fill=fct_reorder(SPECIES,ESTIMATE, .fun=median), x=ESTIMAT
   geom_boxplot(outlier.shape = NA, coef = 0, # remove outliers and whiskers
                lwd=0.25, alpha = 0.8) +
   scale_fill_manual(values = Spectral12) + # bring in manual palette
-  xlab("social index value") +
+  xlab("social index value")
  # scale_x_continuous(breaks = seq(0, 100, by = 10))
 
 
@@ -76,7 +76,7 @@ ggplot(sociality, aes(x=OBSERV, y=ESTIMATE, group = SPECIES)) +
   geom_point(shape = 21, size = 2, stroke = 2, alpha = 0.5,
              aes(color=fct_reorder(SPECIES,ESTIMATE, .fun=max)))+
   geom_point(shape = 21, size = 3.2, stroke = 0.25, alpha = 0.9)+
-  scale_color_manual(values = Spectral13) + # bring in manual palette
+  scale_color_manual(values = Spectral12) + # bring in manual palette
   ylab("cumul. social index") +
   xlab("index component") +
   guides(color = guide_legend(reverse=TRUE, # reverse legend sort order to match data sort
@@ -97,7 +97,7 @@ p1 <- ggplot(sociality, aes(x=OBSERV, y=ESTIMATE, group = SPECIES, color=fct_reo
   geom_line(aes(color=fct_reorder(SPECIES,-ESTIMATE, .fun=min)),
             linewidth = 3, lineend = "round", alpha = 0.75) + 
   # geom_point(shape = 21, size = 3.2, stroke = 0.25, alpha = 0.9)+
-  scale_color_manual(values = Spectral13) + # bring in manual palette
+  scale_color_manual(values = Spectral12) + # bring in manual palette
   scale_x_continuous(breaks = seq(1, 10, by = 1), limits = c(1,9)) + # tighten up white space
   ylab("cumulative score") +
   xlab("index component") +
@@ -136,6 +136,9 @@ boots <- replicate(y, df2 %>% # y = no. replicates
 boots <- do.call(rbind.data.frame, boots) # turn the list output into a DF
 boots$INDEX <- boots$INDEX/(x/z) # normalize value to one full set draw (n=9 components)
 
+
+head(boots)
+colourCount = length(unique(boots$SPECIES)) # but first expand the 11 brewer palette categories
 
 p2 <- ggplot(boots, aes(x = INDEX, y = fct_reorder(SPECIES,INDEX), fill = fct_reorder(SPECIES,-INDEX))) + 
   # both y and fill are reordered by CODE's median value of MEASURE 

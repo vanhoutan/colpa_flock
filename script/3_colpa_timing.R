@@ -3,7 +3,7 @@
 #### calculates sequence of participation and activity, and nuclear species in dance sorties
 
 library(ggplot2)      # plotting and viz
-library(plyr)         # legacy df manipulation
+#library(plyr)         # legacy df manipulation
 library(dplyr)        # variable grouping and manipulation
 library(reshape)      # legacy df manipulation
 library(data.table)   # legacy functions on df 

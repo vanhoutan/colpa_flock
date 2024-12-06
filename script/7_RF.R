@@ -10,13 +10,17 @@ library(pdp)          # PDP plots
 library(ggplot2)      # plotting and viz
 library(ggthemes)     # helpful ggplot themes
 library(RColorBrewer) # pretty colors
-library(colorspace)
 library(patchwork)    # assembling composite plots
-
+library(ggpubr)
+library(colorspace)
+library(gridExtra)
+library(magrittr) 
+library(parallel)
+library(doParallel) # begin the parallel processing
 
 # my custom ggplot theme
 themeKV <- theme_few()+
-  theme(plot.margin = unit(c(0,0,0,0), "cm"),
+  theme(plot.margin = grid::unit(c(0,0,0,0), "cm"),
         strip.background = element_blank(),
         axis.line = element_blank(),
         axis.text.x = element_text(size = 7, colour = "black", margin = unit(c(0.15,0,0,0), "cm")),
@@ -33,15 +37,44 @@ themeKV <- theme_few()+
 #### here dependent variable (y) is sociality index
 #### independent variables (x) are the drivers or covariates 
 
-#### begin by reading in data, building df for RF
-# check the social index data generated in the '5_sociality.R'
+
+
+## rerun the nonparam bootstrap from script '5_sociality.R'
+# first read in the sociality index component data & the weight data
+df <- read.csv('data/sociality.csv', header = T, stringsAsFactors = FALSE)
+df <- df %>% gather(key="COMPONENT", value="VALUE", 2:10) # wide to tall df
+df$COMPONENT <- str_replace(df$COMPONENT,"X", "")  # remove Xs that were added
+df$COMPONENT <- as.numeric(df$COMPONENT)  # convert to numeric
+weight <- read.csv('data/weights.csv', header = T, stringsAsFactors = FALSE)
+df2 <- left_join(df, weight) # join the 2 together
+
+set.seed(916) # ensure model result reproducibility
+y=2000 # no. replicates
+z=9 # 9 category factors in the index
+x=9*z # no. sample draws, recursively, one for each component (z)
+boots <- replicate(y, df2 %>% # y = no. replicates 
+                     group_by(SPECIES) %>% # perform group operation by species
+                     sample_n(size=x, replace=T, prob=WEIGHT) %>% # no. samples, replacement YES, weighting 
+                     summarise(INDEX=sum(VALUE)) %>% # add all sampled components up
+                     ungroup(), # undo grouping
+                   simplify=FALSE) # creates a list
+boots <- do.call(rbind.data.frame, boots) # turn the list output into a DF
+boots$INDEX <- boots$INDEX/(x/z) # normalize value to one full set draw (n=9 components)
 head(boots)
+
+
 # read in covariate data, also used in '6_morphs.R'
-covars <- read.csv('data/covars.csv')
-head(covars)
+covars <- read.csv('data/covars.csv', header = T, stringsAsFactors = FALSE)
+# head(covars)
 # join them together
 loroRF <- left_join(boots, covars, by = "SPECIES")
 head(loroRF)
+## convert columns in character to factors 
+loroRF$SPECIES <- as.factor(loroRF$SPECIES)
+loroRF$TRIBE <- as.factor(loroRF$TRIBE)
+loroRF$GENUS <- as.factor(loroRF$GENUS)
+head(loroRF) # check it
+
 
 #### first make raw xy pair-wise comparison plots for covars
 # first taxon, boxplot
@@ -50,7 +83,7 @@ p5 <- loroRF %>% ggplot(aes(x=fct_reorder(TRIBE,-INDEX), y=INDEX)) +
                   axis.text.x = element_text(size = 7, colour = "black", margin = unit(c(0.15,0,0,0), "cm"))) + 
   geom_boxplot(outlier.shape = NA, # remove outliers
                fatten=1, # NULL = remove median line
-               color = "#9e0142", coef = 1, # whiskers sd =1 
+               color = "#66c2a5", coef = 1, # whiskers sd =1 
                lwd=0.5, alpha = 0.7, # lwd = linewidth
                width=0.65) + 
   xlab("taxonomic tribe") +
@@ -89,7 +122,7 @@ p3 <- loroRF %>% ggplot(aes(x=WING_load, y=INDEX)) +
   geom_boxplot(aes(group = SPECIES), fatten=NULL, outlier.shape = NA, 
                coef = 1, lwd=0.25, alpha = 1, width=1, varwidth = TRUE, position=position_dodge())+
   geom_line(stat = "smooth", method = "loess", formula = y ~ x,
-            color = "#66c2a5", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
+            color = "#f46d43", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
   xlab("wing load (N m s-2)") + ylab("sociality index") +
   scale_y_continuous(breaks = seq(0, 1000, by = 150),limits = c(0,600))
 
@@ -101,7 +134,7 @@ p4 <- loroRF %>% ggplot(aes(x=BEAK_cmsl, y=INDEX)) +
   geom_boxplot(aes(group = SPECIES), fatten=NULL, outlier.shape = NA, coef = 1, lwd=0.25, 
                width=0.4,varwidth = TRUE, position=position_dodge())+
   geom_line(stat = "smooth", method = "loess", formula = y ~ x,
-            color = "#f46d43", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
+            color = "#9e0142", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
   xlab("bill lengths (cm)") + ylab("sociality index") +
   scale_y_continuous(breaks = seq(0, 1000, by = 150),limits = c(0,600))+
   scale_x_continuous(breaks = seq(0, 14, by = 2))
@@ -118,7 +151,6 @@ plot_layout(design = layout) +
 plot_annotation(tag_levels = 'a') # add panel labels
 
 
-
 #### develop, train, and test RF model
 head(loroRF)
 
@@ -132,26 +164,20 @@ nrow(train_loro) # 9060 obs in training set
 nrow(test_loro) # 2400 obs in test set
 # What proportion of species in training set have INDEX value > 250?
 # should be ~ 50%
-mean(train_loro$INDEX > 250) # 0.5316
+mean(train_loro$INDEX > 250) # 0.533
 
 
-# turn on parallel processing
-library(parallel)
-library(doParallel) # begin the parallel processing
-# see: https://cran.r-project.org/web/packages/doParallel/doParallel.pdf
-# https://topepo.github.io/caret/parallel-processing.html
-cores = detectCores()-1
-c1 <- makePSOCKcluster(cores)
-registerDoParallel(c1) # just to save some processing time
-
+#### turn on parallel processing
+cores = detectCores()
+c1 <- parallel::makePSOCKcluster(cores)
+doParallel::registerDoParallel(c1) # just to save some processing time
 
 # for resampling, use cross validation instead of bootstrap
 # 10-fold cv, repeated 5x
 tc <- trainControl(method = "repeatedcv", number = 10, repeats = 5) # http://zevross.com/blog/2017/09/19/predictive-modeling-and-machine-learning-in-r-with-the-caret-package/
 tc2 <- trainControl(method = "repeatedcv", number = 5, repeats = 5)
 
-
-# develop full RF with all 9 covariates
+# train full RF with a full suite of covariates
 set.seed(916)
 train_rf10 <- train(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres + TRIBE + WING_twai + MASS + BRAIN_ml + GENUS + SPECIES,
                   method = "rf", trControl = tc,
@@ -179,7 +205,7 @@ rf10_imp <- rf10_imp %>% mutate(relIncMSE = 100*(IncMSE/max(IncMSE))) # add rel 
 rf10_imp
 
 
-# drop highly correlated predictors since they're redunaant
+# drop highly correlated predictors since they're redundant
 # from a mechanism standpoints they're also indirect
 set.seed(916)
 train_rf5 <- train(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres + TRIBE, # these 5 are independent
@@ -190,10 +216,10 @@ train_rf5 <- train(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres + TRIBE
 # training model results
 plot(train_rf5) 
 train_rf5$results
-train_rf5$bestTune # 5 covars, ntree =1000, CV resampling, mtry=5, Rsq = 0.96
+train_rf5$bestTune # 5 covars, ntree =2000, CV resampling, mtry=5, Rsq = 0.959
 
 # run tuned RF model 
-set.seed(0819)
+set.seed(080402)
 rf5 <- randomForest(INDEX ~ BEAK_cmsl + WING_load + WING_hwi + BRAIN_Yres + TRIBE,
                    data=loroRF, importance = T, 
                    trControl = tc,
@@ -214,22 +240,20 @@ rf_imp # now ready for ggplot
 #### develop the data for the full 2-way PDPs
 # first define lists of factor pairings to plot
 flistx <- c("BRAIN_Yres", "BRAIN_Yres", "BRAIN_Yres", "BRAIN_Yres")
-flisty <- c("WING_hwi", "WING_load", "BEAK_cmsl", "TRIBE")
+flisty <- c("TRIBE", "WING_hwi", "WING_load", "BEAK_cmsl") # must put Factor variable before numerical vars or wont populate below
 j <- length(flistx)
 partial_factxy_all <- NULL
 
 for (x in 1:j) {
-  partial_factxy <- pdp::partial(rf, pred.var = c(flistx[x], flisty[x]), plot = F, rug = T, chull = T)
+  partial_factxy <- pdp::partial(rf5, pred.var = c(flistx[x], flisty[x]), plot = F, rug = T, chull = T)
   partial_factxy$mfactorsxy <- paste0(flistx[x],":", flisty[x])
   partial_factxy <- partial_factxy %>% dplyr::rename("factorx" = names(partial_factxy[1]), "factory" = names(partial_factxy[2]))
   partial_factxy_all <- rbind(partial_factxy, partial_factxy_all)
 }
 # note that if plyr loaded, could potentially pull in plyr 'rename()' command causing errors
-# don't need plyr here so don't load! 
 # when it was loaded, I was getting the following error message:
 # Error in rename(., factorx = names(partial_factxy[1]), factory = names(partial_factxy[2])) : 
 # unused arguments (factorx = names(partial_factxy[1]), factory = names(partial_factxy[2]))
-
 
 partial_factxy_all$mfactorsxy <- as.factor(partial_factxy_all$mfactorsxy)
 partial_factxy_all <- as.data.frame(partial_factxy_all)
@@ -251,7 +275,7 @@ p10<- ggplot(data = partial_factxy_all, aes(x = factorx, y = factory, fill = yha
   scale_x_continuous(breaks = seq(-2, 2.3)) +
   xlab("brain vol. resids")+ ylab(NULL) + coord_flip()
 
-# force numeric format on factory, ! this converts TRIBE values to NAs but we no longer need
+# force numeric format on factor-y, ! this converts TRIBE values to NAs but we no longer need
 partial_factxy_all$factory <- as.numeric(partial_factxy_all$factory)
 
 # plot continuous PDPs
