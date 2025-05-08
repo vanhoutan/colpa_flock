@@ -99,12 +99,13 @@ p1 <- ggplot(sociality, aes(x=OBSERV, y=ESTIMATE, group = SPECIES, color=fct_reo
   # geom_point(shape = 21, size = 3.2, stroke = 0.25, alpha = 0.9)+
   scale_color_manual(values = Spectral12) + # bring in manual palette
   scale_x_continuous(breaks = seq(1, 10, by = 1), limits = c(1,9)) + # tighten up white space
-  ylab("cumulative score") +
-  xlab("index component") +
-  annotate("text", x = 1.6, y = 500, label = "abundance", alpha = 0.75, size = 2.8)+
-  annotate("text", x = 3.5, y = 500, label = "sequence", alpha = 0.75, size = 2.8)+
-  annotate("text", x = 5.5, y = 500, label = "function", alpha = 0.75, size = 2.8)+
-  annotate("text", x = 7.9, y = 500, label = "interaction", alpha = 0.75, size = 2.8)
+  scale_y_continuous(breaks = seq(0, 300, by = 50), limits = c(0,250)) + 
+  ylab("pi × n-1") +
+  xlab("index metric") +
+  annotate("text", x = 1.6, y = 245, label = "abundance", alpha = 0.75, size = 2.8)+
+  annotate("text", x = 3.5, y = 245, label = "sequence", alpha = 0.75, size = 2.8)+
+  annotate("text", x = 5.5, y = 245, label = "function", alpha = 0.75, size = 2.8)+
+  annotate("text", x = 7.9, y = 245, label = "interaction", alpha = 0.75, size = 2.8)
 p1
 #  guides(color = guide_legend(reverse=TRUE,)) # reverse legend sort order to match data sort
 #                              override.aes = list(size=2))) # reduce point size in legend
@@ -129,8 +130,9 @@ z=9 # 9 category factors in the index
 x=9*z # no. sample draws, recursively, one for each component (z)
 boots <- replicate(y, df2 %>% # y = no. replicates 
                    group_by(SPECIES) %>% # perform group operation by species
-                   sample_n(size=x, replace=T, prob=WEIGHT) %>% # no. samples, replacement YES, weighting 
-                   summarise(INDEX=sum(VALUE)) %>% # add all sampled components up
+                   sample_n(size=x, replace=T, prob=NULL) %>% # no. samples, replacement YES, weighting 
+                    #sample_n(size=x, replace=T, prob=WEIGHT) %>% # no. samples, replacement YES, weighting 
+                     summarise(INDEX=sum(VALUE)) %>% # add all sampled components up
                    ungroup(), # undo grouping
                  simplify=FALSE) # creates a list
 boots <- do.call(rbind.data.frame, boots) # turn the list output into a DF
@@ -151,9 +153,9 @@ p2 <- ggplot(boots, aes(x = INDEX, y = fct_reorder(SPECIES,INDEX), fill = fct_re
   geom_density_ridges(scale = 4, alpha = 0.75, linewidth = 0.35,
                       rel_min_height = 0.003, #bandwidth = 6.25,
                       ) +
-  scale_x_continuous(breaks = seq(0, 1000, by = 100), limits = c(0,600)) + 
+  scale_x_continuous(breaks = seq(0, 400, by = 50), limits = c(0,300)) + 
   scale_y_discrete(expand = expand_scale(add = c(0.75, 1.5)))+
-  xlab("cumulative social index")+ylab(NULL)
+  xlab("M")+ylab(NULL)
 p2
 
 
