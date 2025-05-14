@@ -54,14 +54,14 @@ z=9 # 9 category factors in the index
 x=9*z # no. sample draws, recursively, one for each component (z)
 boots <- replicate(y, df2 %>% # y = no. replicates 
                      group_by(SPECIES) %>% # perform group operation by species
-                     sample_n(size=x, replace=T, prob=WEIGHT) %>% # no. samples, replacement YES, weighting 
+                     sample_n(size=x, replace=T, prob=NULL) %>% # no. samples, replacement YES, weighting 
+                     #sample_n(size=x, replace=T, prob=WEIGHT) %>% # no. samples, replacement YES, weighting 
                      summarise(INDEX=sum(VALUE)) %>% # add all sampled components up
                      ungroup(), # undo grouping
                    simplify=FALSE) # creates a list
 boots <- do.call(rbind.data.frame, boots) # turn the list output into a DF
 boots$INDEX <- boots$INDEX/(x/z) # normalize value to one full set draw (n=9 components)
 head(boots)
-
 
 # read in covariate data, also used in '6_morphs.R'
 covars <- read.csv('data/covars.csv', header = T, stringsAsFactors = FALSE)
@@ -83,12 +83,12 @@ p5 <- loroRF %>% ggplot(aes(x=fct_reorder(TRIBE,-INDEX), y=INDEX)) +
                   axis.text.x = element_text(size = 7, colour = "black", margin = unit(c(0.15,0,0,0), "cm"))) + 
   geom_boxplot(outlier.shape = NA, # remove outliers
                fatten=1, # NULL = remove median line
-               color = "#66c2a5", coef = 1, # whiskers sd =1 
+               color = "#9e0142", coef = 1, # whiskers sd =1 
                lwd=0.5, alpha = 0.7, # lwd = linewidth
                width=0.65) + 
   xlab("taxonomic tribe") +
-  ylab("sociality index") +
-  scale_y_continuous(breaks = seq(0, 1000, by = 150))
+  ylab("M index") +
+  scale_y_continuous(breaks = seq(0, 1000, by = 100))
 
 # next brain size resids scatter w/loess
 p1 <- loroRF %>% ggplot(aes(x=BRAIN_Yres, y=INDEX)) +
@@ -102,8 +102,8 @@ p1 <- loroRF %>% ggplot(aes(x=BRAIN_Yres, y=INDEX)) +
   geom_line(stat = "smooth", method = "loess", formula = y ~ x,
             color = "#5e4fa2", alpha = 0.6,
             span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
-  xlab("brain size") + ylab("sociality index") +
-  scale_y_continuous(breaks = seq(0, 1000, by = 150),limits = c(0,600))
+  xlab("brain size") + ylab("M index") +
+  scale_y_continuous(breaks = seq(0, 1000, by = 100))
 
 # hand wing index
 p2 <- loroRF %>% ggplot(aes(x=WING_hwi, y=INDEX)) +
@@ -112,8 +112,8 @@ p2 <- loroRF %>% ggplot(aes(x=WING_hwi, y=INDEX)) +
                coef = 1, lwd=0.25, alpha = 1, width=0.8, varwidth = TRUE, position=position_dodge())+
   geom_line(stat = "smooth", method = "loess", formula = y ~ x,
             color = "#3288bd", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
-  xlab("hand wing index") + ylab("sociality index") +
-  scale_y_continuous(breaks = seq(0, 1000, by = 150),limits = c(0,600))+
+  xlab("hand wing index") + ylab("M index") +
+  scale_y_continuous(breaks = seq(0, 1000, by = 100))+
   scale_x_continuous(breaks = seq(0, 50, by = 4))
 
 # wing load
@@ -123,8 +123,8 @@ p3 <- loroRF %>% ggplot(aes(x=WING_load, y=INDEX)) +
                coef = 1, lwd=0.25, alpha = 1, width=1, varwidth = TRUE, position=position_dodge())+
   geom_line(stat = "smooth", method = "loess", formula = y ~ x,
             color = "#f46d43", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
-  xlab("wing load (N m s-2)") + ylab("sociality index") +
-  scale_y_continuous(breaks = seq(0, 1000, by = 150),limits = c(0,600))
+  xlab("wing load (N m s-2)") + ylab("M index") +
+  scale_y_continuous(breaks = seq(0, 1000, by = 100))
 
 # bill lengths
 p4 <- loroRF %>% ggplot(aes(x=BEAK_cmsl, y=INDEX)) +
@@ -134,9 +134,9 @@ p4 <- loroRF %>% ggplot(aes(x=BEAK_cmsl, y=INDEX)) +
   geom_boxplot(aes(group = SPECIES), fatten=NULL, outlier.shape = NA, coef = 1, lwd=0.25, 
                width=0.4,varwidth = TRUE, position=position_dodge())+
   geom_line(stat = "smooth", method = "loess", formula = y ~ x,
-            color = "#9e0142", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
-  xlab("bill lengths (cm)") + ylab("sociality index") +
-  scale_y_continuous(breaks = seq(0, 1000, by = 150),limits = c(0,600))+
+            color = "#66c2a5", alpha = 0.6, span = 0.8, se = FALSE, linewidth = 2.5, lineend = "round")+
+  xlab("bill lengths (cm)") + ylab("M index") +
+  scale_y_continuous(breaks = seq(0, 1000, by = 100))+
   scale_x_continuous(breaks = seq(0, 14, by = 2))
 
 #### patch together
@@ -160,11 +160,11 @@ test_index <- createDataPartition(loroRF$INDEX, times = 1, p = 0.2, list = FALSE
 test_loro <- loroRF[test_index, ]
 train_loro <- loroRF[-test_index, ]
 #check the product
-nrow(train_loro) # 9060 obs in training set
-nrow(test_loro) # 2400 obs in test set
-# What proportion of species in training set have INDEX value > 250?
+nrow(train_loro) # 19200 obs in training set
+nrow(test_loro) # 4800 obs in test set
+# What proportion of species in training set have INDEX value > 150?
 # should be ~ 50%
-mean(train_loro$INDEX > 250) # 0.533
+mean(train_loro$INDEX > 150) # 0.485
 
 
 #### turn on parallel processing
@@ -318,7 +318,7 @@ BG
 CH
 DI
 EJ"
-p1 + p2 + p3 + p4 + p5 + p6 + p7 + p9 + p8 + p10 +
+p1 + p2 + p4 + p3 + p5 + p6 + p7 + p9 + p8 + p10 +
   plot_layout(design = layout) +
   plot_annotation(tag_levels = 'a')
 
