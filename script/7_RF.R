@@ -240,7 +240,8 @@ rf_imp # now ready for ggplot
 #### develop the data for the full 2-way PDPs
 # first define lists of factor pairings to plot
 flistx <- c("BRAIN_Yres", "BRAIN_Yres", "BRAIN_Yres", "BRAIN_Yres")
-flisty <- c("TRIBE", "WING_hwi", "WING_load", "BEAK_cmsl") # must put Factor variable before numerical vars or wont populate below
+flisty <- c("TRIBE", "WING_hwi", "WING_load", "BEAK_cmsl") 
+# must order Factor vars before numerical vars or won't populate below
 j <- length(flistx)
 partial_factxy_all <- NULL
 
