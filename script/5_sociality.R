@@ -124,10 +124,10 @@ weight <- read.csv('data/weights.csv')
 df2 <- left_join(df, weight) # join the 2 together
 
 # run the nonparam bootstrap
-set.seed(916) # ensure model result reproducibility
+set.seed(916) # ensure reproducibility of exact model results
 y=2000 # no. replicates
 z=9 # 9 category factors in the index
-x=9*z # no. sample draws, recursively, one for each component (z)
+x=9*z # no. sample draws, recursively, one for each z category factor
 boots <- replicate(y, df2 %>% # y = no. replicates 
                    group_by(SPECIES) %>% # perform group operation by species
                    sample_n(size=x, replace=T, prob=NULL) %>% # no. samples, replacement YES, weighting 
@@ -140,7 +140,7 @@ boots$INDEX <- boots$INDEX/(x/z) # normalize value to one full set draw (n=9 com
 
 
 head(boots)
-colourCount = length(unique(boots$SPECIES)) # but first expand the 11 brewer palette categories
+colourCount = length(unique(boots$SPECIES)) # but first expand to 12 brewer palette categories
 
 p2 <- ggplot(boots, aes(x = INDEX, y = fct_reorder(SPECIES,INDEX), fill = fct_reorder(SPECIES,-INDEX))) + 
   # both y and fill are reordered by CODE's median value of MEASURE 
@@ -156,7 +156,7 @@ p2 <- ggplot(boots, aes(x = INDEX, y = fct_reorder(SPECIES,INDEX), fill = fct_re
   scale_x_continuous(breaks = seq(0, 400, by = 50), limits = c(0,300)) + 
   scale_y_discrete(expand = expand_scale(add = c(0.75, 1.5)))+
   xlab("M")+ylab(NULL)
-p2
+p2 # this is a beaut :)
 
 
 # patch them together
