@@ -20,7 +20,7 @@ impact scores — and the assemblages show a sequenced division of labor in whic
 subordinate pioneers initiate foraging and dominant sentinels follow.
 
 <p align="center">
-  <img src="Fig6.webp" width="400" alt="Multivariate social impact index M, by species" width="80%">
+  <img src="Fig6.webp" width="500" alt="Multivariate social impact index M, by species" width="80%">
 </p>
 
 ---
@@ -112,7 +112,7 @@ panels with **patchwork**.
 | `7_RF.R` | Fig 8 | Trains, tunes, and runs the Random Forest regressions of M on taxonomic/morphometric covariates; produces variable-importance rankings, raw pairwise relationships, two-way partial-dependence plots, and the tribe-split sensitivity models. |
 
 <p align="center">
-  <img src="Fig8.webp" width="400" alt="Random Forest variable importance and partial dependence" width="80%">
+  <img src="Fig8.webp" width="350" alt="Random Forest variable importance and partial dependence" width="80%">
 </p>
 
 ---
